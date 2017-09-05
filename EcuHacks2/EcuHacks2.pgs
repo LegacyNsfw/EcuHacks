@@ -1,0 +1,35 @@
+; Project Generator Setup Infomation
+
+[PGS Version]
+Version=1.0
+
+[Toolchain]
+Toolchain=KPIT GNUSH [ELF]
+Toolchain Name=KPIT GNUSH [ELF] Toolchain
+Toolchain Version=v1102
+
+[CPU]
+CPU Family=SuperH RISC engine
+CPU Series=SH-4
+CPU Type=SH7750
+Operating Mode=Not Support
+Address Space=Not Support
+Multiple=Not Support
+Divide=Not Support
+
+[Project]
+Project Name=EcuHacks2
+Project Type=C Application
+
+[Stack Settings]
+Stack Pointer Address=
+Stack Size=
+Stack Section Name=
+Stack Section Address=
+Source File Name=stacksct.h
+Description=
+Default Stack Pointer Address=
+Default Stack Size=
+
+[Initial Settings]
+Simulator I/O=disable

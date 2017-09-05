@@ -1,0 +1,24 @@
+Before release:
+
+	* confirm self-tests pass
+
+	* patch the stock ROM, confirm integration tests pass
+
+	* Verify EcuFlash definitions for new tables
+
+	* flash my own ROM, confirm expected results in logger
+
+A release should include:
+
+	* .mot file, renamed to .patch
+
+	* ROM definition XML for:
+		* LC/FFS
+		* SD tables
+
+	* Logger definition XML for:
+		* All RAM addresses in EcuHacks.h
+
+	* Version of RomPatch used
+
+	* Does the RomPatch thread need updating?
