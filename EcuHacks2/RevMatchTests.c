@@ -394,7 +394,7 @@ void RevMatchCalibrationUnitTests()
 
 	*pCruiseFlagsA = CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "Increase index.");
+	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "No change.");
 
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "No change.");

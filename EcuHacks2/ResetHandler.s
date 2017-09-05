@@ -37,9 +37,9 @@ _ResetHandler:
 				nop
 				
 ! Only useful when testing with a patched ROM				
-!				mov.l	SpeedDensityUnitTests,r0
-!				jsr		@r0			
-!				nop
+				mov.l	SpeedDensityUnitTests,r0
+				jsr		@r0			
+				nop
 
 				mov.l	RevMatchStateUnitTests,r0
 				jsr		@r0
@@ -53,10 +53,25 @@ _ResetHandler:
 				jsr		@r0
 				nop
 				
-! Only useful when testing with a patched ROM				
-! 				mov.l	SpeedDensityIntegrationTest,r0
-!				jsr		@r0			
-!				nop
+!! Only useful when testing with a patched ROM.
+!! This jumps into ECU code, which will call the function whose Pull2D method
+!! was hijacked for the speed density hack.  You should see it step into the
+!! ComputeMassAirFlow function, which returns a MAF value in fr0, then step 
+!! out of the method whose Pull2d call was hijacked, then step into a series 
+!! of other subroutines in the stock ECU code.		
+ 				mov.l	SpeedDensityIntegrationTest,r0
+				jsr		@r0			
+				nop
+
+!! Only useful when testing with a patched ROM.
+!! This jumps into a series of JSR instructions in the ECU code.
+!! The first will look up the throttle plate angle based on the
+!! DBW tables. The next is the hijacked jump into the rev match
+!! code. The next is a functiont that applies a low-pass filter
+!! to the throttle plate angle.
+ 				mov.l	RevMatchIntegrationTest,r0
+				jsr		@r0			
+				nop
 
 				mov.l	GenericTests,r0
 				jsr		@r0							
@@ -105,13 +120,11 @@ RevMatchUnitTests:
 RevMatchCalibrationUnitTests:
 		.long	_RevMatchCalibrationUnitTests
 						
-!! This jumps into ECU code, which will call the function whose Pull2D method
-!! was hijacked for the speed density hack.  You should see it step into the
-!! ComputeMassAirFlow function, which returns a MAF value in fr0, then step 
-!! out of the method whose Pull2d call was hijacked, then step into a series 
-!! of other subroutines in the stock ECU code.		
 SpeedDensityIntegrationTest:
 		.long   0x6144 
+
+RevMatchIntegrationTest:
+		.long   0x11696 
 
 GetSpeedDensityTableInfo:
 		.long	_GetSpeedDensityTableInfo	
