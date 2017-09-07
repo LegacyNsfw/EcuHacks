@@ -1,0 +1,205 @@
+<rom>
+	<romid>
+		<xmlid>A2WC540E</xmlid>
+		<internalidaddress>2000</internalidaddress>
+		<internalidstring>A2WC540E</internalidstring>
+		<ecuid>2F12785606</ecuid>
+		<make>Subaru</make>
+		<market>USDM</market>
+		<model>Legacy</model>
+		<submodel>GT</submodel>
+		<transmission>MT</transmission>
+		<year>05</year>
+		<flashmethod>sti05</flashmethod>
+		<memmodel>SH7058</memmodel>
+		<checksummodule>subarudbw</checksummodule>
+	</romid>
+
+	<include>A2WC521N</include>
+	<scaling toexpr="x" frexpr="x" format="%.2f" min="0" max="0" inc="5" storagetype="float"/>
+	<scaling name="AVCS" toexpr="x*0.005493164" frexpr="x/0.005493164" format="%.3f" min="0" max="0" inc="0.1" storagetype="uint16" endian="big"/>
+	<scaling name="B1) Input B Deadband Threshold" toexpr="x*6.103516E-05" frexpr="x/6.103516E-05" format="%.3f" min="0" max="3.99994" inc="0.1" storagetype="uint16" endian="big"/>
+	<scaling name="B2) Input B Sigmoid" toexpr="x*0.0004882813-16" frexpr="(x+16)/0.0004882813" format="%.3f" min="-16" max="15.9995" inc="0.1" storagetype="uint16" endian="big"/>
+	<scaling name="B4) Input A/B Shared ECT Compensation" toexpr="x*0.0625" frexpr="x/0.0625" format="%.3f" min="0" max="15.9375" inc="0.1" storagetype="uint8" endian="big"/>
+	<scaling name="B6) Input B Rising Load Activation (ECT)" toexpr="x*0.0004882813" frexpr="x/0.0004882813" format="%.3f" min="0" max="31.9995" inc="0.1" storagetype="uint16" endian="big"/>
+	<scaling name="CL target?  RPM*Load?" toexpr="x*1.525879E-05-0.5" frexpr="(x+0.5)/1.525879E-05" format="%.3f" min="0" max="0" inc="0.1" storagetype="uint16" endian="big"/>
+	<scaling name="Cruise?" toexpr="x*0.007813692-256" frexpr="(x+256)/0.007813692" format="%.3f" min="0" max="0" inc="0.1" storagetype="uint16" endian="big"/>
+	<scaling name="Delta-Load InputC RPM Scaler" toexpr="x*0.1953125" frexpr="x/0.1953125" format="%.3f" min="0" max="49.8047" inc="0.1" storagetype="uint8" endian="big"/>
+	<scaling name="Delta-Load InputC Rising-Load Activation" toexpr="x*0.0004882813" frexpr="x/0.0004882813" format="%.3f" min="0" max="31.9995" inc="0.1" storagetype="uint16" endian="big"/>
+	<scaling name="Delta-Load InputC Sigmoid" toexpr="x*0.0004882813-16" frexpr="(x+16)/0.0004882813" format="%.3f" min="-16" max="15.9995" inc="0.1" storagetype="uint16" endian="big"/>
+	<scaling name="FuelingMode" storagetype="bloblist">
+		<data name="disabled" value="00000001"/>
+		<data name="enabled" value="00000002"/>
+	</scaling>
+	<scaling name="Idle timing or throttle? A" toexpr="x*0.3515625-45" frexpr="(x+45)/0.3515625" format="%.3f" min="0" max="0" inc="0.1" storagetype="uint8" endian="big"/>
+	<scaling name="MaxCruiseTorque" units="units" toexpr="x*0.0019073486" frexpr="x/0.0019073486" format="%.0f" min="0" max="255" inc="1" storagetype="uint16" endian="big"/>
+	<scaling name="Per-Cylinder A" toexpr="x*0.003051758-100" frexpr="(x+100)/0.003051758" format="%.3f" min="0" max="0" inc="0.1" storagetype="uint16" endian="big"/>
+	<scaling name="Raw Short Float" units="units" toexpr="x" frexpr="x" format="%.2f" min="0" max="10000" inc="1" storagetype="float" endian="big"/>
+	<scaling name="Raw Uint 16" units="raw" toexpr="x" frexpr="x" format="%.0f" min="0" max="255" inc="1" storagetype="uint16" endian="big"/>
+	<scaling name="Timing Adv" toexpr="x*0.3515625" frexpr="x/0.3515625" format="%.3f" min="0" max="0" inc="0.1" storagetype="uint8" endian="big"/>
+	<scaling name="Timing?" toexpr="x*0.3515625-20" frexpr="(x+20)/0.3515625" format="%.3f" min="0" max="0" inc="0.1" storagetype="uint8" endian="big"/>
+	<scaling name="VE(%)" units="VE(%)" toexpr="x*.0000457763672" frexpr="x/.0000457763672" format="%.2f" min="0" max="2" inc="0.025" storagetype="uint16" endian="big"/>
+	<scaling name="VEcomp" units="VE Compensation" toexpr="x*0.000061037" frexpr="x/.000061037" format="%.1f" min="0" max="2" inc="0.2" storagetype="uint16" endian="big"/>
+	<scaling name="deltaMAP" units="mmhgt" toexpr="x" frexpr="x" format="%.2f" min="-20000" max="20000" inc="100" storagetype="float" endian="big"/>
+	<scaling name="engine displacement" units="cc" toexpr="x" frexpr="x" format="%.2f" min="0" max="10" inc="0.01" storagetype="float" endian="big"/>
+
+	<scaling name="Delay(ms)" units="ms" toexpr="x" frexpr="x" format="%d" min="0" max="60000" inc="100" storagetype="uint32" endian="big"/>
+
+	<table name="Fuel Pump Duty" category="NSFW Beta" address="3ad04" type="2D" level="1" scaling="rawecuvalue">
+		<description>The ECU will set fuel pump duty cycle to 0%, 100%, or one of these two values.</description>
+		<table name="Fuel Pump Duty" type="Static Y Axis" elements="2">
+			<data>Medium</data>
+			<data>Low</data>
+		</table>
+	</table>
+
+	<table name="A2) Input A Falling Load RPM Scaler" category="Fueling - Load Change Compensation" address="c7630" type="2D" scaling="Delta-Load InputC RPM Scaler">
+		<description>If load is falling, and Flags027 has the 2 bit set, Input A is scaled by the value from this table, which is based on RPM.  If load is falling, and Flags027 does not have the 2 bit set, the Input A Falling Load Scaler is used.</description>
+		<table name="Engine Speed" address="c7608" type="Y Axis" elements="10" scaling="RPM"/>
+	</table>
+
+	<table name="A3) Input A Falling Load Activation (ECT)" category="Fueling - Load Change Compensation" address="c7bde" type="2D" scaling="B6) Input B Rising Load Activation (ECT)">
+		<table name="ECT" address="c7470" type="Y Axis" elements="16" scaling="CoolantTemp(DegreesF)"/>
+	</table>
+
+	<table name="A3) Input A Rising Load Activation (ECT)" category="Fueling - Load Change Compensation" address="c9110" type="3D" scaling="B6) Input B Rising Load Activation (ECT)">
+		<table name="ECT" address="c7470" type="X Axis" elements="16" scaling="CoolantTemp(DegreesF)"/>
+		<table name="Load" address="c9104" type="Y Axis" elements="3" scaling="EngineLoad(g/rev)1"/>
+	</table>
+
+	<table name="B1) Input B Deadband Threshold" category="Fueling - Load Change Compensation" address="c7cf8" type="2D" scaling="B1) Input B Deadband Threshold">
+		<description>If the rate of load change over time is less than the value in this table, Input B will be set to zero.  If the rate of load change is greater, Input B will be set to the rate of load change (limited between -0.2 and +0.2).</description>
+		<table name="Engine Speed" address="c7cd8" type="Y Axis" elements="8" scaling="RPM"/>
+	</table>
+
+	<table name="B2) Input B Sigmoid" category="Fueling - Load Change Compensation" address="c7c34" type="2D" scaling="B2) Input B Sigmoid">
+		<description>Input B is transformed by this table, then the Input B scalers are applied.</description>
+		<table name="Delta Load" address="c7c00" type="Y Axis" elements="13" scaling="Raw Short Float"/>
+	</table>
+
+	<table name="B3) Input B Load Scaler" category="Fueling - Load Change Compensation" address="c7cc0" type="2D" scaling="B6) Input B Rising Load Activation (ECT)">
+		<description>Input B is then multiplied by this value, which is a function of Load.</description>
+		<table name="Load" address="c7c94" type="Y Axis" elements="11" scaling="EngineLoad(g/rev)1"/>
+	</table>
+
+	<table name="B4) Input A/B Shared ECT Compensation" category="Fueling - Load Change Compensation" address="c763a" type="2D" scaling="B4) Input A/B Shared ECT Compensation">
+		<description>This table is referenced when Flags030 is equal to 1 and Flags027 has the 2 bit set.  Otherwise, the shared ECT compensation is 1.0.  This is always applied to Input B, but is only applied to A when load is rising.</description>
+		<table name="ECT" address="c7470" type="Y Axis" elements="16" scaling="CoolantTemp(DegreesF)"/>
+	</table>
+
+	<table name="B5a) Input B Rising Load Scaler (Load)" category="Fueling - Load Change Compensation" address="c7c7c" type="2D" scaling="B6) Input B Rising Load Activation (ECT)">
+		<description>If load is rising, Input B is multiplied by this value, which is based on load.</description>
+		<table name="Load" address="c7c50" type="Y Axis" elements="11" scaling="EngineLoad(g/rev)1"/>
+	</table>
+
+	<table name="B5b) Input B Falling Load RPM Scaler (RPM)" category="Fueling - Load Change Compensation" address="c75fc" type="2D" scaling="Delta-Load InputC RPM Scaler">
+		<description>If load is falling, Input B is scaled by a value from this table, which is based on RPM.</description>
+		<table name="Engine Speed" address="c75d4" type="Y Axis" elements="10" scaling="RPM"/>
+	</table>
+
+	<table name="B6) Input B Rising Load Activation (ECT)" category="Fueling - Load Change Compensation" address="c7b9e" type="2D" scaling="B6) Input B Rising Load Activation (ECT)">
+		<description>If load is rising, input B is scaled by this value.</description>
+		<table name="ECT" address="c7470" type="Y Axis" elements="16" scaling="CoolantTemp(DegreesF)"/>
+	</table>
+
+	<table name="B6) Input B Falling Load Activation (ECT)" category="Fueling - Load Change Compensation" address="c7bbe" type="2D" scaling="B6) Input B Rising Load Activation (ECT)">
+		<description>If load is falling, input B is scaled by this value.</description>
+		<table name="ECT" address="c7470" type="Y Axis" elements="16" scaling="CoolantTemp(DegreesF)"/>
+	</table>
+
+	<table name="Fuel Cut (Redline)" category="NSFW - Fuel Cut" address="90000" type="2D" level="4" scaling="EngineSpeed(RPM)1">
+		<description>These are the engine speeds at which the rev limiter is engaged and disengaged.</description>
+		<table name="Rev Limit Fuel Cut" type="Static Y Axis" elements="2">
+			<data>Cut Fuel Above</data>
+			<data>Resume Fuel Below</data>
+		</table>
+	</table>
+
+	<table name="Fuel Cut (Flat Foot Shifting)" category="NSFW - Fuel Cut" address="90008" type="2D" level="4" scaling="EngineSpeed(RPM)1">
+		<description>These are the engine speeds at which the rev limiter is engaged and disengaged, when the clutch is pressed and vehicle speed is greater than the FFS threshold.</description>
+		<table name="Flat Foot Shifting Fuel Cut" type="Static Y Axis" elements="2">
+			<data>Cut Fuel Above</data>
+			<data>Resume Fuel Below</data>
+		</table>
+	</table>
+
+	<table name="Fuel Cut (Flat Foot Shifting Threshold)" category="NSFW - Fuel Cut" address="90010" type="2D" level="4" scaling="VehicleSpeed(MPH)">
+		<description>Above this vehicle speed, the FFS rev limit is in effect.  Below this speed, the Launch Control fuel rev limit is in effect.</description>
+		<table name="Launch Control Fuel Cut" type="Static Y Axis" elements="1">
+			<data>Threshold</data>
+		</table>
+	</table>
+
+	<table name="Fuel Cut (Launch Control)" category="NSFW - Fuel Cut" address="90014" type="2D" level="4" scaling="EngineSpeed(RPM)1">
+		<description>These are the engine speeds at which the rev limiter is engaged and disengaged when the clutch is pressed and vehicle speed is below the FFS threshold.</description>
+		<table name="Launch Control Fuel Cut" type="Static Y Axis" elements="2">
+			<data>Cut Fuel Above</data>
+			<data>Resume Fuel Below</data>
+		</table>
+	</table>
+
+	<table name="Engine Displacement" category="Fueling - Speed Density" address="9020c" type="2D" level="2" scaling="engine displacement">
+		<description>Engine size in cc</description>
+		<table type="Static Y Axis" elements="1">
+			<data>Engine Displacement (cc)</data>
+		</table>
+	</table>
+
+	<table name="Speed Density Enable" category="Fueling - Speed Density" address="90200" type="1D" scaling="FuelingMode">
+		<description>Enabled: use speed-density fueling. Disabled: use MAF fueling.</description>
+	</table>
+
+	<table name="Volumetric Efficiency" category="Fueling - Speed Density" address="902a8" type="3D" level="2" scaling="VE(%)">
+		<description>This is the Volumetric efficiency of the engine.</description>
+		<table name="Manifold Pressure" address="9022c" type="X Axis" elements="13" scaling="psirelativesealevel"/>
+		<table name="Engine Speed" address="90260" type="Y Axis" elements="18" scaling="RPM"/>
+	</table>
+
+	<table name="Atmospheric Pressure Compensation" category="Fueling - Speed Density" address="904d0" type="3D" level="2" scaling="VEcomp">
+		<description>This is the Volumetric efficiency of the engine.</description>
+		<table name="Manifold Pressure" address="90498" type="X Axis" elements="7" scaling="psiabsolute"/>
+		<table name="Atmospheric Pressure" address="904b4" type="Y Axis" elements="7" scaling="psiabsolute"/>
+	</table>
+
+	<table name="Gear Multipliers" category="Rev Matching" address="90800" type="2D" level="4" scaling="%">
+		<description>These translate vehicle speed into a target RPM for upshifting or downshifting.</description>
+		<table name="Multiplier" type="Static Y Axis" elements="6">
+			<data>1st</data>
+			<data>2nd</data>
+			<data>3rd</data>
+			<data>4th</data>
+			<data>5th</data>
+			<data>6th</data>
+		</table>
+	</table>
+
+	<table name="Target RPM Limits" category="Rev Matching" address="90818" type="2D" level="4" scaling="EngineSpeed(RPM)1">
+		<description>These limit the maximum and minimum target RPM when upshifting or downshifting.</description>
+		<table name="Multiplier" type="Static Y Axis" elements="2">
+			<data>Minimum</data>
+			<data>Maximum</data>
+		</table>
+	</table>
+
+	<table name="Coolant Temperature Threshold" category="Rev Matching" address="90820" type="2D" level="4" scaling="CoolantTemp(DegreesF)">
+		<description>Minimum coolant temperature in order to enable the rev matching.</description>
+		<table name="Threshold" type="Static Y Axis" elements="1">
+			<data>Minimum Coolant Temperature</data>
+		</table>
+	</table>
+
+	<table name="Delays" category="Rev Matching" address="90824" type="2D" level="4" scaling="Delay(ms)">
+		<description>Time periods, in milliseconds.</description>
+		<table name="Interval" type="Static Y Axis" elements="4">
+			<data>Throttle Takeover Duration</data>
+			<data>Acceleration-Downshift Grace Period</data>
+			<data>Hold Cruise-Cancel To Enable Feature</data>
+			<data>Hold Cruise-Cancel To Enter Calibration</data>
+		</table>
+	</table>
+
+	<table name="Throttle Plate Angle" category="Rev Matching" address="90850" type="2D" level="4" scaling="Delay(ms)">
+		<description>Determines the throttle plate angle to achieve the desired target RPM.</description>
+		<table name="Target RPM" address="90840" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
+	</table>
+</rom>

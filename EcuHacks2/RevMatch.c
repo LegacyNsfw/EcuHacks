@@ -22,6 +22,9 @@ extern int RevMatchEnableDelay;
 extern int RevMatchCalibrationDelay;
 
 extern TwoDimensionalTable RevMatchTable;
+extern float *RevMatchInputValues;
+extern float *RevMatchOutputValues;
+
 
 float Window(float rpm) __attribute__ ((section ("RomHole_RevMatchCode")));
 float Window(float rpm)
@@ -463,4 +466,17 @@ void RevMatchCode()
 void GetRevMatchTableInfo() __attribute__ ((section ("Misc")));
 void GetRevMatchTableInfo()
 {
+	void* address = 0;
+	address = &Gear1Multiplier; // 6 elements, gear multipliers
+	address = &MinTargetRpm; // 2 elements, min and max target RPM
+	address = &MinCoolantTemperature;
+	address = &RevMatchDuration; // Delays: rev match active duration, accel downshift ready timeout, feature enable delay, calibration entry delay
+	address = &RevMatchInputValues;
+	address = &RevMatchOutputValues;
+	
+	address = &(pRamVariables->RevMatchState); // single byte
+	address = &(pRamVariables->Counter); // 4 bytes
+	address = &(pRamVariables->UpshiftRpm); // 4 bytes
+	address = &(pRamVariables->DownshiftRpm); // 4 bytes
+	address = &(pRamVariables->RevMatchCalibrationIndex); // single byte
 }

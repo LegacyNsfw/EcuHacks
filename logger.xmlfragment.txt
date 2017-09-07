@@ -1,0 +1,44 @@
+                <ecuparam id="E1100" name="Rev Match State" desc="">
+                    <ecu id="2F12785606">
+                        <address length="4">FFA002</address>
+                    </ecu>
+                    <conversions>
+                        <conversion units="index" storagetype="byte" expr="x" format="0" />
+                    </conversions>
+                </ecuparam>
+
+                <ecuparam id="E1101" name="Rev Match Counter" desc="Internal timer">
+                    <ecu id="2F12785606">
+                        <address length="4">FFA018</address>
+                    </ecu>
+                    <conversions>
+                        <conversion units="units" storagetype="uint32" expr="x" format="0" />
+                    </conversions>
+                </ecuparam>
+
+                <ecuparam id="E1102" name="Rev Match Upshift Target RPM" desc="Internal timer">
+                    <ecu id="2F12785606">
+                        <address length="4">FFA01C</address>
+                    </ecu>
+                    <conversions>
+                        <conversion units="RPM" storagetype="float" expr="x" format="0" />
+                    </conversions>
+                </ecuparam>
+
+                <ecuparam id="E1103" name="Rev Match Downshift Target RPM" desc="Internal timer">
+                    <ecu id="2F12785606">
+                        <address length="4">FFA020</address>
+                    </ecu>
+                    <conversions>
+                        <conversion units="RPM" storagetype="float" expr="x" format="0" />
+                    </conversions>
+                </ecuparam>
+
+                <ecuparam id="E1104" name="Rev Match Calibration Index" desc="">
+                    <ecu id="2F12785606">
+                        <address length="4">FFA024</address>
+                    </ecu>
+                    <conversions>
+                        <conversion units="index" storagetype="byte" expr="x" format="0" />
+                    </conversions>
+                </ecuparam>

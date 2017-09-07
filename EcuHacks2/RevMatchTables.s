@@ -27,6 +27,8 @@ _StartOfRevMatchTables:
 .global _RevMatchCalibrationDelay
 
 .global _RevMatchTable
+.global _RevMatchInputValues
+.global _RevMatchOutputValues
 
 _Gear1Multiplier:  .float 8.2 
 _Gear2Multiplier:  .float 13.4
@@ -50,16 +52,16 @@ _RevMatchTable:
 .byte 04
 .byte 00
 .byte 00
-.long inputValues
-.long outputValues
+.long _RevMatchInputValues
+.long _RevMatchOutputValues
 
-inputValues:
+_RevMatchInputValues:
 .float 2000
 .float 3500
 .float 5000
 .float 6500
 
-outputValues:
+_RevMatchOutputValues:
 .float 8.6
 .float 12.75
 .float 16.5
