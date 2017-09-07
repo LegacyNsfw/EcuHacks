@@ -1,8 +1,8 @@
 <rom>
 	<romid>
-		<xmlid>A2WC540E</xmlid>
+		<xmlid>A2WC540F</xmlid>
 		<internalidaddress>2000</internalidaddress>
-		<internalidstring>A2WC540E</internalidstring>
+		<internalidstring>A2WC540F</internalidstring>
 		<ecuid>2F12785606</ecuid>
 		<make>Subaru</make>
 		<market>USDM</market>
@@ -15,7 +15,7 @@
 		<checksummodule>subarudbw</checksummodule>
 	</romid>
 
-	<include>A2WC521N</include>
+	<include>A2WC522N</include>
 	<scaling toexpr="x" frexpr="x" format="%.2f" min="0" max="0" inc="5" storagetype="float"/>
 	<scaling name="AVCS" toexpr="x*0.005493164" frexpr="x/0.005493164" format="%.3f" min="0" max="0" inc="0.1" storagetype="uint16" endian="big"/>
 	<scaling name="B1) Input B Deadband Threshold" toexpr="x*6.103516E-05" frexpr="x/6.103516E-05" format="%.3f" min="0" max="3.99994" inc="0.1" storagetype="uint16" endian="big"/>
@@ -198,7 +198,7 @@
 		</table>
 	</table>
 
-	<table name="Throttle Plate Angle" category="Rev Matching" address="90850" type="2D" level="4" scaling="Delay(ms)">
+	<table name="Throttle Plate Angle" category="Rev Matching" address="90850" type="2D" level="4" scaling="%">
 		<description>Determines the throttle plate angle to achieve the desired target RPM.</description>
 		<table name="Target RPM" address="90840" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
 	</table>
