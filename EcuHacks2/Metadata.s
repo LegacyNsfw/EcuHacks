@@ -19,7 +19,7 @@ CalibrationIdentifierChange:
 		.long   8              !! number of characters
 		.string "A2WC522N"     !! original calibration ID
 		.string "\0\0\0\0\0\0" !! padding
-		.string "A2WC540E"     !! new calibration ID
+		.string "A2WC540F"     !! new calibration ID
 		.string "\0\0\0\0\0\0" !! padding
 					
 RevLimitHookPatch:

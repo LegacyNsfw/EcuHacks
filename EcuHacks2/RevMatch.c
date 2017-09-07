@@ -23,8 +23,6 @@ extern int RevMatchCalibrationDelay;
 
 extern TwoDimensionalTable RevMatchTable;
 
-#define MAX_COUNTER 1000000
-
 float Window(float rpm) __attribute__ ((section ("RomHole_RevMatchCode")));
 float Window(float rpm)
 {
@@ -105,16 +103,14 @@ void UpdateCounter()
 unsigned int GetElapsed() __attribute__ ((section ("RomHole_RevMatchCode")));
 unsigned int GetElapsed(int start)
 {
-	if (pRamVariables->Counter > start)
+	if (pRamVariables->Counter >= start)
 	{
 		return pRamVariables->Counter - start;
 	}
 	else
 	{
-		return 0;
-// TODO: add tests for this before un-commenting		
-//		unsigned int initial = MAX_COUNTER - start;
-//		return initial + pRamVariables->Counter;
+		unsigned int initial = (MAX_COUNTER + 1) - start;
+		return initial + pRamVariables->Counter;
 	}
 }
 

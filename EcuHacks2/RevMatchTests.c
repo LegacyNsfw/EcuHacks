@@ -25,6 +25,22 @@ void RevMatchResetAndEnable()
 // the compiler/linker will put them in an address range that conflicts with
 // ECU code.
 
+void UpdateCounter();
+unsigned int GetElapsed(int start);
+
+void RevMatchCounterTests() __attribute__ ((section ("Misc")));
+void RevMatchCounterTests()
+{
+	int start = MAX_COUNTER - 2;
+	pRamVariables->Counter = start;
+	UpdateCounter();
+	UpdateCounter();
+	UpdateCounter();
+	UpdateCounter();
+	unsigned int result = GetElapsed(start);
+	Assert(result == 4, "Four ticks");
+}
+
 // Test rev matching.
 void RevMatchUnitTests() __attribute__ ((section ("Misc")));
 void RevMatchUnitTests()

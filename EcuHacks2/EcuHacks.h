@@ -203,3 +203,5 @@ extern float RedlineCut, RedlineResume;
 extern float LaunchControlCut, LaunchControlResume;
 extern float FlatFootShiftCut, FlatFootShiftResume;
 extern float FlatFootShiftSpeedThreshold;
+
+#define MAX_COUNTER 1000000

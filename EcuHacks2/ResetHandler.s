@@ -53,6 +53,10 @@ _ResetHandler:
 				jsr		@r0
 				nop
 				
+				mov.l	RevMatchCounterTests,r0
+				jsr		@r0
+				nop
+
 !! Only useful when testing with a patched ROM.
 !! This jumps into ECU code, which will call the function whose Pull2D method
 !! was hijacked for the speed density hack.  You should see it step into the
@@ -119,7 +123,10 @@ RevMatchUnitTests:
 
 RevMatchCalibrationUnitTests:
 		.long	_RevMatchCalibrationUnitTests
-						
+
+RevMatchCounterTests:
+		.long	_RevMatchCounterTests
+								
 SpeedDensityIntegrationTest:
 		.long   0x6144 
 
