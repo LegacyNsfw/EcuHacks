@@ -120,7 +120,7 @@ unsigned int GetElapsed(int start)
 int IntervalElapsed(int elapsed, int duration) __attribute__ ((section ("RomHole_RevMatchCode")));
 int IntervalElapsed(int elapsed, int duration)
 {
-	int threshold = duration * 100;
+	int threshold = duration;
 	if (elapsed > threshold)
 	{
 		return 1;
@@ -171,7 +171,7 @@ enum RevMatchStates EvaluateTransitionDisabled() __attribute__ ((section ("RomHo
 enum RevMatchStates EvaluateTransitionDisabled()
 {
 	int condition = *pCruiseFlagsA & CruiseFlagsACancel;
-	if (ConditionWithDelay(condition, 10))
+	if (ConditionWithDelay(condition, RevMatchEnableDelay))
 	{
 		return RevMatchAlmostEnabled;
 	}
@@ -211,7 +211,7 @@ enum RevMatchStates EvaluateTransitionEnabled()
 		(*pCruiseFlagsA & CruiseFlagsAClutch) &&
 		(*pSpeed < 1));
 	
-	if (ConditionWithDelay(condition, 50))
+	if (ConditionWithDelay(condition, RevMatchCalibrationDelay))
 	{
 		return RevMatchCalibration;
 	}
@@ -228,7 +228,7 @@ enum RevMatchStates EvaluateTransitionReadyForAccelerationDownshift()
 	}
 	
 	int cancelReleased = !(*pCruiseFlagsA & CruiseFlagsACancel);
-	if (cancelReleased && StateTimeout(10))
+	if (cancelReleased && StateTimeout(RevMatchAccelerationDownshiftReadyDuration))
 	{
 		return RevMatchEnabled;
 	}
@@ -240,7 +240,7 @@ enum RevMatchStates EvaluateTransitionReadyForAccelerationDownshift()
 enum RevMatchStates EvaluateTransitionDecelerationDownshift() __attribute__ ((section ("RomHole_RevMatchCode")));
 enum RevMatchStates EvaluateTransitionDecelerationDownshift()
 {
-	if (StateTimeout(10))
+	if (StateTimeout(RevMatchDuration))
 	{
 		return RevMatchExpired;
 	}
@@ -261,7 +261,7 @@ enum RevMatchStates EvaluateTransitionDecelerationDownshift()
 enum RevMatchStates EvaluateTransitionAccelerationDownshift() __attribute__ ((section ("RomHole_RevMatchCode")));
 enum RevMatchStates EvaluateTransitionAccelerationDownshift()
 {
-	if (StateTimeout(10))
+	if (StateTimeout(RevMatchDuration))
 	{
 		return RevMatchExpired;
 	}
