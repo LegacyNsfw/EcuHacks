@@ -84,6 +84,8 @@ typedef struct
 	// Base + 0x30
 	enum RevMatchStates (*RevMatchTransitionEvaluator)();
 	
+	// Base + 0x34
+	float CounterAsFloat;
 } RamVariables;
 
 #define pRamVariables             ((RamVariables*) 0xFFFFA000)

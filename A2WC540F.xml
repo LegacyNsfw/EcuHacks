@@ -163,7 +163,7 @@
 
 	<table name="Gear Multipliers" category="Rev Matching" address="90800" type="2D" level="4" scaling="%">
 		<description>These translate vehicle speed into a target RPM for upshifting or downshifting.</description>
-		<table name="Multiplier" type="Static Y Axis" elements="6">
+		<table name="Gear" type="Static Y Axis" elements="6">
 			<data>1st</data>
 			<data>2nd</data>
 			<data>3rd</data>
@@ -175,7 +175,7 @@
 
 	<table name="Target RPM Limits" category="Rev Matching" address="90818" type="2D" level="4" scaling="EngineSpeed(RPM)1">
 		<description>These limit the maximum and minimum target RPM when upshifting or downshifting.</description>
-		<table name="Multiplier" type="Static Y Axis" elements="2">
+		<table name="Limit" type="Static Y Axis" elements="2">
 			<data>Minimum</data>
 			<data>Maximum</data>
 		</table>

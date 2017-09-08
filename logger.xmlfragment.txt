@@ -1,44 +1,64 @@
-                <ecuparam id="E1100" name="Rev Match State" desc="">
-                    <ecu id="2F12785606">
-                        <address length="4">FFA002</address>
-                    </ecu>
-                    <conversions>
-                        <conversion units="index" storagetype="byte" expr="x" format="0" />
-                    </conversions>
+              <ecuparam id="E1101" name="Rev Match Gear Multiplier" desc="The ECU uses this value to determine the current gear. The rev-matching code uses it to calculate RPM based on gear and vehicle speed.">
+                <ecu id="2F12785606">
+                  <address length="4">0xFF52FC</address>
+                </ecu>
+                <conversions>
+                  <conversion units="ratio" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>>
+              
+              <ecuparam id="E1102" name="Rev Match Current Gear" desc="Same as the existing gear parameter.">
+                  <ecu id="2F12785606">
+                    <address length="1">0xFF52F9</address>
+                  </ecu>
+                  <conversions>
+                    <conversion units="gear" expr="x" format="0.00" storagetype="byte"/>
+                  </conversions>
                 </ecuparam>
 
-                <ecuparam id="E1101" name="Rev Match Counter" desc="Internal timer">
-                    <ecu id="2F12785606">
-                        <address length="4">FFA018</address>
-                    </ecu>
-                    <conversions>
-                        <conversion units="units" storagetype="uint32" expr="x" format="0" />
-                    </conversions>
+                <ecuparam id="E1103" name="Rev Match State" desc="">
+                  <ecu id="2F12785606">
+                    <address length="1">FFA002</address>
+                  </ecu>
+                  <conversions>
+                    <conversion units="index" storagetype="byte" expr="x" format="0" />
+                  </conversions>
                 </ecuparam>
 
-                <ecuparam id="E1102" name="Rev Match Upshift Target RPM" desc="Internal timer">
-                    <ecu id="2F12785606">
-                        <address length="4">FFA01C</address>
-                    </ecu>
-                    <conversions>
-                        <conversion units="RPM" storagetype="float" expr="x" format="0" />
-                    </conversions>
+                <ecuparam id="E1104" name="Rev Match Counter" desc="Internal timer" >
+                  <ecu id="2F12785606">
+                    <address length="4">FFA034</address>
+                  </ecu>
+                  <conversions>
+                    <conversion units="units" storagetype="float" expr="x" format="0" />
+                  </conversions>
                 </ecuparam>
 
-                <ecuparam id="E1103" name="Rev Match Downshift Target RPM" desc="Internal timer">
-                    <ecu id="2F12785606">
-                        <address length="4">FFA020</address>
-                    </ecu>
-                    <conversions>
-                        <conversion units="RPM" storagetype="float" expr="x" format="0" />
-                    </conversions>
+                <ecuparam id="E1105" name="Rev Match Target Upshift RPM" desc="Target RPM">
+                  <ecu id="2F12785606">
+                    <address length="4">FFA01C</address>
+                  </ecu>
+                  <conversions>
+                    <conversion units="RPM" storagetype="float" expr="x" format="0" />
+                  </conversions>
                 </ecuparam>
 
-                <ecuparam id="E1104" name="Rev Match Calibration Index" desc="">
-                    <ecu id="2F12785606">
-                        <address length="4">FFA024</address>
-                    </ecu>
-                    <conversions>
-                        <conversion units="index" storagetype="byte" expr="x" format="0" />
-                    </conversions>
+                <ecuparam id="E1106" name="Rev Match Target Downshift RPM" desc="Target RPM">
+                  <ecu id="2F12785606">
+                    <address length="4">FFA020</address>
+                  </ecu>
+                  <conversions>
+                    <conversion units="RPM" storagetype="float" expr="x" format="0" />
+                  </conversions>
                 </ecuparam>
+
+                <ecuparam id="E1107" name="Rev Match Calibration Index" desc="">
+                  <ecu id="2F12785606">
+                    <address length="1">FFA024</address>
+                  </ecu>
+                  <conversions>
+                    <conversion units="index" storagetype="byte" expr="x" format="0" />
+                  </conversions>
+                </ecuparam>
+
+

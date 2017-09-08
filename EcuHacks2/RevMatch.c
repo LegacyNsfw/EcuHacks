@@ -26,8 +26,8 @@ extern float *RevMatchInputValues;
 extern float *RevMatchOutputValues;
 
 
-float Window(float rpm) __attribute__ ((section ("RomHole_RevMatchCode")));
-float Window(float rpm)
+float RpmWindow(float rpm) __attribute__ ((section ("RomHole_RevMatchCode")));
+float RpmWindow(float rpm)
 {
 	if (rpm < MinTargetRpm)
 	{
@@ -86,8 +86,8 @@ void SetTargetRpm()
 			break;
 	}
 	
-	pRamVariables->UpshiftRpm = Window((*pVehicleSpeed * 1000.0f) / upshift);
-	pRamVariables->DownshiftRpm = Window((*pVehicleSpeed * 1000.0f) / downshift);
+	pRamVariables->UpshiftRpm = RpmWindow((*pVehicleSpeed * 1000.0f) / upshift);
+	pRamVariables->DownshiftRpm = RpmWindow((*pVehicleSpeed * 1000.0f) / downshift);
 }
 
 void UpdateCounter() __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -101,6 +101,9 @@ void UpdateCounter()
 	{
 		pRamVariables->Counter = 0;
 	}
+	
+	// Since the logger assumes that 4-byte values are floats...
+	pRamVariables->CounterAsFloat = pRamVariables->Counter;
 }
 
 unsigned int GetElapsed() __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -479,4 +482,5 @@ void GetRevMatchTableInfo()
 	address = &(pRamVariables->UpshiftRpm); // 4 bytes
 	address = &(pRamVariables->DownshiftRpm); // 4 bytes
 	address = &(pRamVariables->RevMatchCalibrationIndex); // single byte
+	address = &(pRamVariables->CounterAsFloat); // 4 bytes
 }
