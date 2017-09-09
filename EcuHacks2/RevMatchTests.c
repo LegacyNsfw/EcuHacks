@@ -99,14 +99,14 @@ void RevMatchUnitTests()
 		
 	// Confirm no throttle change after countdown timer runs out.
 	int i;
-	for (i = 0; i < 500; i++)
+	for (i = 0; i < 65; i++)
 	{
 		RevMatchCode();	
 	}
 	
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - waiting for timeout.");
 	
-	for (i = 0; i < 515; i++)
+	for (i = 0; i < 65; i++)
 	{
 		RevMatchCode();	
 	}
@@ -151,14 +151,14 @@ void RevMatchUnitTests()
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - acceleration downshift again.");
 	
 	// Confirm no throttle change after countdown timer runs out.
-	for (i = 0; i < 500; i++)
+	for (i = 0; i < 65; i++)
 	{
 		RevMatchCode();	
 	}
 	
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - waiting for timeout.");
 	
-	for (i = 0; i < 605; i++)
+	for (i = 0; i < 65; i++)
 	{
 		RevMatchCode();	
 	}
@@ -213,7 +213,7 @@ void RevMatchStateUnitTests()
 	// TODO: adjust iteration count to give ~1 second delay
 	*pCruiseFlagsA = CruiseFlagsACancel;
 	int count;
-	for(count = 0; count < 1005; count++)
+	for(count = 0; count < 130; count++)
 	{
 		RevMatchCode();
 	}
@@ -239,14 +239,14 @@ void RevMatchStateUnitTests()
 	Assert(pRamVariables->RevMatchState == RevMatchReadyForAccelerationDownshift, "Acceleration downshift remains enabled after releasing cancel.");
 	
 	*pCruiseFlagsA = 0;
-	for(count = 0; count < 500; count++)
+	for(count = 0; count < 65; count++)
 	{
 		RevMatchCode();
 	}
 
 	Assert(pRamVariables->RevMatchState == RevMatchReadyForAccelerationDownshift, "Acceleration downshift remains enabled ~1s after releasing cancel.");
 	
-	for(count = 0; count < 505; count++)
+	for(count = 0; count < 65; count++)
 	{
 		RevMatchCode();
 	}
@@ -274,7 +274,7 @@ void RevMatchStateUnitTests()
 	// Note that we'll toggle between Enabled and ReadyForAccelDownshift due to timeouts.
 	// Could add ConditionReleaseCancel to the timeout, but... not worth the trouble.
 	*pCruiseFlagsA = CruiseFlagsACancel;
-	for(count = 0; count < 5005; count++)
+	for(count = 0; count < 650; count++)
 	{
 		RevMatchCode();
 	}
@@ -294,7 +294,7 @@ void RevMatchCalibrationUnitTests()
 	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	RevMatchCode();
 	
-	pRamVariables->Counter += 5005;
+	pRamVariables->Counter += 650;
 	pRamVariables->RevMatchCalibrationIndex = -1;
 	RevMatchCode();
 	

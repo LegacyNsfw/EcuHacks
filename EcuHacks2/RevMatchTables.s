@@ -42,10 +42,10 @@ _MaxTargetRpm:     .float 7000
 
 _MinCoolantTemperature: .float 71 !! 160F
 
-_RevMatchDuration:          .int 1000 !! How many counter ticks per second?
-_RevMatchAccelerationDownshiftReadyDuration: .int 1000
-_RevMatchEnableDelay:       .int 1000
-_RevMatchCalibrationDelay:  .int 5000
+_RevMatchDuration:          .int 125 !! 125 iterations/second, so this is 1 second
+_RevMatchAccelerationDownshiftReadyDuration: .int 125 !! 1 second
+_RevMatchEnableDelay:       .int 125 !! 1 second
+_RevMatchCalibrationDelay:  .int 625 !! 5 seconds
 
 _RevMatchTable: 
 .byte 00
