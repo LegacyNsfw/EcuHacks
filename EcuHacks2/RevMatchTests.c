@@ -274,6 +274,7 @@ void RevMatchStateUnitTests()
 	// Note that we'll toggle between Enabled and ReadyForAccelDownshift due to timeouts.
 	// Could add ConditionReleaseCancel to the timeout, but... not worth the trouble.
 	*pCruiseFlagsA = CruiseFlagsACancel;
+	*pSpeed = 50;
 	for(count = 0; count < 650; count++)
 	{
 		RevMatchCode();

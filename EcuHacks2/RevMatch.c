@@ -196,15 +196,21 @@ enum RevMatchStates EvaluateTransitionAlmostEnabled()
 enum RevMatchStates EvaluateTransitionEnabled() __attribute__ ((section ("RomHole_RevMatchCode")));
 enum RevMatchStates EvaluateTransitionEnabled()
 {
+	// The speed condition here and below ensures that the downshift conditions 
+	// aren't met at a standstill, which enables the transition to calibration.
 	if ((*pCruiseFlagsA & CruiseFlagsALightBrake) &&
 		(*pCruiseFlagsA & CruiseFlagsAClutch) &&
-		!(*pCruiseFlagsA & CruiseFlagsACancel))
+		!(*pCruiseFlagsA & CruiseFlagsACancel) &&
+		*pSpeed > 5 && 
+		*pCurrentGear > 1)
 	{
 		return RevMatchDecelerationDownshift;
 	}
 	
 	if ((*pCruiseFlagsA & CruiseFlagsACancel) &&
-		!(*pCruiseFlagsA & CruiseFlagsALightBrake))
+		!(*pCruiseFlagsA & CruiseFlagsALightBrake) &&
+		*pSpeed > 5 &&
+		*pCurrentGear > 1)
 	{
 		return RevMatchReadyForAccelerationDownshift;
 	}
@@ -429,15 +435,21 @@ void RevMatchCode()
 			return;
 		}
 		
-		if ((*pCruiseFlagsA & CruiseFlagsAResumeAccel) && (pRamVariables->RevMatchCalibrationIndexChanged == 0))
+		if (*pCruiseFlagsA & CruiseFlagsAResumeAccel)
 		{
-			pRamVariables->RevMatchCalibrationIndex++;
-			pRamVariables->RevMatchCalibrationIndexChanged = 1;
+			if (pRamVariables->RevMatchCalibrationIndexChanged == 0)
+			{
+				pRamVariables->RevMatchCalibrationIndex++;
+				pRamVariables->RevMatchCalibrationIndexChanged = 1;
+			}
 		}
-		else if ((*pCruiseFlagsA & CruiseFlagsASetCoast) && (pRamVariables->RevMatchCalibrationIndexChanged == 0))
+		else if (*pCruiseFlagsA & CruiseFlagsASetCoast)
 		{
-			pRamVariables->RevMatchCalibrationIndex--;
-			pRamVariables->RevMatchCalibrationIndexChanged = 1;
+			if (pRamVariables->RevMatchCalibrationIndexChanged == 0)
+			{
+				pRamVariables->RevMatchCalibrationIndex--;
+				pRamVariables->RevMatchCalibrationIndexChanged = 1;
+			}
 		}
 		else
 		{
@@ -454,7 +466,8 @@ void RevMatchCode()
 			pRamVariables->RevMatchCalibrationIndex = RevMatchTable.elementCount - 1;
 		}
 		
-		pRamVariables->DownshiftRpm = RevMatchTable.inputArray[pRamVariables->RevMatchCalibrationIndex];
+		float target = RevMatchTable.inputArray[pRamVariables->RevMatchCalibrationIndex];
+		pRamVariables->DownshiftRpm = RpmWindow(target);
 		*pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
 		
 		return;
