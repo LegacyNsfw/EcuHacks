@@ -72,7 +72,7 @@ typedef struct
 	// Base + 0x24
 	char RevMatchCalibrationIndex;
 	char RevMatchCalibrationIndexChanged;
-	char unused2;
+	char RevMatchFromGear;
 	char unused3;
 	
 	// Base + 0x28

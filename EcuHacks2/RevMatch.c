@@ -48,7 +48,7 @@ void SetTargetRpm()
 	float upshift = 0;
 	float downshift = 0;
 	
-	switch(*pCurrentGear)
+	switch(pRamVariables->RevMatchFromGear)
 	{
 		case 1:
 			upshift = Gear2Multiplier;
@@ -81,9 +81,9 @@ void SetTargetRpm()
 			break;
 			
 		default:
-			upshift = Gear6Multiplier;
-			downshift = Gear6Multiplier;
-			break;
+			pRamVariables->UpshiftRpm = MinTargetRpm;
+			pRamVariables->DownshiftRpm = MinTargetRpm;
+			return;
 	}
 	
 	pRamVariables->UpshiftRpm = RpmWindow((*pVehicleSpeed * 1000.0f) / upshift);
@@ -355,6 +355,7 @@ void UpdateState()
 			break;
 
 		case RevMatchEnabled:
+			pRamVariables->RevMatchFromGear = *pCurrentGear;
 			pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionEnabled;
 			break;
 			
