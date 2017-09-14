@@ -49,7 +49,7 @@ void RevMatchUnitTests()
 	RamVariables *pRV = pRamVariables;
 	
 	// Need sane values to avoid div/0, etc.
-	*pVehicleSpeed = 50.0f;
+	*pSpeed = 50.0f;
 	*pRPM = 2500.0f;
 	*pCoolantTemperature = 80;
 	*pCurrentGear = 3;
@@ -96,7 +96,12 @@ void RevMatchUnitTests()
 	RevMatchCode();	
 	Assert(pRamVariables->RevMatchState == RevMatchDecelerationDownshift, "Mode should be braking downshift");
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.617f), "Throttle changed - deceleration downshift yet again.");
-		
+
+	// Confirm fuel-cut flag is cleared
+	*pOverrunFuelCutFlags = 0xFF;
+	RevMatchCode();
+	Assert((*pOverrunFuelCutFlags & OverrunFuelCutBit) == 0, "Fuel cut bit cleared.");
+
 	// Confirm no throttle change after countdown timer runs out.
 	int i;
 	for (i = 0; i < 65; i++)
@@ -177,7 +182,7 @@ void RevMatchStateUnitTests()
 	RamVariables *pRV = pRamVariables;
 
 	// Need sane values to avoid div/0, etc.
-	*pVehicleSpeed = 50.0f;
+	*pSpeed = 50.0f;
 	*pRPM = 2500.0f;
 	*pCoolantTemperature = 80;
 	*pCurrentGear = 3;
@@ -509,4 +514,9 @@ void RevMatchCalibrationThrottleTests()
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "Increase index.");
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.0f), "Throttle for index 1.");
+
+	// Confirm fuel-cut flag is cleared
+	*pOverrunFuelCutFlags = 0xFF;
+	RevMatchCode();
+	Assert((*pOverrunFuelCutFlags & OverrunFuelCutBit) == 0, "Fuel cut bit cleared.");
 }

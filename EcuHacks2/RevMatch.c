@@ -86,8 +86,8 @@ void SetTargetRpm()
 			return;
 	}
 	
-	pRamVariables->UpshiftRpm = RpmWindow((*pVehicleSpeed * 1000.0f) / upshift);
-	pRamVariables->DownshiftRpm = RpmWindow((*pVehicleSpeed * 1000.0f) / downshift);
+	pRamVariables->UpshiftRpm = RpmWindow((*pSpeed * 1000.0f) / upshift);
+	pRamVariables->DownshiftRpm = RpmWindow((*pSpeed * 1000.0f) / downshift);
 }
 
 void UpdateCounter() __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -460,6 +460,13 @@ void AdjustCalibrationIndex()
 	}
 }
 
+void DisableFuelCut(void) __attribute__((section("RomHole_RevMatchCode")));
+void DisableFuelCut()
+{
+	// Clear the 0x80 bit.
+	*pOverrunFuelCutFlags &= ~OverrunFuelCutBit;
+}
+
 void RevMatchCode(void) __attribute__ ((section ("RomHole_RevMatchCode")));
 void RevMatchCode()
 {
@@ -496,6 +503,7 @@ void RevMatchCode()
 		// code never opens the throttle without the clutch pressed.
 		if (*pCruiseFlagsA & CruiseFlagsAClutch)
 		{
+			DisableFuelCut();
 			*pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
 		}
 		else
@@ -525,6 +533,7 @@ void RevMatchCode()
 		// with a small allowance for possible noise from the sensor.
 		if ((*pCruiseFlagsA & CruiseFlagsAClutch) && (*pSpeed < 1))
 		{
+			DisableFuelCut();
 			*pTargetThrottlePlatePosition_Out = pRamVariables->RevMatchCalibrationThrottle;
 		}
 		else
