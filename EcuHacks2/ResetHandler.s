@@ -49,10 +49,14 @@ _ResetHandler:
 				jsr		@r0
 				nop
 
-				mov.l	RevMatchCalibrationUnitTests,r0
+				mov.l	RevMatchCalibrationIndexTests,r0
 				jsr		@r0
 				nop
 				
+				mov.l	RevMatchCalibrationThrottleTests,r0
+				jsr		@r0
+				nop
+
 				mov.l	RevMatchCounterTests,r0
 				jsr		@r0
 				nop
@@ -121,8 +125,11 @@ RevMatchStateUnitTests:
 RevMatchUnitTests:
 		.long	_RevMatchUnitTests
 
-RevMatchCalibrationUnitTests:
-		.long	_RevMatchCalibrationUnitTests
+RevMatchCalibrationIndexTests:
+		.long	_RevMatchCalibrationIndexTests
+
+RevMatchCalibrationThrottleTests:
+		.long	_RevMatchCalibrationThrottleTests
 
 RevMatchCounterTests:
 		.long	_RevMatchCounterTests

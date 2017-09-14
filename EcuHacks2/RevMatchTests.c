@@ -53,7 +53,7 @@ void RevMatchUnitTests()
 	*pRPM = 2500.0f;
 	*pCoolantTemperature = 80;
 	*pCurrentGear = 3;
-	*pTargetThrottlePlatePosition_In = 10.0f;
+	*pTargetThrottlePlatePosition_In = 8.0f;
 	*pTargetThrottlePlatePosition_Out = 0.0f;
 	*pCruiseFlagsA = 0;
 	
@@ -61,7 +61,7 @@ void RevMatchUnitTests()
 	
 	// Confirm no throttle change by default.
 	Assert(pRamVariables->RevMatchState == RevMatchEnabled, "Mode should be 'enabled'");
-	Assert(*pTargetThrottlePlatePosition_Out == 10.0f, "no throttle change by default");
+	Assert(*pTargetThrottlePlatePosition_Out == 8.0f, "no throttle change by default");
 	Assert(pRamVariables->UpshiftRpm < 2000, "Upshift RPM is sane 1");
 	Assert(pRamVariables->UpshiftRpm > 1500, "Upshift RPM is sane 2");
 	Assert(pRamVariables->DownshiftRpm > 3500, "Downshift RPM is sane 1");
@@ -71,31 +71,31 @@ void RevMatchUnitTests()
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchState == RevMatchDecelerationDownshift, "Mode should be braking downshift");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - deceleration downshift.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.617), "Throttle changed - deceleration downshift.");
 	
 	// Confirm no throttle change after brake is released.
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchState == RevMatchEnabled, "");
-	Assert(*pTargetThrottlePlatePosition_Out == 10.0f, "no throttle change after brake released");
+	Assert(*pTargetThrottlePlatePosition_Out == 8.0f, "no throttle change after brake released");
 	
 	// Match revs with a braking downshift again.
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	RevMatchCode();	
 	Assert(pRamVariables->RevMatchState == RevMatchDecelerationDownshift, "Mode should be braking downshift");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - deceleration downshift again.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.617f), "Throttle changed - deceleration downshift again.");
 	
 	// Confirm no throttle change after clutch is released.
 	*pCruiseFlagsA = CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchState == RevMatchEnabled, "");
-	Assert(*pTargetThrottlePlatePosition_Out == 10.0f, "no throttle change after clutch released");
+	Assert(*pTargetThrottlePlatePosition_Out == 8.0f, "no throttle change after clutch released");
 	
 	// Match revs with a braking downshift again.
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	RevMatchCode();	
 	Assert(pRamVariables->RevMatchState == RevMatchDecelerationDownshift, "Mode should be braking downshift");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - deceleration downshift yet again.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.617f), "Throttle changed - deceleration downshift yet again.");
 		
 	// Confirm no throttle change after countdown timer runs out.
 	int i;
@@ -104,7 +104,7 @@ void RevMatchUnitTests()
 		RevMatchCode();	
 	}
 	
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - waiting for timeout.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.617f), "Throttle changed - waiting for timeout.");
 	
 	for (i = 0; i < 65; i++)
 	{
@@ -113,7 +113,7 @@ void RevMatchUnitTests()
 	
 	RevMatchCode();	
 	
-	Assert(*pTargetThrottlePlatePosition_Out == 10.0f, "no throttle change after countdown timer expires.");
+	Assert(*pTargetThrottlePlatePosition_Out == 8.0f, "no throttle change after countdown timer expires.");
 	Assert(pRamVariables->RevMatchState == RevMatchExpired, "Mode should be 'expired'");
 	
 	// Re-enabled after both pedals are released.
@@ -131,13 +131,13 @@ void RevMatchUnitTests()
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	RevMatchCode();	
 	Assert(pRamVariables->RevMatchState == RevMatchAccelerationDownshift, "Mode should be 'acceleration downshift'");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - acceleration downshift.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.617f), "Throttle changed - acceleration downshift.");
 	
 	// Confirm no throttle change after clutch is released.
 	*pCruiseFlagsA = 0;
 	RevMatchCode();	
 	Assert(pRamVariables->RevMatchState == RevMatchEnabled, "Mode should be 'enabled'");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.0f), "Throttle NOT changed - acceleration downshift terminated by clutch release.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 8.0f), "Throttle NOT changed - acceleration downshift terminated by clutch release.");
 
 	// Match revs with a non-braking downshift again.
 	*pCruiseFlagsA = CruiseFlagsACancel;
@@ -148,7 +148,7 @@ void RevMatchUnitTests()
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	RevMatchCode();	
 	Assert(pRamVariables->RevMatchState == RevMatchAccelerationDownshift, "Mode should be 'acceleration downshift'");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - acceleration downshift again.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.617f), "Throttle changed - acceleration downshift again.");
 	
 	// Confirm no throttle change after countdown timer runs out.
 	for (i = 0; i < 65; i++)
@@ -156,7 +156,7 @@ void RevMatchUnitTests()
 		RevMatchCode();	
 	}
 	
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 13.32f), "Throttle changed - waiting for timeout.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.617f), "Throttle changed - waiting for timeout.");
 	
 	for (i = 0; i < 65; i++)
 	{
@@ -165,7 +165,7 @@ void RevMatchUnitTests()
 	
 	RevMatchCode();	
 	
-	Assert(*pTargetThrottlePlatePosition_Out == 10.0f, "no throttle change after countdown timer expires.");
+	Assert(*pTargetThrottlePlatePosition_Out == 8.0f, "no throttle change after countdown timer expires.");
 	Assert(pRamVariables->RevMatchState == RevMatchExpired, "Mode should be 'expired'");
 }
 
@@ -257,13 +257,14 @@ void RevMatchStateUnitTests()
 	*pSpeed = 0;
 	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	pRamVariables->RevMatchCalibrationIndex = 123;
-	for(count = 0; count < 5005; count++)
+	for(count = 0; count < 630; count++)
 	{
 		RevMatchCode();
 	}
 	
 	Assert(pRamVariables->RevMatchState == RevMatchCalibration, "Holding 5 seconds while enabled switches to calibration mode.");
 	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "Rev match calibration index is initialized to zero.");
+	Assert(pRamVariables->RevMatchCalibrationThrottle = 7, "Rev match throttle.");
 	
 	// Exit calibration mode by releasing the clutch.
 	*pCruiseFlagsA = 0;
@@ -283,8 +284,8 @@ void RevMatchStateUnitTests()
 	Assert(pRamVariables->RevMatchState == RevMatchReadyForAccelerationDownshift, "Holding 5 seconds while enabled switches to calibration mode.");
 }
 
-void RevMatchCalibrationUnitTests() __attribute__ ((section ("Misc")));
-void RevMatchCalibrationUnitTests()
+void RevMatchCalibrationIndexTests() __attribute__ ((section ("Misc")));
+void RevMatchCalibrationIndexTests()
 {
 	// Makes the debugger watch window easier to use.
 	RamVariables *pRV = pRamVariables;
@@ -302,65 +303,19 @@ void RevMatchCalibrationUnitTests()
 	Assert(pRamVariables->RevMatchState == RevMatchCalibration, "Switched to calibration mode.");
 	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "Negative calibration index gets fixed.");
 	Assert(pRamVariables->DownshiftRpm == 2000, "RPM for index 0.");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 8.6f), "Throttle position for index 0.");
+	Assert(pRamVariables->RevMatchCalibrationThrottle == 7.0f, "Throttle for index 0.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.0f), "Throttle position for index 0.");
 	
-	pRamVariables->RevMatchCalibrationIndex = 0;
+	// Prove the user can't bring the index below zero.
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "Calibration index remains zero.");
-	Assert(pRamVariables->DownshiftRpm == 2000, "RPM for index 0.");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 8.6f), "Throttle position for index 0.");
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
 
-	pRamVariables->RevMatchCalibrationIndex = 4;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "Large index gets fixed.");
-	Assert(pRamVariables->DownshiftRpm == 6500, "RPM for index 3.");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 21.75f), "Throttle position for index 3.");
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
 
-	*pCruiseFlagsA = CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "Can't increase index too far.");
-	Assert(pRamVariables->DownshiftRpm == 6500, "RPM for index 3.");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 21.75f), "Throttle position for index 3.");
-
-	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "index does not change.");
-	
-	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 2, "Decrease index.");
-	Assert(pRamVariables->DownshiftRpm == 5000, "RPM for index 2.");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 16.5f), "Throttle position for index 2.");
-
-	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 2, "index does not change.");
-
-	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 2, "index does not change.");
-
-	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "Decrease index.");
-	Assert(pRamVariables->DownshiftRpm == 3500, "RPM for index 1.");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 12.75f), "Throttle position for index 1.");
-
-	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "index does not change.");
-
-	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "index does not change.");
-
-	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "Decrease index.");
-	Assert(pRamVariables->DownshiftRpm == 2000, "RPM for index 0.");
-	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 8.6f), "Throttle position for index 0.");
-
-	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
 
@@ -368,59 +323,190 @@ void RevMatchCalibrationUnitTests()
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
 
-	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
 
-	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
-	RevMatchCode();
-	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
-
-	*pCruiseFlagsA = CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	// Increase index step by step. 
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "Increase index.");
 
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "No change.");
 
-	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "No change.");
 
-	*pCruiseFlagsA = CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 2, "Increase index.");
 
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 2, "No change.");
 
-	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 2, "No change.");
 
-	*pCruiseFlagsA = CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "Increase index.");
 
+	// Prove the user can't increase the index past 3.
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "No change.");
 
-	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "No change.");
 
-	*pCruiseFlagsA = CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "No change.");
 
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "No change.");
 
-	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "No change.");
+
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "Calibration index remains 3.");
+	Assert(pRamVariables->DownshiftRpm == 6500, "RPM for index 3.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 18.0f), "Throttle position for index 3.");
+
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 3, "index does not change.");
+
+	// Decrease index step by step.
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 2, "Decrease index.");
+	Assert(pRamVariables->DownshiftRpm == 5000, "RPM for index 2.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 14.0f), "Throttle position for index 2.");
+
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 2, "index does not change.");
+
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 2, "index does not change.");
+
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "Decrease index.");
+	Assert(pRamVariables->DownshiftRpm == 3500, "RPM for index 1.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.0f), "Throttle position for index 1.");
+
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "index does not change.");
+
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "index does not change.");
+
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "Decrease index.");
+	Assert(pRamVariables->DownshiftRpm == 2000, "RPM for index 0.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.0f), "Throttle position for index 0.");
 
 	*pCruiseFlagsA = 0;
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchState == RevMatchEnabled, "Exit calibration mode.");
+}
+
+void RevMatchCalibrationThrottleTests() __attribute__((section("Misc")));
+void RevMatchCalibrationThrottleTests()
+{
+	// Makes the debugger watch window easier to use.
+	RamVariables *pRV = pRamVariables;
+
+	RevMatchResetAndEnable();
+
+	*pSpeed = 0;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAClutch;
+	RevMatchCode();
+
+	pRamVariables->Counter += 650;
+	RevMatchCode();
+
+	Assert(pRamVariables->RevMatchState == RevMatchCalibration, "Switched to calibration mode.");
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "Default calibration index.");
+	Assert(pRamVariables->DownshiftRpm == 2000, "RPM for index 0.");
+	Assert(pRamVariables->RevMatchCalibrationThrottle == 7.0f, "Throttle for index 0.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.0f), "Throttle position for index 0.");
+
+	// Increase throttle.
+	*pCruiseFlagsA = CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.5f), "Throttle position after increment.");
+
+	// Do not increase throttle again, until set/coast button is released.
+	*pCruiseFlagsA = CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.5f), "Throttle does not change.");
+
+	// Reset switch state
+	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.5f), "Throttle does not change.");
+
+	// Increase again
+	*pCruiseFlagsA = CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 8.0f), "Throttle increases.");
+
+	// Reset switch state
+	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 8.0f), "Throttle does not change.");
+
+	// Decrease throttle
+	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.5f), "Throttle decreases.");
+
+	// No change, switch must be reset first
+	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.5f), "Throttle not changed.");
+
+	// Reset switch state
+	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.5f), "Throttle does not change.");
+
+	// Decrease throttle
+	*pCruiseFlagsA = CruiseFlagsASetCoast | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.0f), "Throttle decreases.");
+
+	// Reset switch state
+	*pCruiseFlagsA = CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 0, "index does not change.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 7.0f), "Throttle does not change.");
+
+	// Increase index
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsAResumeAccel | CruiseFlagsAClutch | CruiseFlagsALightBrake;
+	RevMatchCode();
+	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "Increase index.");
+	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 10.0f), "Throttle for index 1.");
 }

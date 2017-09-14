@@ -72,8 +72,8 @@ typedef struct
 	// Base + 0x24
 	char RevMatchCalibrationIndex;
 	char RevMatchCalibrationIndexChanged;
+	char RevMatchCalibrationThrottleChanged;
 	char RevMatchFromGear;
-	char unused3;
 	
 	// Base + 0x28
 	unsigned int RevMatchConditionStart;
@@ -86,11 +86,14 @@ typedef struct
 	
 	// Base + 0x34
 	float CounterAsFloat;
+	
+	// Base + 0x38
+	float RevMatchCalibrationThrottle;
 } RamVariables;
 
 // For A2WC522N, RAM from 0xFFA000 - 00FFBFCF is apparently unused (8,143 bytes)
 // The previous 8k appears unused as well, FF8000 - FF9FFF.
-// However the previous 8K (FF6000-FF7FFF) is definitely used by the ECU.
+// However the previous-previous 8K (FF6000-FF7FFF) is definitely used by the ECU.
 #define pRamVariables             ((RamVariables*) 0xFFFFA000)
 
 #define MafVoltageToInternalUnits 13107.20005368709

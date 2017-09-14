@@ -316,7 +316,29 @@ enum RevMatchStates EvaluateTransitionExpired()
 	return 0;	
 }
 
-void UpdateState() __attribute__ ((section ("RomHole_RevMatchCode")));
+void SetCalibrationThrottle(void) __attribute__((section("RomHole_RevMatchCode")));
+void SetCalibrationThrottle()
+{
+	if (pRamVariables->RevMatchCalibrationIndex < 0)
+	{
+		pRamVariables->RevMatchCalibrationIndex = 0;
+	}
+
+	if (pRamVariables->RevMatchCalibrationIndex >= RevMatchTable.elementCount)
+	{
+		pRamVariables->RevMatchCalibrationIndex = RevMatchTable.elementCount - 1;
+	}
+
+	float target = RevMatchTable.inputArray[pRamVariables->RevMatchCalibrationIndex];
+
+	// Setting these variables isn't strictly necessary but it gives the unit tests
+	// an additional way to verify that we've taken the expected code path.
+	pRamVariables->UpshiftRpm = pRamVariables->DownshiftRpm = RpmWindow(target);
+	
+	pRamVariables->RevMatchCalibrationThrottle = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
+}
+
+void UpdateState() __attribute__((section("RomHole_RevMatchCode")));
 void UpdateState()
 {
 	// Reset when shutting down or starting up.
@@ -331,54 +353,110 @@ void UpdateState()
 	}
 
 	RamVariables *pRV = pRamVariables;
-	
+
 	if (pRamVariables->RevMatchTransitionEvaluator == 0)
 	{
 		// Should never happen - set breakpoint here.
 		return;
 	}
-	
+
 	enum RevMatchStates nextState = (*(pRamVariables->RevMatchTransitionEvaluator))();
 	if (nextState == 0)
 	{
 		return;
 	}
-	
+
 	pRamVariables->RevMatchState = nextState;
 	pRamVariables->RevMatchTimeoutStart = 0;
 	pRamVariables->RevMatchConditionStart = 0;
-	
-	switch(nextState)
+
+	switch (nextState)
 	{
-		case RevMatchAlmostEnabled:
-			pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionAlmostEnabled;
-			break;
+	case RevMatchAlmostEnabled:
+		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionAlmostEnabled;
+		break;
 
-		case RevMatchEnabled:
-			pRamVariables->RevMatchFromGear = *pCurrentGear;
-			pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionEnabled;
-			break;
-			
-		case RevMatchReadyForAccelerationDownshift:
-			pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionReadyForAccelerationDownshift;
-			break;
-			
-		case RevMatchDecelerationDownshift:
-			pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionDecelerationDownshift;
-			break;
+	case RevMatchEnabled:
+		pRamVariables->RevMatchFromGear = *pCurrentGear;
+		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionEnabled;
+		break;
 
-		case RevMatchAccelerationDownshift:
-			pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionAccelerationDownshift;
-			break;
-			
-		case RevMatchCalibration:
-			pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionCalibration;
-			pRamVariables->RevMatchCalibrationIndex = 0;
-			break;
-			
-		case RevMatchExpired:
-			pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionExpired;
-			break;
+	case RevMatchReadyForAccelerationDownshift:
+		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionReadyForAccelerationDownshift;
+		break;
+
+	case RevMatchDecelerationDownshift:
+		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionDecelerationDownshift;
+		break;
+
+	case RevMatchAccelerationDownshift:
+		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionAccelerationDownshift;
+		break;
+
+	case RevMatchCalibration:
+		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionCalibration;
+		pRamVariables->RevMatchCalibrationIndex = 0;
+		SetCalibrationThrottle();
+		break;
+
+	case RevMatchExpired:
+		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionExpired;
+		break;
+	}
+}
+
+void AdjustCalibrationThrottle(void) __attribute__((section("RomHole_RevMatchCode")));
+void AdjustCalibrationThrottle()
+{
+	if (*pCruiseFlagsA & CruiseFlagsAResumeAccel)
+	{
+		if (pRamVariables->RevMatchCalibrationThrottleChanged == 0)
+		{
+			pRamVariables->RevMatchCalibrationThrottle += 0.5;
+			pRamVariables->RevMatchCalibrationThrottleChanged = 1;
+		}
+	}
+	else if (*pCruiseFlagsA & CruiseFlagsASetCoast)
+	{
+		if (pRamVariables->RevMatchCalibrationThrottleChanged == 0)
+		{
+			pRamVariables->RevMatchCalibrationThrottle -= 0.5;
+			pRamVariables->RevMatchCalibrationThrottleChanged = 1;
+		}
+	}
+	else
+	{
+		pRamVariables->RevMatchCalibrationThrottleChanged = 0;
+	}
+}
+
+void AdjustCalibrationIndex(void) __attribute__((section("RomHole_RevMatchCode")));
+void AdjustCalibrationIndex()
+{
+	if (*pCruiseFlagsA & CruiseFlagsAResumeAccel)
+	{
+		if (pRamVariables->RevMatchCalibrationIndexChanged == 0)
+		{
+			pRamVariables->RevMatchCalibrationIndex++;
+			pRamVariables->RevMatchCalibrationIndexChanged = 1;
+		}
+	}
+	else if (*pCruiseFlagsA & CruiseFlagsASetCoast)
+	{
+		if (pRamVariables->RevMatchCalibrationIndexChanged == 0)
+		{
+			pRamVariables->RevMatchCalibrationIndex--;
+			pRamVariables->RevMatchCalibrationIndexChanged = 1;
+		}
+	}
+	else
+	{
+		pRamVariables->RevMatchCalibrationIndexChanged = 0;
+	}
+
+	if (pRamVariables->RevMatchCalibrationIndexChanged == 1)
+	{		 
+		SetCalibrationThrottle();
 	}
 }
 
@@ -397,8 +475,12 @@ void RevMatchCode()
 	
 	UpdateCounter();
 	UpdateState();
-	SetTargetRpm();
-	
+
+	if (pRamVariables->RevMatchState != RevMatchCalibration)
+	{
+		SetTargetRpm();
+	}
+
 	if (*pCoolantTemperature < MinCoolantTemperature)
 	{
 		return;
@@ -428,49 +510,28 @@ void RevMatchCode()
 		
 	if (pRamVariables->RevMatchState == RevMatchCalibration)
 	{
-		// Check the clutch again, just to be 100% certain that this
-		// code never opens the throttle without the clutch pressed.
-		if (!(*pCruiseFlagsA & CruiseFlagsAClutch) || (*pSpeed > 1))
+		if (*pCruiseFlagsA & CruiseFlagsACancel)
 		{
-			pRamVariables->RevMatchState = RevMatchEnabled;
-			return;
-		}
-		
-		if (*pCruiseFlagsA & CruiseFlagsAResumeAccel)
-		{
-			if (pRamVariables->RevMatchCalibrationIndexChanged == 0)
-			{
-				pRamVariables->RevMatchCalibrationIndex++;
-				pRamVariables->RevMatchCalibrationIndexChanged = 1;
-			}
-		}
-		else if (*pCruiseFlagsA & CruiseFlagsASetCoast)
-		{
-			if (pRamVariables->RevMatchCalibrationIndexChanged == 0)
-			{
-				pRamVariables->RevMatchCalibrationIndex--;
-				pRamVariables->RevMatchCalibrationIndexChanged = 1;
-			}
+			AdjustCalibrationIndex();
 		}
 		else
 		{
-			pRamVariables->RevMatchCalibrationIndexChanged = 0;
+			AdjustCalibrationThrottle();
 		}
 
-		if (pRamVariables->RevMatchCalibrationIndex < 0)
+		// Check the clutch again, just to be 100% certain that this
+		// code never opens the throttle without the clutch pressed.
+		// The speed < 1 condition should mean the car isn't moving, 
+		// with a small allowance for possible noise from the sensor.
+		if ((*pCruiseFlagsA & CruiseFlagsAClutch) && (*pSpeed < 1))
 		{
-			pRamVariables->RevMatchCalibrationIndex = 0;
+			*pTargetThrottlePlatePosition_Out = pRamVariables->RevMatchCalibrationThrottle;
 		}
-
-		if (pRamVariables->RevMatchCalibrationIndex >= RevMatchTable.elementCount)
+		else
 		{
-			pRamVariables->RevMatchCalibrationIndex = RevMatchTable.elementCount - 1;
+			pRamVariables->RevMatchState = RevMatchEnabled;
 		}
-		
-		float target = RevMatchTable.inputArray[pRamVariables->RevMatchCalibrationIndex];
-		pRamVariables->DownshiftRpm = RpmWindow(target);
-		*pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
-		
+					
 		return;
 	}
 

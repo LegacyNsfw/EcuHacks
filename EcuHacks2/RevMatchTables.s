@@ -62,10 +62,10 @@ _RevMatchInputValues:
 .float 6500
 
 _RevMatchOutputValues:
-.float 8.6
-.float 12.75
-.float 16.5
-.float 21.75
+.float 7
+.float 10
+.float 14
+.float 18
 
 .end
 
