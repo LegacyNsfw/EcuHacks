@@ -396,6 +396,8 @@ void UpdateState()
 	case RevMatchCalibration:
 		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionCalibration;
 		pRamVariables->RevMatchCalibrationIndex = 0;
+		pRamVariables->RevMatchCalibrationThrottleChanged = 0;
+		pRamVariables->RevMatchCalibrationIndexChanged = 0;
 		SetCalibrationThrottle();
 		break;
 
@@ -518,7 +520,7 @@ void RevMatchCode()
 		
 	if (pRamVariables->RevMatchState == RevMatchCalibration)
 	{
-		if (*pCruiseFlagsA & CruiseFlagsACancel)
+		if (*pCruiseFlagsA & CruiseFlagsAEnableButton)
 		{
 			AdjustCalibrationIndex();
 		}

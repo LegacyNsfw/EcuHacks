@@ -41,11 +41,11 @@ _ResetHandler:
 				jsr		@r0			
 				nop
 
-				mov.l	RevMatchStateUnitTests,r0
+				mov.l	RevMatchStateTests,r0
 				jsr		@r0
 				nop
 
-				mov.l	RevMatchUnitTests,r0
+				mov.l	RevMatchDownshiftTests,r0
 				jsr		@r0
 				nop
 
@@ -119,11 +119,11 @@ RevLimiterUnitTests:
 SpeedDensityUnitTests:
 		.long   _SpeedDensityUnitTests
 
-RevMatchStateUnitTests:
-		.long	_RevMatchStateUnitTests
+RevMatchStateTests:
+		.long	_RevMatchStateTests
 
-RevMatchUnitTests:
-		.long	_RevMatchUnitTests
+RevMatchDownshiftTests:
+		.long	_RevMatchDownshiftTests
 
 RevMatchCalibrationIndexTests:
 		.long	_RevMatchCalibrationIndexTests
