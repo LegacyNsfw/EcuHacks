@@ -46,8 +46,14 @@ SpeedDensityCodePatch:
 RevMatchHookPatch:
 		.long	Replace4Bytes
 		.long	0x00011860			!! address
-		.long	0x0003E604			!! old value
+		.long	0x0003E60E			!! old value 
 		.long	_RevMatchCode		!! new value
+
+RevMatchAcceleratorHookPatch:
+		.long	Replace4Bytes
+		.long	0x00021A2C			!! address
+		.long	0x00022B3C			!! old value
+		.long	_UpdateAcceleratorPedalAngle !! new value
 		
 RevMatchCodePatch:
 		.long	Patch

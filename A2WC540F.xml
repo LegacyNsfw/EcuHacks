@@ -188,7 +188,16 @@
 		</table>
 	</table>
 
-	<table name="Delays" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="Delay(ms)">
+	<table name="Simulated Accelerator Pedal" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="%">
+		<description>The ECU will be given this value for the accelerator pedal position during rev matching, to avoid fuel-cut.
+It should be set high enough to prevent the ECU from cutting fuel, but not much higher.
+This value DOES NOT affect the actual throttle plate opening angle during rev matching. </description>
+		<table name="Threshold" type="Static Y Axis" elements="1">
+			<data>Accelerator Pedal Position</data>
+		</table>
+	</table>
+
+	<table name="Delays" category="NSFW - Rev Matching" address="90834" type="2D" level="4" scaling="Delay(ms)">
 		<description>Time periods, in milliseconds.</description>
 		<table name="Interval" type="Static Y Axis" elements="4">
 			<data>Throttle Takeover Duration</data>
@@ -198,8 +207,8 @@
 		</table>
 	</table>
 
-	<table name="Throttle Plate Angle" category="NSFW - Rev Matching" address="90850" type="2D" level="4" scaling="%">
+	<table name="Throttle Plate Angle" category="NSFW - Rev Matching" address="90860" type="2D" level="4" scaling="%">
 		<description>Determines the throttle plate angle to achieve the desired target RPM.</description>
-		<table name="Target RPM" address="90840" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
+		<table name="Target RPM" address="90850" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
 	</table>
 </rom>

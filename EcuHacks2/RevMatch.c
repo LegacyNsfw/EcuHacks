@@ -461,19 +461,30 @@ void AdjustCalibrationIndex()
 	}
 }
 
-void DisableFuelCut(void) __attribute__((section("RomHole_RevMatchCode")));
+void UpdateAcceleratorPedalAngle() __attribute__ ((section ("RomHole_RevMatchCode")));
+void UpdateAcceleratorPedalAngle()
+{
+	if ((*pCruiseFlagsA & CruiseFlagsAClutch) &&
+		((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
+		(pRamVariables->RevMatchState == RevMatchAccelerationDownshift) ||
+		(pRamVariables->RevMatchState == RevMatchCalibration)))
+	{
+		*pAcceleratorPedal_Out = RevMatchFakeAccelerator; 
+	}
+	else
+	{
+		*pAcceleratorPedal_Out = *pAcceleratorPedal_In;
+	}
+}
+
+void DisableFuelCut() __attribute__((section("RomHole_RevMatchCode")));
 void DisableFuelCut()
 {
-	// Lie about the throttle pedal and requested torque.
-	// Might need to make these configurable, but probably not.
-	*pThrottlePedal = 25.0f;
-	*pRequestedTorque = 75.0f;
-
 	// Clear the 0x80 bit.
 	*pOverrunFuelCutFlags &= ~(OverrunFuelCutBit);
 }
 
-void RevMatchCode(void) __attribute__ ((section ("RomHole_RevMatchCode")));
+void RevMatchCode() __attribute__ ((section ("RomHole_RevMatchCode")));
 void RevMatchCode()
 {
 	// These nopcodes are just here to make it easier to distinguish between code

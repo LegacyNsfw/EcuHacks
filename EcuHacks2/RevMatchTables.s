@@ -21,6 +21,11 @@ _StartOfRevMatchTables:
 .global _MinTargetRpm
 .global _MaxTargetRpm
 .global _MinCoolantTemperature
+.global _RevMatchFakeAccelerator
+.global _RevMatchUnusedFloat1 !! Reserved for future use
+.global _RevMatchUnusedFloat2
+.global _RevMatchUnusedFloat3
+
 .global _RevMatchDuration
 .global _RevMatchAccelerationDownshiftReadyDuration
 .global _RevMatchEnableDelay
@@ -41,6 +46,11 @@ _MinTargetRpm:     .float 1000
 _MaxTargetRpm:     .float 7000
 
 _MinCoolantTemperature: .float 71 !! 160F
+_RevMatchFakeAccelerator: .float 10 !! This prevents the ECU from cutting fuel
+_RevMatchUnusedFloat1:    .float 0 !! Reserved for future use
+_RevMatchUnusedFloat2:    .float 0
+_RevMatchUnusedFloat3:    .float 0
+
 
 _RevMatchDuration:           .int 250 !! 125 iterations/second, so this is 2 seconds
 _RevMatchAccelerationDownshiftReadyDuration: .int 250 !! 2 seconds
