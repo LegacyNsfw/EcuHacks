@@ -57,13 +57,18 @@ int GetFuelCutFlag()
 void RevLimiterUnitTests() __attribute__ ((section ("Misc")));
 void RevLimiterUnitTests()
 {
+	pRamVariables->UpshiftRpm = 6500;
+	const float FfsCut = 6550;
+	const float FfsResume = 6450;
+	
+	*pThrottlePedal = 95.0f;
 	*pRPM = LaunchControlCut + 1000;
 	*pSpeed = 0.0f;
 	SetClutch(0);
 	RevLimitPatch();
 	Assert(!GetFuelCutFlag(), "Normal stopped: Allow fuel at LaunchControlCut + 1000 RPM, stopped, no clutch");
 	
-	*pRPM = FlatFootShiftCut + 1000;
+	*pRPM = FfsCut + 10;
 	*pSpeed = 0.0f;
 	SetClutch(0);
 	RevLimitPatch();
@@ -75,7 +80,7 @@ void RevLimiterUnitTests()
 	RevLimitPatch();
 	Assert(!GetFuelCutFlag(), "Normal moving: Allow fuel at LaunchControlCut + 1000 RPM, moving, no clutch");
 	
-	*pRPM = FlatFootShiftCut + 1000;
+	*pRPM = FfsCut + 10;
 	*pSpeed = 20.0f;
 	SetClutch(0);
 	RevLimitPatch();
@@ -99,19 +104,19 @@ void RevLimiterUnitTests()
 	RevLimitPatch();
 	Assert(!GetFuelCutFlag(), "Launch Control: Resume fuel at LaunchControlResume - 1 RPM, standstill, clutch pressed");
 	
-	*pRPM = FlatFootShiftCut - 1;
+	*pRPM = FfsCut - 1;
 	*pSpeed = 20.0f;
 	SetClutch(1);
 	RevLimitPatch();
 	Assert(!GetFuelCutFlag(), "Flat Foot Shifting: Allow fuel at FlatFootShiftCut - 1 RPM, moving, clutch pressed");
 	
-	*pRPM = FlatFootShiftCut + 1;
+	*pRPM = FfsCut + 1;
 	*pSpeed = 20.0f;
 	SetClutch(1);
 	RevLimitPatch();
 	Assert(GetFuelCutFlag(), "Flat Foot Shifting: Cut fuel at FlatFootShiftCut + 1 RPM, moving, clutch pressed");	
 
-	*pRPM = FlatFootShiftResume - 1;
+	*pRPM = FfsResume - 1;
 	*pSpeed = 20.0f;
 	SetClutch(1);
 	RevLimitPatch();
@@ -134,6 +139,15 @@ void RevLimiterUnitTests()
 	SetClutch(0);
 	RevLimitPatch();
 	Assert(!GetFuelCutFlag(), "Redline: Resume fuel at RedlineResume - 1 RPM, moving, clutch not pressed");
+	
+	// Verify the upper-limit sanity check
+	pRamVariables->UpshiftRpm = 9000;
+
+	*pRPM = RedlineCut + 1;
+	*pSpeed = 20.0f;
+	SetClutch(1);
+	RevLimitPatch();
+	Assert(GetFuelCutFlag(), "Flat Foot Shifting: Cut fuel at RedlineCut + 1 RPM, when rev match cut is too high");	
 	
 	// Verify the other bits in the rev limiter flag are not modified.
 	*pRPM = 6000.0f;
@@ -158,6 +172,7 @@ void RevLimiterUnitTests()
 	// Sanity check the defaults
 	Assert(RedlineCut > RedlineResume, "Redline cut/resume sanity.");
 	Assert(LaunchControlCut > LaunchControlResume, "LaunchControl cut/resume sanity.");
-	Assert(FlatFootShiftCut > FlatFootShiftResume, "FlatFootShift cut/resume sanity.");
+	Assert(RevMatchFfsFuelCutDelta > 0, "FlatFootShift cut sanity.");
+	Assert(RevMatchFfsFuelResumeDelta < 0, "FlatFootShift resume sanity.");
 }
 

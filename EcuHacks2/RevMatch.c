@@ -377,7 +377,6 @@ void UpdateState()
 		break;
 
 	case RevMatchEnabled:
-		pRamVariables->RevMatchFromGear = *pCurrentGear;
 		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionEnabled;
 		break;
 
@@ -465,8 +464,13 @@ void AdjustCalibrationIndex()
 void DisableFuelCut(void) __attribute__((section("RomHole_RevMatchCode")));
 void DisableFuelCut()
 {
+	// Lie about the throttle pedal and requested torque.
+	// Might need to make these configurable, but probably not.
+	*pThrottlePedal = 25.0f;
+	*pRequestedTorque = 75.0f;
+
 	// Clear the 0x80 bit.
-	*pOverrunFuelCutFlags &= ~OverrunFuelCutBit;
+	*pOverrunFuelCutFlags &= ~(OverrunFuelCutBit);
 }
 
 void RevMatchCode(void) __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -488,6 +492,14 @@ void RevMatchCode()
 	if (pRamVariables->RevMatchState != RevMatchCalibration)
 	{
 		SetTargetRpm();
+	}
+
+	if (!(*pCruiseFlagsA & CruiseFlagsAClutch))
+	{
+		// We only update our copy of this variable while the clutch is not pressed.
+		// The ECU will keep guessing at the current gear even while the clutch IS
+		// pressed, which causes to guess wrong at times.
+		pRamVariables->RevMatchFromGear = *pCurrentGear;
 	}
 
 	if (*pCoolantTemperature < MinCoolantTemperature)

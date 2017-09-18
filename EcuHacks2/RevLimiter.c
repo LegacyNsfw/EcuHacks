@@ -92,9 +92,30 @@ void RevLimiterCode()
 	{
 		if (*pSpeed > FlatFootShiftSpeedThreshold)
 		{
-			// Flat foot shift rev limiter thresholds.
-			fuelCut = FlatFootShiftCut;
-			fuelResume = FlatFootShiftResume;
+			if (*pThrottlePedal > 90.0f)
+			{
+				// Flat foot shift rev limiter thresholds.
+				float revMatchFuelCut = pRamVariables->UpshiftRpm + RevMatchFfsFuelCutDelta;
+				float revMatchFuelResume = pRamVariables->UpshiftRpm + RevMatchFfsFuelResumeDelta;
+				
+				// Use the lower limit, in case of misconfiguration.
+				fuelCut = revMatchFuelCut < RedlineCut ? revMatchFuelCut : RedlineCut;
+				fuelResume = revMatchFuelResume < RedlineResume ? revMatchFuelResume : RedlineResume;
+				
+				if (fuelResume >= fuelCut)
+				{
+					fuelResume = fuelCut - 100;
+				}
+			}
+			else
+			{
+				// Normal rev limiter thresholds.
+				//
+				// This code path is used when shifting gears, with
+				// or without the rev match hack.
+				fuelCut = RedlineCut;
+				fuelResume = RedlineResume;
+			}
 		}
 		else
 		{
@@ -131,8 +152,8 @@ void GetRevLimiterTableInfo()
 	address = &LaunchControlCut;
 	address = &LaunchControlResume;
 	
-	address = &FlatFootShiftCut;
-	address = &FlatFootShiftResume;
+	address = &RevMatchFfsFuelCutDelta;
+	address = &RevMatchFfsFuelResumeDelta;
 	
 	address = &FlatFootShiftSpeedThreshold;
 }

@@ -116,10 +116,10 @@
 	</table>
 
 	<table name="Fuel Cut (Flat Foot Shifting)" category="NSFW - Fuel Cut" address="90008" type="2D" level="4" scaling="EngineSpeed(RPM)1">
-		<description>These are the engine speeds at which the rev limiter is engaged and disengaged, when the clutch is pressed and vehicle speed is greater than the FFS threshold.</description>
+		<description>These are the offsets, relative to the rev-match target RPM, for fuel cut and fuel resume during flat-foot shifting.</description>
 		<table name="Flat Foot Shifting Fuel Cut" type="Static Y Axis" elements="2">
-			<data>Cut Fuel Above</data>
-			<data>Resume Fuel Below</data>
+			<data>Fuel Cut Delta (must be positive)</data>
+			<data>Fuel Resume Delta (must be negative)</data>
 		</table>
 	</table>
 
@@ -138,31 +138,31 @@
 		</table>
 	</table>
 
-	<table name="Engine Displacement" category="Fueling - Speed Density" address="9020c" type="2D" level="2" scaling="engine displacement">
+	<table name="Engine Displacement" category="NSFW - Speed Density" address="9020c" type="2D" level="2" scaling="engine displacement">
 		<description>Engine size in cc</description>
 		<table type="Static Y Axis" elements="1">
 			<data>Engine Displacement (cc)</data>
 		</table>
 	</table>
 
-	<table name="Speed Density Enable" category="Fueling - Speed Density" address="90200" type="1D" scaling="FuelingMode">
+	<table name="Speed Density Enable" category="NSFW - Speed Density" address="90200" type="1D" scaling="FuelingMode">
 		<description>Enabled: use speed-density fueling. Disabled: use MAF fueling.</description>
 	</table>
 
-	<table name="Volumetric Efficiency" category="Fueling - Speed Density" address="902a8" type="3D" level="2" scaling="VE(%)">
+	<table name="Volumetric Efficiency" category="NSFW - Speed Density" address="902a8" type="3D" level="2" scaling="VE(%)">
 		<description>This is the Volumetric efficiency of the engine.</description>
 		<table name="Manifold Pressure" address="9022c" type="X Axis" elements="13" scaling="psirelativesealevel"/>
 		<table name="Engine Speed" address="90260" type="Y Axis" elements="18" scaling="RPM"/>
 	</table>
 
-	<table name="Atmospheric Pressure Compensation" category="Fueling - Speed Density" address="904d0" type="3D" level="2" scaling="VEcomp">
+	<table name="Atmospheric Pressure Compensation" category="NSFW - Speed Density" address="904d0" type="3D" level="2" scaling="VEcomp">
 		<description>This is the Volumetric efficiency of the engine.</description>
 		<table name="Manifold Pressure" address="90498" type="X Axis" elements="7" scaling="psiabsolute"/>
 		<table name="Atmospheric Pressure" address="904b4" type="Y Axis" elements="7" scaling="psiabsolute"/>
 	</table>
 
-	<table name="Gear Multipliers" category="Rev Matching" address="90800" type="2D" level="4" scaling="%">
-		<description>These translate vehicle speed into a target RPM for upshifting or downshifting.</description>
+	<table name="Gear Multipliers" category="NSFW - Rev Matching" address="90800" type="2D" level="4" scaling="%">
+		<description>These translate vehicle speed into a target RPM for upshifting or downshifting. Determine the correct values for your transmission by logging the 'Rev Match Gear Multiplier' parameter.</description>
 		<table name="Gear" type="Static Y Axis" elements="6">
 			<data>1st</data>
 			<data>2nd</data>
@@ -173,7 +173,7 @@
 		</table>
 	</table>
 
-	<table name="Target RPM Limits" category="Rev Matching" address="90818" type="2D" level="4" scaling="EngineSpeed(RPM)1">
+	<table name="Target RPM Limits" category="NSFW - Rev Matching" address="90818" type="2D" level="4" scaling="EngineSpeed(RPM)1">
 		<description>These limit the maximum and minimum target RPM when upshifting or downshifting.</description>
 		<table name="Limit" type="Static Y Axis" elements="2">
 			<data>Minimum</data>
@@ -181,14 +181,14 @@
 		</table>
 	</table>
 
-	<table name="Coolant Temperature Threshold" category="Rev Matching" address="90820" type="2D" level="4" scaling="CoolantTemp(DegreesF)">
+	<table name="Coolant Temperature Threshold" category="NSFW - Rev Matching" address="90820" type="2D" level="4" scaling="CoolantTemp(DegreesF)">
 		<description>Minimum coolant temperature in order to enable the rev matching.</description>
 		<table name="Threshold" type="Static Y Axis" elements="1">
 			<data>Minimum Coolant Temperature</data>
 		</table>
 	</table>
 
-	<table name="Delays" category="Rev Matching" address="90824" type="2D" level="4" scaling="Delay(ms)">
+	<table name="Delays" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="Delay(ms)">
 		<description>Time periods, in milliseconds.</description>
 		<table name="Interval" type="Static Y Axis" elements="4">
 			<data>Throttle Takeover Duration</data>
@@ -198,7 +198,7 @@
 		</table>
 	</table>
 
-	<table name="Throttle Plate Angle" category="Rev Matching" address="90850" type="2D" level="4" scaling="%">
+	<table name="Throttle Plate Angle" category="NSFW - Rev Matching" address="90850" type="2D" level="4" scaling="%">
 		<description>Determines the throttle plate angle to achieve the desired target RPM.</description>
 		<table name="Target RPM" address="90840" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
 	</table>

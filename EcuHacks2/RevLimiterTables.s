@@ -13,13 +13,13 @@ _StartOfRevLimiterTables:
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 .global _RedlineCut, _RedlineResume
 .global _LaunchControlCut, _LaunchControlResume, 
-.global _FlatFootShiftCut, _FlatFootShiftResume,
+.global _RevMatchFfsFuelCutDelta, _RevMatchFfsFuelResumeDelta
 .global _FlatFootShiftSpeedThreshold
 
 _RedlineCut:					.float 7200
 _RedlineResume:					.float 7100
-_FlatFootShiftCut:				.float 5000
-_FlatFootShiftResume:			.float 4500
+_RevMatchFfsFuelCutDelta:       .float 50  !! RPM offset from rev match
+_RevMatchFfsFuelResumeDelta:    .float -50 !! RPM offset from rev match
 _FlatFootShiftSpeedThreshold:	.float 5
 _LaunchControlCut:				.float 4000
 _LaunchControlResume:			.float 3999

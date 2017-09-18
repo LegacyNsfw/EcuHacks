@@ -8,6 +8,7 @@
 #define pFlagsRevLimit_0x80       ((char*) 0xFFFF5A40)
 #define pCruiseFlagsA             ((char*) 0xFFFF4D65)
 #define pLeftTgvVoltage           ((float*)0xFFFF2D2C)
+#define pThrottlePedal            ((float*)0xFFFF5134)
 
 // Existing variables needed for the speed-density hack
 #define pAtmosphericPressure      ((float*)0xFFFF2E34)
@@ -31,10 +32,19 @@
 // tiny, as it literally did NOTHING else).
 #define pTargetThrottlePlatePosition_Out ((float*)0xFFFF5EC4) 
 
+// This is probably the value from the throttle pedal sensor.
+// There are only two references to this - one sets it, the 
+// other copies it to the _Out variable below.
+#define pThrottlePedal_In                ((float*)0xFFFF518C)
+
+// This is what most of the ECU code looks at.
+#define pThrottlePedal_Out               ((float*)0xFFFF5134)
+
 // Both came from the AssignGearCalculatedExt function, which was
 // found by searching for references to the gear position tables.
 #define pCurrentGear                     ((char*) 0xFFFF52F9)
 #define pGearFactor                      ((float*)0xFFFF52FC)
+#define pRequestedTorque                 ((float*)0xFFFF5F18)
 #define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08)
 #define OverrunFuelCutBit 0x80
 
@@ -210,7 +220,7 @@ extern int DefaultMafMode;
 
 extern float RedlineCut, RedlineResume;
 extern float LaunchControlCut, LaunchControlResume;
-extern float FlatFootShiftCut, FlatFootShiftResume;
+extern float RevMatchFfsFuelCutDelta, RevMatchFfsFuelResumeDelta;
 extern float FlatFootShiftSpeedThreshold;
 
 #define MAX_COUNTER 1000000

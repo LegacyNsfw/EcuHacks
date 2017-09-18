@@ -42,10 +42,10 @@ _MaxTargetRpm:     .float 7000
 
 _MinCoolantTemperature: .float 71 !! 160F
 
-_RevMatchDuration:          .int 125 !! 125 iterations/second, so this is 1 second
-_RevMatchAccelerationDownshiftReadyDuration: .int 125 !! 1 second
-_RevMatchEnableDelay:       .int 125 !! 1 second
-_RevMatchCalibrationDelay:  .int 625 !! 5 seconds
+_RevMatchDuration:           .int 250 !! 125 iterations/second, so this is 2 seconds
+_RevMatchAccelerationDownshiftReadyDuration: .int 250 !! 2 seconds
+_RevMatchEnableDelay:        .int 125 !! 1 second
+_RevMatchCalibrationDelay:   .int 625 !! 5 seconds
 
 _RevMatchTable: 
 .byte 00
@@ -56,13 +56,13 @@ _RevMatchTable:
 .long _RevMatchOutputValues
 
 _RevMatchInputValues:
-.float 2000
-.float 3500
+.float 1000
+.float 3000
 .float 5000
 .float 6500
 
 _RevMatchOutputValues:
-.float 7
+.float 4.5
 .float 10
 .float 14
 .float 18
