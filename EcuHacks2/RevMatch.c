@@ -464,16 +464,19 @@ void AdjustCalibrationIndex()
 void UpdateAcceleratorPedalAngle() __attribute__ ((section ("RomHole_RevMatchCode")));
 void UpdateAcceleratorPedalAngle()
 {
-	if ((*pCruiseFlagsA & CruiseFlagsAClutch) &&
-		((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
+	// The default behavior
+	*pAcceleratorPedal_Out = *pAcceleratorPedal_In;
+	
+	if (!(*pCruiseFlagsA & CruiseFlagsAClutch))
+	{
+		return;
+	}
+	
+	if ((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
 		(pRamVariables->RevMatchState == RevMatchAccelerationDownshift) ||
-		(pRamVariables->RevMatchState == RevMatchCalibration)))
+		(pRamVariables->RevMatchState == RevMatchCalibration))
 	{
 		*pAcceleratorPedal_Out = RevMatchFakeAccelerator; 
-	}
-	else
-	{
-		*pAcceleratorPedal_Out = *pAcceleratorPedal_In;
 	}
 }
 
