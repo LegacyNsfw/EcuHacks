@@ -467,6 +467,7 @@ void UpdateAcceleratorPedalAngle()
 	// The default behavior
 	*pAcceleratorPedal_Out = *pAcceleratorPedal_In;
 	
+	// Safety check...
 	if (!(*pCruiseFlagsA & CruiseFlagsAClutch))
 	{
 		return;
