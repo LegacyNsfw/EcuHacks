@@ -212,7 +212,11 @@ This value DOES NOT affect the actual throttle plate opening angle during rev ma
 		<table name="Target RPM" address="90850" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
 	</table>
 
-  <table name="Accelerator Pedal Weirdness Threshold" category="Misc" address="c2574" type="1D" level="1" scaling="VehicleSpeed(MPH)">
+  <table name="Accelerator Pedal Weirdness Threshold A" category="Misc" address="c2574" type="1D" level="1" scaling="VehicleSpeed(MPH)">
+    <description>Increase this to 500 to skip a bunch of inscrutable code that modifies the accelerator position.</description>
+  </table>
+
+  <table name="Accelerator Pedal Weirdness Threshold B" category="Misc" address="c2548" type="1D" level="1" scaling="VehicleSpeed(MPH)">
     <description>Increase this to 500 to skip a bunch of inscrutable code that modifies the accelerator position.</description>
   </table>
 
