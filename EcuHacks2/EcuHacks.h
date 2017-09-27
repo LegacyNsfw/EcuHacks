@@ -32,21 +32,21 @@
 // tiny, as it literally did NOTHING else).
 #define pTargetThrottlePlatePosition_Out ((float*)0xFFFF5EC4) 
 
-// This is apparently the value straight from the pedal sensor.
-// There are only two references to this - one sets it, the 
-// other copies it to the _Out variable. Perfect for hooking.
-#define pAcceleratorPedal_In                ((float*)0xFFFF518C)
+// This is the value straight from the pedal sensor.
+// We need to overwrite it during rev matching to defeat a
+// fuel-cut that takes effect when the driver's foot comes
+// off the pedal at high RPM.
+// Note that this ranges from 6.8 to 23.04 (weird).
+#define pAcceleratorPedalPositionRaw     ((float*)0xFFFF2FC0)
 
-// This is what most of the ECU code looks at.
-#define pAcceleratorPedal_Out               ((float*)0xFFFF5134)
-
-// Both came from the AssignGearCalculatedExt function, which was
-// found by searching for references to the gear position tables.
+// Both of these values came from the AssignGearCalculatedExt 
+// function, which was found by searching for references to 
+// the gear position tables.
 #define pCurrentGear                     ((char*) 0xFFFF52F9)
 #define pGearFactor                      ((float*)0xFFFF52FC)
-//#define pRequestedTorque                 ((float*)0xFFFF5F18)
-#define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08)
-#define OverrunFuelCutBit 0x80
+
+//#define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08)
+//#define OverrunFuelCutBit 0x80
 
 typedef struct
 {
@@ -194,6 +194,9 @@ extern float Pull2d(TwoDimensionalTable *table, float value);
 
 // This is for calling Pull3d, with all parameters specified.
 extern float Pull3d(ThreeDimensionalTable *table, float columnValue, float rowValue);
+
+// This is the original code to read the accelerator pedal position.
+extern void ReadAcceleratorSensors();
 
 // Test utility functions.
 void TestFailed(char *message) __attribute__ ((section ("Misc")));

@@ -97,11 +97,6 @@ void RevMatchDownshiftTests()
 	Assert(pRamVariables->RevMatchState == RevMatchDecelerationDownshift, "Mode should be braking downshift");
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 11.462f), "Throttle changed - deceleration downshift yet again.");
 
-	// Confirm fuel-cut flag is cleared
-	*pOverrunFuelCutFlags = 0xFF;
-	RevMatchCode();
-	Assert((*pOverrunFuelCutFlags & OverrunFuelCutBit) == 0, "Fuel cut bit cleared.");
-
 	// Confirm no throttle change after countdown timer runs out.
 	int i;
 	for (i = 0; i < 125; i++)
@@ -518,11 +513,6 @@ void RevMatchCalibrationThrottleTests()
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "Increase index.");
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, throttleIndex1), "Throttle for index 1.");
-
-	// Confirm fuel-cut flag is cleared
-	*pOverrunFuelCutFlags = 0xFF;
-	RevMatchCode();
-	Assert((*pOverrunFuelCutFlags & OverrunFuelCutBit) == 0, "Fuel cut bit cleared.");
 }
 
 void RevMatchUpdateAcceleratorTests() __attribute__((section("Misc")));
@@ -533,57 +523,45 @@ void RevMatchUpdateAcceleratorTests()
 	// changed by mistake, the test will fail to draw attention to 
 	// that change.
 	const float FakeValue = 10.0f;
+	const float DefaultValue = 0.0f;
+	
+	*pAcceleratorPedalPositionRaw = 0;
 	
 	*pCruiseFlagsA = 0;
-	*pAcceleratorPedal_In = 12.3;
-	*pAcceleratorPedal_Out = 1.2;
 	pRamVariables->RevMatchState = RevMatchDisabled;
-	UpdateAcceleratorPedalAngle();
-	Assert(*pAcceleratorPedal_Out == 12.3, "Just copy.");
+	ModifyAcceleratorPedalAngle();
+	float t = *pAcceleratorPedalPositionRaw;
+	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change.");
 	
-	*pAcceleratorPedal_In = 12.3;
-	*pAcceleratorPedal_Out = 1.2;
 	pRamVariables->RevMatchState = RevMatchEnabled;
-	UpdateAcceleratorPedalAngle();
-	Assert(*pAcceleratorPedal_Out == 12.3, "Just copy.");
-	
-	*pAcceleratorPedal_In = 12.3;
-	*pAcceleratorPedal_Out = 1.2;
+	ModifyAcceleratorPedalAngle();
+	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change.");
+		
 	pRamVariables->RevMatchState = RevMatchDecelerationDownshift;
-	UpdateAcceleratorPedalAngle();
-	Assert(*pAcceleratorPedal_Out == 12.3, "Just copy (no clutch).");
+	ModifyAcceleratorPedalAngle();
+	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because no clutch).");
 	
-	*pAcceleratorPedal_In = 12.3;
-	*pAcceleratorPedal_Out = 1.2;
 	pRamVariables->RevMatchState = RevMatchAccelerationDownshift;
-	UpdateAcceleratorPedalAngle();
-	Assert(*pAcceleratorPedal_Out == 12.3, "Just copy (no clutch).");
+	ModifyAcceleratorPedalAngle();
+	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because no clutch).");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
-	*pAcceleratorPedal_In = 12.3;
-	*pAcceleratorPedal_Out = 1.2;
 	pRamVariables->RevMatchState = RevMatchEnabled;
-	UpdateAcceleratorPedalAngle();
-	Assert(*pAcceleratorPedal_Out == 12.3, "Just copy (due to rev match state).");
+	ModifyAcceleratorPedalAngle();
+	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because rev matching).");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
-	*pAcceleratorPedal_In = 12.3;
-	*pAcceleratorPedal_Out = 1.2;
 	pRamVariables->RevMatchState = RevMatchAccelerationDownshift;
-	UpdateAcceleratorPedalAngle();
-	Assert(*pAcceleratorPedal_Out == FakeValue, "Fake (acceleration downshift).");
+	ModifyAcceleratorPedalAngle();
+	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
-	*pAcceleratorPedal_In = 12.3;
-	*pAcceleratorPedal_Out = 1.2;
 	pRamVariables->RevMatchState = RevMatchDecelerationDownshift;
-	UpdateAcceleratorPedalAngle();
-	Assert(*pAcceleratorPedal_Out == FakeValue, "Fake (Deceleration downshift).");
+	ModifyAcceleratorPedalAngle();
+	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
-	*pAcceleratorPedal_In = 12.3;
-	*pAcceleratorPedal_Out = 1.2;
 	pRamVariables->RevMatchState = RevMatchCalibration;
-	UpdateAcceleratorPedalAngle();
-	Assert(*pAcceleratorPedal_Out == FakeValue, "Fake (calibration).");
+	ModifyAcceleratorPedalAngle();
+	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 }

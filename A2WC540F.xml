@@ -45,7 +45,9 @@
 
 	<scaling name="Delay(ms)" units="ms" toexpr="x*8" frexpr="x/8" format="%d" min="0" max="60000" inc="100" storagetype="uint32" endian="big"/>
 
-	<table name="Fuel Pump Duty" category="NSFW Beta" address="3ad04" type="2D" level="1" scaling="rawecuvalue">
+  <scaling name="ThrottleSensorValue" units="%" toexpr="(x-6.8)*6.157635" frexpr="(x/6.157635)+6.8" format="%.2f" min="0" max="100" inc="5" storagetype="float" endian="big"/>
+
+  <table name="Fuel Pump Duty" category="NSFW Beta" address="3ad04" type="2D" level="1" scaling="rawecuvalue">
 		<description>The ECU will set fuel pump duty cycle to 0%, 100%, or one of these two values.</description>
 		<table name="Fuel Pump Duty" type="Static Y Axis" elements="2">
 			<data>Medium</data>
@@ -188,7 +190,7 @@
 		</table>
 	</table>
 
-	<table name="Simulated Accelerator Pedal" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="%">
+	<table name="Simulated Accelerator Pedal" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="ThrottleSensorValue">
 		<description>The ECU will be given this value for the accelerator pedal position during rev matching, to avoid fuel-cut.
 It should be set high enough to prevent the ECU from cutting fuel, but not much higher.
 This value DOES NOT affect the actual throttle plate opening angle during rev matching. </description>
@@ -197,7 +199,18 @@ This value DOES NOT affect the actual throttle plate opening angle during rev ma
 		</table>
 	</table>
 
-	<table name="Delays" category="NSFW - Rev Matching" address="90834" type="2D" level="4" scaling="Delay(ms)">
+  <table name="Simulated Accelerator Pedal (Raw)" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="%">
+    <description>
+      The ECU will be given this value for the accelerator pedal position during rev matching, to avoid fuel-cut.
+      It should be set high enough to prevent the ECU from cutting fuel, but not much higher.
+      This value DOES NOT affect the actual throttle plate opening angle during rev matching.
+    </description>
+    <table name="Threshold" type="Static Y Axis" elements="1">
+      <data>Raw Accelerator Pedal Position</data>
+    </table>
+  </table>
+
+  <table name="Delays" category="NSFW - Rev Matching" address="90834" type="2D" level="4" scaling="Delay(ms)">
 		<description>Time periods, in milliseconds.</description>
 		<table name="Interval" type="Static Y Axis" elements="4">
 			<data>Throttle Takeover Duration</data>
