@@ -51,9 +51,9 @@ RevMatchHookPatch:
 
 RevMatchAcceleratorHookPatch:
 		.long	Replace4Bytes
-		.long	0x0000622C			!! address
-		.long	0x0000A734			!! old value
-		.long	_ModifyAcceleratorPedalAngle !! new value
+		.long	0x00006240			!! address
+		.long	_ReadAcceleratorPedal !! old value
+		.long	_ModifyAcceleratorPedal !! new value
 		
 RevMatchCodePatch:
 		.long	Patch

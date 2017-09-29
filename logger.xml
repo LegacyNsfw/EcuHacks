@@ -48564,8 +48564,16 @@
                 </conversions>
               </ecuparam>
 
+              <ecuparam id="E1197" name="AccPedal Inv-1 - AccPedal Alternate FromSensor" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF2DE4</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
 
-              
+
               <ecuparam id="E1200" name="AccPedal Inv-2 - DBW Throttle Pedal" desc="">
                 <ecu id="2F12785606">
                   <address length="4">FF5134</address>

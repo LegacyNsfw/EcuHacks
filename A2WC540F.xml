@@ -16,7 +16,7 @@
 	</romid>
 
 	<include>A2WC522N</include>
-	<scaling toexpr="x" frexpr="x" format="%.2f" min="0" max="0" inc="5" storagetype="float"/>
+	<scaling name="RawFloatAsInt" toexpr="x" frexpr="x" format="%d" min="0" max="0" inc="5" storagetype="float"/>
 	<scaling name="AVCS" toexpr="x*0.005493164" frexpr="x/0.005493164" format="%.3f" min="0" max="0" inc="0.1" storagetype="uint16" endian="big"/>
 	<scaling name="B1) Input B Deadband Threshold" toexpr="x*6.103516E-05" frexpr="x/6.103516E-05" format="%.3f" min="0" max="3.99994" inc="0.1" storagetype="uint16" endian="big"/>
 	<scaling name="B2) Input B Sigmoid" toexpr="x*0.0004882813-16" frexpr="(x+16)/0.0004882813" format="%.3f" min="-16" max="15.9995" inc="0.1" storagetype="uint16" endian="big"/>
@@ -199,7 +199,7 @@ This value DOES NOT affect the actual throttle plate opening angle during rev ma
 		</table>
 	</table>
 
-  <table name="Simulated Accelerator Pedal (Raw)" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="%">
+  <table name="Simulated Accelerator Pedal (Raw)" category="NSFW - Rev Matching" address="90824" type="1D" level="4" scaling="%">
     <description>
       The ECU will be given this value for the accelerator pedal position during rev matching, to avoid fuel-cut.
       It should be set high enough to prevent the ECU from cutting fuel, but not much higher.
@@ -207,6 +207,15 @@ This value DOES NOT affect the actual throttle plate opening angle during rev ma
     </description>
     <table name="Threshold" type="Static Y Axis" elements="1">
       <data>Raw Accelerator Pedal Position</data>
+    </table>
+  </table>
+
+  <table name="Software build version" category="NSFW - Rev Matching" address="90828" type="2D" level="4" scaling="RawFloatAsInt">
+    <description>
+      Build version. Please ignore.
+    </description>
+    <table name="Version" type="Static Y Axis" elements="1">
+      <data>YYMMDDV</data>
     </table>
   </table>
 
@@ -225,11 +234,11 @@ This value DOES NOT affect the actual throttle plate opening angle during rev ma
 		<table name="Target RPM" address="90850" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
 	</table>
 
-  <table name="Accelerator Pedal Weirdness Threshold A" category="Misc" address="c2574" type="1D" level="1" scaling="VehicleSpeed(MPH)">
+  <table name="Accelerator Pedal Weirdness Threshold A" category="Misc" address="c2574" type="1D" level="4" scaling="VehicleSpeed(MPH)">
     <description>Increase this to 500 to skip a bunch of inscrutable code that modifies the accelerator position.</description>
   </table>
 
-  <table name="Accelerator Pedal Weirdness Threshold B" category="Misc" address="c2548" type="1D" level="1" scaling="VehicleSpeed(MPH)">
+  <table name="Accelerator Pedal Weirdness Threshold B" category="Misc" address="c2548" type="1D" level="4" scaling="VehicleSpeed(MPH)">
     <description>Increase this to 500 to skip a bunch of inscrutable code that modifies the accelerator position.</description>
   </table>
 

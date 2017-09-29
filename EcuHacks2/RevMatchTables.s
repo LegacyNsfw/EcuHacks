@@ -47,8 +47,8 @@ _MaxTargetRpm:     .float 7000
 
 _MinCoolantTemperature: .float 71 !! 160F
 _RevMatchFakeAccelerator: .float 10 !! About 20% pedal, prevents the ECU from cutting fuel
-_RevMatchUnusedFloat1:    .float 0 !! Reserved for future use
-_RevMatchUnusedFloat2:    .float 0
+_RevMatchBuildVersion:    .float 1709282 
+_RevMatchUnusedFloat2:    .float 0 !! Reserved for future use
 _RevMatchUnusedFloat3:    .float 0
 
 

@@ -529,39 +529,39 @@ void RevMatchUpdateAcceleratorTests()
 	
 	*pCruiseFlagsA = 0;
 	pRamVariables->RevMatchState = RevMatchDisabled;
-	ModifyAcceleratorPedalAngle();
+	ModifyAcceleratorPedal();
 	float t = *pAcceleratorPedalPositionRaw;
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change.");
 	
 	pRamVariables->RevMatchState = RevMatchEnabled;
-	ModifyAcceleratorPedalAngle();
+	ModifyAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change.");
 		
 	pRamVariables->RevMatchState = RevMatchDecelerationDownshift;
-	ModifyAcceleratorPedalAngle();
+	ModifyAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because no clutch).");
 	
 	pRamVariables->RevMatchState = RevMatchAccelerationDownshift;
-	ModifyAcceleratorPedalAngle();
+	ModifyAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because no clutch).");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	pRamVariables->RevMatchState = RevMatchEnabled;
-	ModifyAcceleratorPedalAngle();
+	ModifyAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because rev matching).");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	pRamVariables->RevMatchState = RevMatchAccelerationDownshift;
-	ModifyAcceleratorPedalAngle();
+	ModifyAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	pRamVariables->RevMatchState = RevMatchDecelerationDownshift;
-	ModifyAcceleratorPedalAngle();
+	ModifyAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	pRamVariables->RevMatchState = RevMatchCalibration;
-	ModifyAcceleratorPedalAngle();
+	ModifyAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 }
