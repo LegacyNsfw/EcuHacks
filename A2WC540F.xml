@@ -215,7 +215,7 @@ This value DOES NOT affect the actual throttle plate opening angle during rev ma
       Build version. Please ignore.
     </description>
     <table name="Version" type="Static Y Axis" elements="1">
-      <data>YYMMDDV</data>
+      <data>DDV</data>
     </table>
   </table>
 

@@ -36,9 +36,10 @@
 // We need to overwrite it during rev matching to defeat a
 // fuel-cut that takes effect when the driver's foot comes
 // off the pedal at high RPM.
-// Note that this ranges from 6.8 to 23.04 (weird).
-#define pAcceleratorPedalPositionRaw     ((float*)0xFFFF2DE4)
-// There's an unused copy here: ((float*)0xFFFF2FC0)
+// Note that this ranges from
+#define pAcceleratorPedalPositionRaw    ((float*)0xFFFF2FC0) // Primary, Range is 6.8 to 23.04
+// #define pAcceleratorPedalPositionRaw       ((float*)0xFFFF2DE4) // Alternate, Range is roughly 28-98 
+
 
 // Both of these values came from the AssignGearCalculatedExt 
 // function, which was found by searching for references to 

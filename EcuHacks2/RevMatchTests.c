@@ -529,39 +529,39 @@ void RevMatchUpdateAcceleratorTests()
 	
 	*pCruiseFlagsA = 0;
 	pRamVariables->RevMatchState = RevMatchDisabled;
-	ModifyAcceleratorPedal();
+	RevMatchProcessAcceleratorPedal();
 	float t = *pAcceleratorPedalPositionRaw;
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change.");
 	
 	pRamVariables->RevMatchState = RevMatchEnabled;
-	ModifyAcceleratorPedal();
+	RevMatchProcessAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change.");
 		
 	pRamVariables->RevMatchState = RevMatchDecelerationDownshift;
-	ModifyAcceleratorPedal();
+	RevMatchProcessAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because no clutch).");
 	
 	pRamVariables->RevMatchState = RevMatchAccelerationDownshift;
-	ModifyAcceleratorPedal();
+	RevMatchProcessAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because no clutch).");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	pRamVariables->RevMatchState = RevMatchEnabled;
-	ModifyAcceleratorPedal();
+	RevMatchProcessAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because rev matching).");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	pRamVariables->RevMatchState = RevMatchAccelerationDownshift;
-	ModifyAcceleratorPedal();
+	RevMatchProcessAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	pRamVariables->RevMatchState = RevMatchDecelerationDownshift;
-	ModifyAcceleratorPedal();
+	RevMatchProcessAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	pRamVariables->RevMatchState = RevMatchCalibration;
-	ModifyAcceleratorPedal();
+	RevMatchProcessAcceleratorPedal();
 	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 }

@@ -51,9 +51,16 @@ RevMatchHookPatch:
 
 RevMatchAcceleratorHookPatch:
 		.long	Replace4Bytes
-		.long	0x00006240			!! address
-		.long	_ReadAcceleratorPedal !! old value
-		.long	_ModifyAcceleratorPedal !! new value
+
+!! Coordinate changes:
+!! 1) old-value changes in RomAddresses.s - ReadAcceleratorPedal
+!! 2) RAM address change in EcuHacks.h - pAcceleratorPedalPositionRaw
+
+!!		.long	0x00006240          !! address (Alternate)
+!!		.long   0x0000622C          !! address (Primary)
+		.long   0x000113F4          !! address ProcessAcceleratorPedal		
+		.long	_DefaultProcessAcceleratorPedal !! old value
+		.long	_RevMatchProcessAcceleratorPedal !! new value
 		
 RevMatchCodePatch:
 		.long	Patch

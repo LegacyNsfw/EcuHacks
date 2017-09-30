@@ -48426,7 +48426,7 @@
                   </conversions>
                 </ecuparam>
 
-                <ecuparam id="E1104" name="Rev Match Timer" desc="Internal timer" >
+                <ecuparam id="E1104" name="Rev Match Counter" desc="Internal timer" >
                   <ecu id="2F12785606">
                     <address length="4">FFA034</address>
                   </ecu>

@@ -461,29 +461,24 @@ void AdjustCalibrationIndex()
 	}
 }
 
-void ModifyAcceleratorPedal() __attribute__ ((section ("RomHole_RevMatchCode")));
-void ModifyAcceleratorPedal()
-{
-	// The default behavior
-	ReadAcceleratorPedal();
-
-	// Temporarily moved here to confirm that this function really gets called.
-	UpdateCounter();
-	
+void RevMatchProcessAcceleratorPedal() __attribute__ ((section ("RomHole_RevMatchCode")));
+void RevMatchProcessAcceleratorPedal()
+{	
 	// Safety check...
-	if (!(*pCruiseFlagsA & CruiseFlagsAClutch))
+	if (*pCruiseFlagsA & CruiseFlagsAClutch)
 	{
-		return;
+		// Overwrite the output value during rev matching and calibration.
+		if ((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
+			(pRamVariables->RevMatchState == RevMatchAccelerationDownshift) ||
+			(pRamVariables->RevMatchState == RevMatchCalibration) ||
+			(*pCruiseFlagsA & CruiseFlagsACancel)) // REMOVE BEFORE FLIGHT
+		{
+			*pAcceleratorPedalPositionRaw = RevMatchFakeAccelerator;
+		}
 	}
 	
-	// Overwrite the output value during rev matching and calibration.
-	if ((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
-		(pRamVariables->RevMatchState == RevMatchAccelerationDownshift) ||
-		(pRamVariables->RevMatchState == RevMatchCalibration) ||
-		(*pCruiseFlagsA & CruiseFlagsACancel)) // REMOVE BEFORE FLIGHT
-	{
-		*pAcceleratorPedalPositionRaw = RevMatchFakeAccelerator;
-	}
+	// The default behavior.
+	DefaultProcessAcceleratorPedal();
 }
 
 void RevMatchCode() __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -499,6 +494,7 @@ void RevMatchCode()
 	float defaultThrottlePlateAngle = *pTargetThrottlePlatePosition_In;
 	*pTargetThrottlePlatePosition_Out = defaultThrottlePlateAngle;
 	
+	UpdateCounter();
 	UpdateState();
 
 	if (pRamVariables->RevMatchState != RevMatchCalibration)
