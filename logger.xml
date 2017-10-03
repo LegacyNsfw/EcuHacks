@@ -48693,7 +48693,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1215" name="AccPedal Inv-3 - Input3" desc="">
+              <ecuparam id="E1215" name="AccPedal Inv-3 - Input 3" desc="">
                 <ecu id="2F12785606">
                   <address length="4">FF5174</address>
                 </ecu>
@@ -48720,11 +48720,23 @@
                 </conversions>
               </ecuparam>
 
+              <ecuparam id="E1220" name="AccPedal Inv-4 - Flags024" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF6825</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
 
-
-
-
-
+              <ecuparam id="E1221" name="AccPedal Inv-4 - MasterCEL" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF737C</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
 
 
 
@@ -48764,8 +48776,206 @@
                 </conversions>
               </ecuparam>
 
+              
+              
+              <ecuparam id="E1400" name="Flags 57AA" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57AA</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
 
+              <ecuparam id="E1402" name="Flags 57AC" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57AC</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
 
+              <ecuparam id="E1404" name="Flags 57AE" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57AE</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              
+              <ecuparam id="E1406" name="Flags 57B0" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57B0</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1407" name="Flags 57B2" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57B2</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1408" name="Flags 57B4" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57B4</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1409" name="Flags 57B6" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57B6</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1410" name="Flags 57B8" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57B8</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1411" name="Flags 57BA" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57BA</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1412" name="Flags 57BC" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57BC</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1414" name="Flags 57BE" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57BE</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1415" name="Flags 57C0" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57C0</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1416" name="Flags 57C2" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57C2</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1417" name="Flags 57C4" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57C4</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1418" name="Flags 57C6" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57C6</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1419" name="Flags 57C8" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57C8</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1420" name="Flags 57CA" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57CA</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1421" name="Flags 57CC" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57CC</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1422" name="Flags 57CE" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57CE</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1423" name="Flags 57D0" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57D0</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1424" name="Flags 57D2" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57D2</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1425" name="Flags 57D4" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57D4</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1426" name="Flags 57D6" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57D6</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+              <ecuparam id="E1427" name="Flags 57D8" desc="">
+                <ecu id="2F12785606">
+                  <address length="2">FF57D8</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
 
             </ecuparams>
         </protocol>
