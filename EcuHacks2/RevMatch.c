@@ -461,26 +461,6 @@ void AdjustCalibrationIndex()
 	}
 }
 
-void RevMatchProcessAcceleratorPedal() __attribute__ ((section ("RomHole_RevMatchCode")));
-void RevMatchProcessAcceleratorPedal()
-{	
-	// Safety check...
-	if (*pCruiseFlagsA & CruiseFlagsAClutch)
-	{
-		// Overwrite the output value during rev matching and calibration.
-		if ((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
-			(pRamVariables->RevMatchState == RevMatchAccelerationDownshift) ||
-			(pRamVariables->RevMatchState == RevMatchCalibration) ||
-			(*pCruiseFlagsA & CruiseFlagsACancel)) // REMOVE BEFORE FLIGHT
-		{
-			*pAcceleratorPedalPositionRaw = RevMatchFakeAccelerator;
-		}
-	}
-	
-	// The default behavior.
-	DefaultProcessAcceleratorPedal();
-}
-
 void RevMatchCode() __attribute__ ((section ("RomHole_RevMatchCode")));
 void RevMatchCode()
 {
@@ -521,11 +501,19 @@ void RevMatchCode()
 	if ((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
 		(pRamVariables->RevMatchState == RevMatchAccelerationDownshift))
 	{
+		if (pRamVariables->RevMatchFromGear <= 1)
+		{
+			// Rev matching is annoying when you're coming to a stop.
+			return;
+		}
+		
 		// Check the clutch again, just to be 100% certain that this
 		// code never opens the throttle without the clutch pressed.
 		if (*pCruiseFlagsA & CruiseFlagsAClutch)
 		{
 			*pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
+			long fuelingMode = 0xFFFF6FA1;
+			*((char*)fuelingMode) = 8;
 		}
 		else
 		{
@@ -555,6 +543,8 @@ void RevMatchCode()
 		if ((*pCruiseFlagsA & CruiseFlagsAClutch) && (*pSpeed < 1))
 		{
 			*pTargetThrottlePlatePosition_Out = pRamVariables->RevMatchCalibrationThrottle;
+			long fuelingMode = 0xFFFF6FA1;
+			*((char*)fuelingMode) = 8;
 		}
 		else
 		{

@@ -68,7 +68,7 @@ void RevMatchDownshiftTests()
 	Assert(pRamVariables->DownshiftRpm < 4000, "Downshift RPM is sane 2");
 	
 	// Match revs with a braking downshift.
-	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch;
+	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch; 
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchState == RevMatchDecelerationDownshift, "Mode should be braking downshift");
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, 11.462), "Throttle changed - deceleration downshift.");
@@ -168,7 +168,6 @@ void RevMatchDownshiftTests()
 	Assert(*pTargetThrottlePlatePosition_Out == 8.0f, "no throttle change after countdown timer expires.");
 	Assert(pRamVariables->RevMatchState == RevMatchExpired, "Mode should be 'expired'");
 }
-
 // Test the mode-switch feature for the rev match hack.
 void RevMatchStateTests() __attribute__ ((section ("Misc")));
 void RevMatchStateTests()
@@ -202,7 +201,7 @@ void RevMatchStateTests()
 	*pRPM = 750;
 	*pCruiseFlagsA = CruiseFlagsACancel;
 	RevMatchCode();
-	RevMatchCode();
+	RevMatchCode(); 
 	RevMatchCode();
 	RevMatchCode();
 	RevMatchCode();
@@ -513,55 +512,4 @@ void RevMatchCalibrationThrottleTests()
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "Increase index.");
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, throttleIndex1), "Throttle for index 1.");
-}
-
-void RevMatchUpdateAcceleratorTests() __attribute__((section("Misc")));
-void RevMatchUpdateAcceleratorTests()
-{
-	// It might be tempting to directly reference the ROM value, but
-	// I think it's better to have a copy here. If the ROM value is
-	// changed by mistake, the test will fail to draw attention to 
-	// that change.
-	const float FakeValue = 10.0f;
-	const float DefaultValue = 0.0f;
-	
-	*pAcceleratorPedalPositionRaw = 0;
-	
-	*pCruiseFlagsA = 0;
-	pRamVariables->RevMatchState = RevMatchDisabled;
-	RevMatchProcessAcceleratorPedal();
-	float t = *pAcceleratorPedalPositionRaw;
-	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change.");
-	
-	pRamVariables->RevMatchState = RevMatchEnabled;
-	RevMatchProcessAcceleratorPedal();
-	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change.");
-		
-	pRamVariables->RevMatchState = RevMatchDecelerationDownshift;
-	RevMatchProcessAcceleratorPedal();
-	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because no clutch).");
-	
-	pRamVariables->RevMatchState = RevMatchAccelerationDownshift;
-	RevMatchProcessAcceleratorPedal();
-	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because no clutch).");
-
-	*pCruiseFlagsA = CruiseFlagsAClutch;
-	pRamVariables->RevMatchState = RevMatchEnabled;
-	RevMatchProcessAcceleratorPedal();
-	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, DefaultValue), "No change (because rev matching).");
-
-	*pCruiseFlagsA = CruiseFlagsAClutch;
-	pRamVariables->RevMatchState = RevMatchAccelerationDownshift;
-	RevMatchProcessAcceleratorPedal();
-	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
-
-	*pCruiseFlagsA = CruiseFlagsAClutch;
-	pRamVariables->RevMatchState = RevMatchDecelerationDownshift;
-	RevMatchProcessAcceleratorPedal();
-	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
-
-	*pCruiseFlagsA = CruiseFlagsAClutch;
-	pRamVariables->RevMatchState = RevMatchCalibration;
-	RevMatchProcessAcceleratorPedal();
-	Assert(AreCloseEnough(*pAcceleratorPedalPositionRaw, FakeValue), "Rev match happening.");
 }
