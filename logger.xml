@@ -48977,6 +48977,60 @@
                 </conversions>
               </ecuparam>
 
+              <ecuparam id="E1450" name="FuelCut - Master" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5A04</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1451" name="FuelCut - Copy1" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF57CE</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1452" name="FuelCut - Copy2" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF57D1</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1453" name="FuelCut - Copy3" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5ABD</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1454" name="FuelCut - Copy4" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF57AB</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1455" name="FuelCut - Copy5" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF59CC</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
             </ecuparams>
         </protocol>
     </protocols>
