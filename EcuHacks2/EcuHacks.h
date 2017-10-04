@@ -32,23 +32,14 @@
 // tiny, as it literally did NOTHING else).
 #define pTargetThrottlePlatePosition_Out ((float*)0xFFFF5EC4) 
 
-// This is the value straight from the pedal sensor.
-// We need to overwrite it during rev matching to defeat a
-// fuel-cut that takes effect when the driver's foot comes
-// off the pedal at high RPM.
-// Note that this ranges from
-#define pAcceleratorPedalPositionRaw    ((float*)0xFFFF2FC0) // Primary, Range is 6.8 to 23.04
-// #define pAcceleratorPedalPositionRaw       ((float*)0xFFFF2DE4) // Alternate, Range is roughly 28-98 
-
-
 // Both of these values came from the AssignGearCalculatedExt 
 // function, which was found by searching for references to 
 // the gear position tables.
 #define pCurrentGear                     ((char*) 0xFFFF52F9)
 #define pGearFactor                      ((float*)0xFFFF52FC)
 
-//#define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08)
-//#define OverrunFuelCutBit 0x80
+#define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08)
+#define OverrunFuelCutBit 0x80
 
 typedef struct
 {

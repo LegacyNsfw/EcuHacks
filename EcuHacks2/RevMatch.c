@@ -461,6 +461,13 @@ void AdjustCalibrationIndex()
 	}
 }
 
+void DisableFuelCut(void) __attribute__((section("RomHole_RevMatchCode")));
+void DisableFuelCut()
+{
+	// Clear the 0x80 bit.
+	*pOverrunFuelCutFlags &= ~OverrunFuelCutBit;
+}
+
 void RevMatchCode() __attribute__ ((section ("RomHole_RevMatchCode")));
 void RevMatchCode()
 {
@@ -512,8 +519,7 @@ void RevMatchCode()
 		if (*pCruiseFlagsA & CruiseFlagsAClutch)
 		{
 			*pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
-			long fuelingMode = 0xFFFF6FA1;
-			*((char*)fuelingMode) = 8;
+			DisableFuelCut();			
 		}
 		else
 		{
@@ -543,8 +549,7 @@ void RevMatchCode()
 		if ((*pCruiseFlagsA & CruiseFlagsAClutch) && (*pSpeed < 1))
 		{
 			*pTargetThrottlePlatePosition_Out = pRamVariables->RevMatchCalibrationThrottle;
-			long fuelingMode = 0xFFFF6FA1;
-			*((char*)fuelingMode) = 8;
+			DisableFuelCut();
 		}
 		else
 		{
