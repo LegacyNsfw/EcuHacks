@@ -38,7 +38,7 @@
 #define pCurrentGear                     ((char*) 0xFFFF52F9)
 #define pGearFactor                      ((float*)0xFFFF52FC)
 
-#define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08)
+#define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08) // AKA Flags023
 #define OverrunFuelCutBit 0x80
 
 typedef struct

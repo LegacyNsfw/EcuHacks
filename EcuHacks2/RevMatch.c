@@ -464,8 +464,16 @@ void AdjustCalibrationIndex()
 void DisableFuelCut(void) __attribute__((section("RomHole_RevMatchCode")));
 void DisableFuelCut()
 {
-	// Clear the 0x80 bit.
-	*pOverrunFuelCutFlags &= ~OverrunFuelCutBit;
+	// Clearing the 0x80 bit was insufficient
+	// *pOverrunFuelCutFlags &= ~OverrunFuelCutBit;
+	*pOverrunFuelCutFlags = 16;
+	
+	*((char*)0xFFFF4fc4) = 0; // aka Flags012 - clear the "accelerator pedal at zero" bit
+	*((char*)0xFFFF59F8) = 0; // aka Flags054 - this goes to 1 during fuel cut (may only be for logging though)
+	
+	*((char*)0xFFFF5555) = 0; // aka Flags056 - zero in cruise, 1 or 15 during ordinary shifts
+	*((char*)0xFFFF5A0A) = 0; // aka Flags055 - zero in cruise, 240 during fuel cut
+	*((char*)0xFFFF5A08) = 16; //aka Flags023 - 16 or 24 in cruise, 160 or 176 during fuel cut
 }
 
 void RevMatchCode() __attribute__ ((section ("RomHole_RevMatchCode")));

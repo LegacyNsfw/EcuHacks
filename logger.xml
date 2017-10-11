@@ -48986,7 +48986,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1451" name="FuelCut - Copy1" desc="">
+              <ecuparam id="E1451" name="FuelCut - (Ignore) Copy1" desc="">
                 <ecu id="2F12785606">
                   <address length="1">FF57CE</address>
                 </ecu>
@@ -48995,7 +48995,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1452" name="FuelCut - Copy2" desc="">
+              <ecuparam id="E1452" name="FuelCut - (Ignore) Copy2" desc="">
                 <ecu id="2F12785606">
                   <address length="1">FF57D1</address>
                 </ecu>
@@ -49004,7 +49004,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1453" name="FuelCut - Copy3" desc="">
+              <ecuparam id="E1453" name="FuelCut - (Ignore) Copy3" desc="">
                 <ecu id="2F12785606">
                   <address length="1">FF5ABD</address>
                 </ecu>
@@ -49013,7 +49013,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1454" name="FuelCut - Copy4" desc="">
+              <ecuparam id="E1454" name="FuelCut - (Ignore) Copy4" desc="">
                 <ecu id="2F12785606">
                   <address length="1">FF57AB</address>
                 </ecu>
@@ -49025,6 +49025,106 @@
               <ecuparam id="E1455" name="FuelCut - Copy5" desc="">
                 <ecu id="2F12785606">
                   <address length="1">FF59CC</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1456" name="FuelCut - Flags023" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5A08</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1457" name="FuelCut - Flags-59F8" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF59F8</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1457" name="FuelCut - Flags-5A0A" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5A0A</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1458" name="FuelCut - (Ignore) Flags-5A14" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5A14</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1459" name="FuelCut - (Ignore) Flags-5554" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5554</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1460" name="FuelCut - Flags-5555" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5555</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1461" name="FuelCut - CL/OL" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF6FA1</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1462" name="FuelCut - Gas Pedal" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF5134</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1463" name="FuelCut - From Gear" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FFA027</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1464" name="FuelCut - Flags-5A76" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5A76</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+
+              <ecuparam id="E1464" name="FuelCut - Flags-4FC4" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF4FC4</address>
                 </ecu>
                 <conversions>
                   <conversion units="Raw" storagetype="byte" expr="x" format="0" />
