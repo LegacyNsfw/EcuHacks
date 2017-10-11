@@ -190,26 +190,6 @@
 		</table>
 	</table>
 
-	<table name="Simulated Accelerator Pedal" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="ThrottleSensorValue">
-		<description>The ECU will be given this value for the accelerator pedal position during rev matching, to avoid fuel-cut.
-It should be set high enough to prevent the ECU from cutting fuel, but not much higher.
-This value DOES NOT affect the actual throttle plate opening angle during rev matching. </description>
-		<table name="Threshold" type="Static Y Axis" elements="1">
-			<data>Accelerator Pedal Position</data>
-		</table>
-	</table>
-
-  <table name="Simulated Accelerator Pedal (Raw)" category="NSFW - Rev Matching" address="90824" type="1D" level="4" scaling="%">
-    <description>
-      The ECU will be given this value for the accelerator pedal position during rev matching, to avoid fuel-cut.
-      It should be set high enough to prevent the ECU from cutting fuel, but not much higher.
-      This value DOES NOT affect the actual throttle plate opening angle during rev matching.
-    </description>
-    <table name="Threshold" type="Static Y Axis" elements="1">
-      <data>Raw Accelerator Pedal Position</data>
-    </table>
-  </table>
-
   <table name="Software build version" category="NSFW - Rev Matching" address="90828" type="2D" level="4" scaling="RawFloatAsInt">
     <description>
       Build version. Please ignore.

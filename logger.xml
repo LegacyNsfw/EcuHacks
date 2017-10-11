@@ -48413,7 +48413,7 @@
                     <address length="1">0xFF52F9</address>
                   </ecu>
                   <conversions>
-                    <conversion units="gear" expr="x" format="0.00" storagetype="byte"/>
+                    <conversion units="gear" expr="x" format="0" storagetype="byte"/>
                   </conversions>
                 </ecuparam>
 
@@ -49122,7 +49122,7 @@
               </ecuparam>
 
 
-              <ecuparam id="E1464" name="FuelCut - Flags-4FC4" desc="">
+              <ecuparam id="E1465" name="FuelCut - Flags-4FC4" desc="">
                 <ecu id="2F12785606">
                   <address length="1">FF4FC4</address>
                 </ecu>

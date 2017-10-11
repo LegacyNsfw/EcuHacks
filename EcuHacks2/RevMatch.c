@@ -468,8 +468,12 @@ void DisableFuelCut()
 	// *pOverrunFuelCutFlags &= ~OverrunFuelCutBit;
 	*pOverrunFuelCutFlags = 16;
 	
-	*((char*)0xFFFF4fc4) = 0; // aka Flags012 - clear the "accelerator pedal at zero" bit
-	*((char*)0xFFFF59F8) = 0; // aka Flags054 - this goes to 1 during fuel cut (may only be for logging though)
+	// All 5 together will defeat fuel cut.
+	// How many can be removed?
+	//
+	// Try disabling the first two...
+	//*((char*)0xFFFF4fc4) = 0; // aka Flags012 - clear the "accelerator pedal at zero" bit
+	//*((char*)0xFFFF59F8) = 0; // aka Flags054 - this goes to 1 during fuel cut (may only be for logging though)
 	
 	*((char*)0xFFFF5555) = 0; // aka Flags056 - zero in cruise, 1 or 15 during ordinary shifts
 	*((char*)0xFFFF5A0A) = 0; // aka Flags055 - zero in cruise, 240 during fuel cut
