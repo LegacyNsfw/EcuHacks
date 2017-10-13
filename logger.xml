@@ -49229,10 +49229,10 @@
 
               <ecuparam id="E1601" name="Idle - Actual RPM" desc="">
                 <ecu id="2F12785606">
-                  <address length="1">FF5C8C</address>
+                  <address length="4">FF5C8C</address>
                 </ecu>
                 <conversions>
-                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
                 </conversions>
               </ecuparam>
 
@@ -49281,7 +49281,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1607" name="Idle - 60E8" desc="">
+              <ecuparam id="E1607" name="Idle (Ignore) 60E8" desc="Always 6 during rev-match testing">
                 <ecu id="2F12785606">
                   <address length="1">FF60E8</address>
                 </ecu>
@@ -49299,7 +49299,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1609" name="Idle - 60C1" desc="">
+              <ecuparam id="E1609" name="Idle (Ignore) 60C1" desc="Always 199 during rev-match testing">
                 <ecu id="2F12785606">
                   <address length="1">FF60C1</address>
                 </ecu>
@@ -49308,7 +49308,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1610" name="Idle - Target_1" desc="">
+              <ecuparam id="E1610" name="Idle (Ignore) Target_1" desc="Matches table exactly">
                 <ecu id="2F12785606">
                   <address length="4">FF6008</address>
                 </ecu>
@@ -49317,7 +49317,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1611" name="Idle - Target_2" desc="">
+              <ecuparam id="E1611" name="Idle (Ignore) Target_2" desc="Matches table exactly">
                 <ecu id="2F12785606">
                   <address length="4">FF600C</address>
                 </ecu>
@@ -49326,7 +49326,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1612" name="Idle - Target_3" desc="">
+              <ecuparam id="E1612" name="Idle (Ignore) Target_3" desc="Always zero">
                 <ecu id="2F12785606">
                   <address length="4">FF601C</address>
                 </ecu>
@@ -49335,7 +49335,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1613" name="Idle - Target_4" desc="">
+              <ecuparam id="E1613" name="Idle (Ignore) Target_4" desc="Always zero">
                 <ecu id="2F12785606">
                   <address length="4">FF6018</address>
                 </ecu>
@@ -49349,7 +49349,7 @@
                   <address length="4">FF6098</address>
                 </ecu>
                 <conversions>
-                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00"/>
                 </conversions>
               </ecuparam>
 
@@ -49358,10 +49358,37 @@
                   <address length="4">FF6120</address>
                 </ecu>
                 <conversions>
-                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
                 </conversions>
               </ecuparam>
 
+
+              <ecuparam id="E1616" name="Idle - 6084" desc="Idle table select">
+                <ecu id="2F12785606">
+                  <address length="1">FF6084</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1615" name="Idle - Related C" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF5F44</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1615" name="Idle - Total Timing" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF5BA4</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
 
             </ecuparams>
         </protocol>
