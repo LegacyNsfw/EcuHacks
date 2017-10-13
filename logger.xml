@@ -47529,7 +47529,7 @@
                         <address length="4">0xFF51E8</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="KPH" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47711,7 +47711,7 @@
                         <address length="1">0xFF5A40</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47720,7 +47720,7 @@
                         <address length="1">0x119</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47729,7 +47729,7 @@
                         <address length="1">0x120</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47738,7 +47738,7 @@
                         <address length="1">0x121</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47747,7 +47747,7 @@
                         <address length="1">0x122</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47756,7 +47756,7 @@
                         <address length="1">0xFF4D64</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47765,7 +47765,7 @@
                         <address length="1">0xFF4D65</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47801,7 +47801,7 @@
                         <address length="1">0xFF4D67</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47812,7 +47812,7 @@
                         <address length="1">0xFF5C84</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47821,7 +47821,7 @@
                         <address length="1">0xFF5c9c</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47830,7 +47830,7 @@
                         <address length="1">0xFF5cc0</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47839,7 +47839,7 @@
                         <address length="1">0xFF5c38</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47848,7 +47848,7 @@
                         <address length="1">0xFF5c74</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47857,7 +47857,7 @@
                         <address length="1">0xFF5cbc</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47866,7 +47866,7 @@
                         <address length="1">0xFF5BD8</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47877,7 +47877,7 @@
                         <address length="1">0xFF5c44</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47886,7 +47886,7 @@
                         <address length="1">0xFF51fc</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47895,7 +47895,7 @@
                         <address length="1">0xFF5c3c</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47904,7 +47904,7 @@
                         <address length="1">0xFF5BA4</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47913,7 +47913,7 @@
                         <address length="1">0xFF5BA4</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47922,7 +47922,7 @@
                         <address length="1">0xFF5BA8</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47931,7 +47931,7 @@
                         <address length="1">0xFF5BAC</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47940,7 +47940,7 @@
                         <address length="1">0xFF5BB0</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47951,7 +47951,7 @@
                         <address length="1">0xFF56A8</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47960,7 +47960,7 @@
                         <address length="1">0xFF56B8</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47969,7 +47969,7 @@
                         <address length="1">0xFF57DC</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47978,7 +47978,7 @@
                         <address length="1">0xFF56D4</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47987,7 +47987,7 @@
                         <address length="1">0xFF56D8</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -47996,7 +47996,7 @@
                         <address length="1">0xFF56E0</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -48005,7 +48005,7 @@
                         <address length="1">0xFF56E4</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -48014,7 +48014,7 @@
                         <address length="1">0xFF56E8</address>
                     </ecu>
                     <conversions>
-                        <conversion units="RPM" expr="x" format="0.00" />
+                        <conversion units="Raw" expr="x" format="0.00" />
                     </conversions>
                 </ecuparam>
 
@@ -48462,12 +48462,12 @@
                   </conversions>
                 </ecuparam>
 
-                <ecuparam id="E1108" name="Rev Match Filtered Throttle Position" desc="From stock ECU code">
+                <ecuparam id="E1108" name="Rev Match Throttle Plate" desc="With virtual heel applied">
                   <ecu id="2F12785606">
-                    <address length="4">FF5EC0</address>
+                    <address length="4">FF5EC4</address>
                   </ecu>
                   <conversions>
-                    <conversion units="RPM" storagetype="float" expr="x" format="0.00" />
+                    <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
                   </conversions>
                 </ecuparam>
 
@@ -49130,6 +49130,238 @@
                   <conversion units="Raw" storagetype="byte" expr="x" format="0" />
                 </conversions>
               </ecuparam>
+
+              
+              
+              
+              <ecuparam id="E1500" name="ThrottlePlate - Raw Target" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF5EC4</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1501" name="ThrottlePlate - Cap84" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF5EC8</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1502" name="ThrottlePlate - 5EB0" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF5EB0</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1503" name="ThrottlePlate - (Ignore) 5EF8" desc="Matches 5EB0">
+                <ecu id="2F12785606">
+                  <address length="4">FF5EF8</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1504" name="ThrottlePlate - Filtered" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF5EC0</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1505" name="ThrottlePlate - 002 and Gear" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF4E10</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1506" name="ThrottlePlate - 4E7C" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF4E7C</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1507" name="ThrottlePlate - 619E" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF619E</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1508" name="ThrottlePlate - (Ignore) 6178" desc="Always zero">
+                <ecu id="2F12785606">
+                  <address length="4">FF6178</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.0" />
+                </conversions>
+              </ecuparam>
+
+              
+              
+              
+              <ecuparam id="E1600" name="Idle - RevMatch State" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FFA002</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1601" name="Idle - Actual RPM" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5C8C</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1602" name="Idle - Flags008" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF6820</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1603" name="Idle - Flags013" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF4B23</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1604" name="Idle - Flags003 (2 is neutral)" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF51C7</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1605" name="Idle - Flags001" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF51C6</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1606" name="Idle - Flags017" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF5144</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1607" name="Idle - 60E8" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF60E8</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1608" name="Idle - 60C0" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF60C0</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1609" name="Idle - 60C1" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF60C1</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1610" name="Idle - Target_1" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF6008</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1611" name="Idle - Target_2" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF600C</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1612" name="Idle - Target_3" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF601C</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1613" name="Idle - Target_4" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF6018</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1614" name="Idle - Related A" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF6098</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1615" name="Idle - Related B" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF6120</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
+
 
             </ecuparams>
         </protocol>
