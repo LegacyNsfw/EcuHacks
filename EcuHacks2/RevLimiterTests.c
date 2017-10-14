@@ -58,6 +58,8 @@ void RevLimiterUnitTests() __attribute__ ((section ("Misc")));
 void RevLimiterUnitTests()
 {
 	pRamVariables->UpshiftRpm = 6500;
+	pRamVariables->RevMatchState = RevMatchDisabled;
+	
 	const float FfsCut = 6550;
 	const float FfsResume = 6450;
 	

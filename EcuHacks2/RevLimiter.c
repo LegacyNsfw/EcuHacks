@@ -82,7 +82,8 @@ void RevLimiterCode()
 	float fuelResume;
 	
 	// Check the clutch switch
-	if ((*pCruiseFlagsA & 0x80) == 0)
+	if (((*pCruiseFlagsA & 0x80) == 0) ||
+		(pRamVariables->RevMatchState == RevMatchCalibration))
 	{
 		// Normal rev limiter thresholds.
 		fuelCut = RedlineCut;
