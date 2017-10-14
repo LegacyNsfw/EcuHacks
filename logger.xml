@@ -49236,7 +49236,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1602" name="Idle - Flags008" desc="">
+              <ecuparam id="E1602" name="Idle (Ignore) Flags008" desc="Always zero">
                 <ecu id="2F12785606">
                   <address length="1">FF6820</address>
                 </ecu>
@@ -49245,7 +49245,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1603" name="Idle - Flags013" desc="">
+              <ecuparam id="E1603" name="Idle (Ignore) Flags013" desc="Always zero">
                 <ecu id="2F12785606">
                   <address length="1">FF4B23</address>
                 </ecu>
@@ -49272,7 +49272,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1606" name="Idle - Flags017" desc="">
+              <ecuparam id="E1606" name="Idle (Ignore) Flags017" desc="Indicates low throttle, idle, engine running or not.">
                 <ecu id="2F12785606">
                   <address length="1">FF5144</address>
                 </ecu>
@@ -49290,7 +49290,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1608" name="Idle - 60C0" desc="">
+              <ecuparam id="E1608" name="Idle (Ignore) 60C0" desc="Moves around a lot, but doesn't correlate with neutral.">
                 <ecu id="2F12785606">
                   <address length="1">FF60C0</address>
                 </ecu>
@@ -49344,7 +49344,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1614" name="Idle - Related A" desc="">
+              <ecuparam id="E1614" name="Idle (Ignore) Target RPM" desc="Straight from the idle table">
                 <ecu id="2F12785606">
                   <address length="4">FF6098</address>
                 </ecu>
@@ -49353,7 +49353,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1615" name="Idle - Related B" desc="">
+              <ecuparam id="E1615" name="Idle (Ignore) Related B" desc="0.15 engine off, 0 engine running">
                 <ecu id="2F12785606">
                   <address length="4">FF6120</address>
                 </ecu>
@@ -49363,7 +49363,7 @@
               </ecuparam>
 
 
-              <ecuparam id="E1616" name="Idle - 6084" desc="Idle table select">
+              <ecuparam id="E1616" name="Idle (Ignore) 6084" desc="Idle table select? Unverified.">
                 <ecu id="2F12785606">
                   <address length="1">FF6084</address>
                 </ecu>
@@ -49372,7 +49372,7 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1615" name="Idle - Related C" desc="">
+              <ecuparam id="E1617" name="Idle (Ignore) Related C" desc="3.03 engine off, 2.90 engine running">
                 <ecu id="2F12785606">
                   <address length="4">FF5F44</address>
                 </ecu>
@@ -49381,12 +49381,21 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1615" name="Idle - Total Timing" desc="">
+              <ecuparam id="E1618" name="Idle - Total Timing" desc="">
                 <ecu id="2F12785606">
                   <address length="4">FF5BA4</address>
                 </ecu>
                 <conversions>
                   <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1620" name="Idle (Ignore) Flags021" desc="Fluctuates, like a timer or oscillator">
+                <ecu id="2F12785606">
+                  <address length="1">FF4CD8</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
                 </conversions>
               </ecuparam>
 
