@@ -44,6 +44,7 @@
 	<scaling name="engine displacement" units="cc" toexpr="x" frexpr="x" format="%.2f" min="0" max="10" inc="0.01" storagetype="float" endian="big"/>
 
 	<scaling name="Delay(ms)" units="ms" toexpr="x*8" frexpr="x/8" format="%d" min="0" max="60000" inc="100" storagetype="uint32" endian="big"/>
+	<scaling name="VehicleSpeed(KPH)Float" units="kph" toexpr="x" frexpr="x" format="%d" min="0" max="500" inc="5" storagetype="float" endian="big"/>
 
   <scaling name="ThrottleSensorValue" units="%" toexpr="(x-6.8)*6.157635" frexpr="(x/6.157635)+6.8" format="%.2f" min="0" max="100" inc="5" storagetype="float" endian="big"/>
 
@@ -183,10 +184,17 @@
 		</table>
 	</table>
 
-	<table name="Coolant Temperature Threshold" category="NSFW - Rev Matching" address="90820" type="2D" level="4" scaling="CoolantTemp(DegreesF)">
+	<table name="Minimum Coolant Temperature Threshold" category="NSFW - Rev Matching" address="90820" type="2D" level="4" scaling="CoolantTemp(DegreesF)">
 		<description>Minimum coolant temperature in order to enable the rev matching.</description>
 		<table name="Threshold" type="Static Y Axis" elements="1">
 			<data>Minimum Coolant Temperature</data>
+		</table>
+	</table>
+
+	<table name="Minimum Speed Threshold" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="VehicleSpeed(KPH)Float">
+		<description>Minimum coolant temperature in order to enable the rev matching.</description>
+		<table name="Threshold" type="Static Y Axis" elements="1">
+			<data>Minimum Speed</data>
 		</table>
 	</table>
 
@@ -213,6 +221,7 @@
 		<description>Determines the throttle plate angle to achieve the desired target RPM.</description>
 		<table name="Target RPM" address="90850" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
 	</table>
+
 
   <table name="Accelerator Pedal Weirdness Threshold A" category="Misc" address="c2574" type="1D" level="4" scaling="VehicleSpeed(MPH)">
     <description>Increase this to 500 to skip a bunch of inscrutable code that modifies the accelerator position.</description>
