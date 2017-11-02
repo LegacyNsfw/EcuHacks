@@ -31,5 +31,17 @@ float RevMatchGetThrottle(float targetRpm)
 	float integralFeedback = error * RevMatchIntegralGain;
 	pRamVariables->RevMatchIntegralFeedback += integralFeedback;
 	
-	return base + proportionalFeedback + pRamVariables->RevMatchIntegralFeedback;
+	float totalFeedback = proportionalFeedback + pRamVariables->RevMatchIntegralFeedback;
+	
+	if (totalFeedback > 3)	
+	{
+		totalFeedback = 3;
+	}
+	
+	if (totalFeedback < -3)
+	{
+		totalFeedback = -3;
+	}
+	
+	return base + totalFeedback;
 }
