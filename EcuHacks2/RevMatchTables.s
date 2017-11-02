@@ -21,7 +21,7 @@ _StartOfRevMatchTables:
 .global _MinTargetRpm
 .global _MaxTargetRpm
 .global _MinCoolantTemperature
-.global _RevMatchFakeAccelerator
+.global _RevMatchMinimumSpeed
 .global _RevMatchUnusedFloat1 !! Reserved for future use
 .global _RevMatchUnusedFloat2
 .global _RevMatchUnusedFloat3
@@ -35,6 +35,12 @@ _StartOfRevMatchTables:
 .global _RevMatchInputValues
 .global _RevMatchOutputValues
 
+.global _RevMatchEnableFeedback
+.global _RevMatchEnableCalibrationFeedback
+
+.global _RevMatchProportionalGain
+.global _RevMatchIntegralGain
+
 _Gear1Multiplier:  .float 8.2 
 _Gear2Multiplier:  .float 13.4
 _Gear3Multiplier:  .float 19.7
@@ -45,13 +51,11 @@ _Gear6Multiplier:  .float 42.6
 _MinTargetRpm:     .float 1000
 _MaxTargetRpm:     .float 7000
 
-_MinCoolantTemperature: .float 71 !! 160F
-_RevMatchFakeAccelerator: .float 10 !! About 20% pedal, prevents the ECU from cutting fuel
-!! _RevMatchFakeAccelerator: .float 35
-_RevMatchBuildVersion:    .float 135
-_RevMatchUnusedFloat2:    .float 0 !! Reserved for future use
-_RevMatchUnusedFloat3:    .float 0
-
+_MinCoolantTemperature:    .float 71 !! 160F
+_RevMatchMinimumSpeed:     .float 40 !! 40 kph / 25 mph
+_RevMatchBuildVersion:     .float 231
+_RevMatchProportionalGain: .float 0.0010 !! .2% throttle adjustment per 100 RPM difference
+_RevMatchIntegralGain:     .float 0.000025 !! Throttle adjustment per 100 RPM difference, per 125th/second.
 
 _RevMatchDuration:           .int 250 !! 125 iterations/second, so this is 2 seconds
 _RevMatchAccelerationDownshiftReadyDuration: .int 250 !! 2 seconds
@@ -77,6 +81,11 @@ _RevMatchOutputValues:
 .float 10
 .float 14
 .float 18
+
+_RevMatchEnableFeedback:            .byte 00
+_RevMatchEnableCalibrationFeedback: .byte 01
+_RevMatchUnusedByte1:               .byte 00
+_RevMatchUnusedByte2:               .byte 00
 
 .end
 

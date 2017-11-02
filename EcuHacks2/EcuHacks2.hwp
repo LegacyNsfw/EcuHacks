@@ -128,6 +128,7 @@
 "C:\GitHub\EcuHacks\EcuHacks2\RevLimiterTables.s" "User" "Assembly source file" 2 
 "C:\GitHub\EcuHacks\EcuHacks2\RevLimiterTests.c" "User" "C source file" 2 
 "C:\GitHub\EcuHacks\EcuHacks2\RevMatch.c" "User" "C source file" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\RevMatchFeedback.c" "User" "C source file" 2 
 "C:\GitHub\EcuHacks\EcuHacks2\RevMatchTables.s" "User" "Assembly source file" 2 
 "C:\GitHub\EcuHacks\EcuHacks2\RevMatchTests.c" "User" "C source file" 2 
 "C:\GitHub\EcuHacks\EcuHacks2\RomAddresses.s" "User" "Assembly source file" 2 
@@ -157,22 +158,23 @@
 "C:\GitHub\EcuHacks\EcuHacks2\RomAddresses.s" "0d64a973b4cf2d10" 4 
 "C:\GitHub\EcuHacks\EcuHacks2\SpeedDensityTables.s" "0d64a973b4cf2d10" 4 
 [OPTIONS_Debug_GNU Compiler]
-"C source file" "0d64a973b4cf2d10" 3 
-"C++ source file" "0d64a973b4cf2d10" 3 
-"C:\GitHub\EcuHacks\EcuHacks2\EcuHacks.c" "0d64a973b4cf2d10" 3 
-"C:\GitHub\EcuHacks\EcuHacks2\GenericTests.c" "0d64a973b4cf2d10" 3 
-"C:\GitHub\EcuHacks\EcuHacks2\RevLimiter.c" "0d64a973b4cf2d10" 3 
-"C:\GitHub\EcuHacks\EcuHacks2\RevLimiterTests.c" "0d64a973b4cf2d10" 3 
-"C:\GitHub\EcuHacks\EcuHacks2\RevMatch.c" "0982a632b5b13d10" 3 
-"C:\GitHub\EcuHacks\EcuHacks2\RevMatchTests.c" "09630a9a53c13d10" 3 
-"C:\GitHub\EcuHacks\EcuHacks2\SpeedDensity.c" "0d64a973b4cf2d10" 3 
-"C:\GitHub\EcuHacks\EcuHacks2\SpeedDensityTests.c" "0d64a973b4cf2d10" 3 
-"C:\GitHub\EcuHacks\EcuHacks2\TestUtilities.c" "0d64a973b4cf2d10" 3 
-"Preprocess Assembly file" "0d64a973b4cf2d10" 2 
+"C source file" "0d64a973b4cf2d10" 2 
+"C++ source file" "0d64a973b4cf2d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\EcuHacks.c" "0d64a973b4cf2d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\GenericTests.c" "0d64a973b4cf2d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\RevLimiter.c" "0d64a973b4cf2d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\RevLimiterTests.c" "0d64a973b4cf2d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\RevMatch.c" "0982a632b5b13d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\RevMatchFeedback.c" "04af995441d43d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\RevMatchTests.c" "09630a9a53c13d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\SpeedDensity.c" "0d64a973b4cf2d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\SpeedDensityTests.c" "0d64a973b4cf2d10" 2 
+"C:\GitHub\EcuHacks\EcuHacks2\TestUtilities.c" "0d64a973b4cf2d10" 2 
+"Preprocess Assembly file" "0d64a973b4cf2d10" 3 
 [OPTIONS_Debug_GNU Library Generator]
 "Single Shot" "0d64a973b4cf2d10" 1 
 [OPTIONS_Debug_GNU Linker]
-"Single Shot" "054c6dac71033d10" 5 
+"Single Shot" "0344c95441d43d10" 5 
 [OPTIONS_Debug]
 "" 0 
 "[V|VERSION|2] [B|DOEXTF|1] [S|INCDIR|^"$(TCINSTALL)\sh-elf\lib\gcc\sh-elf\4.7-GNUSH_v13.01\m2e^"|^"$(CONFIGDIR)^"] [B|RSARCH|1] [B|FIXUPLIBS|1] [S|ARCHIVE|libgcc.a*libgcc-Os-4-200.a*lib$(PROJECTNAME).a] [S|OUTFORM|BOTH] [B|MFILEGEN|1] [S|PLMFILE|^"$(CONFIGDIR)\$(PROJECTNAME).map^"] [S|OUTFILE|^"$(CONFIGDIR)\$(PROJECTNAME).x^"] [S|GROUPDET|Zero|0|0||1|0x00000000|0|0|0|Zero|All-files|<<FEND>>|<<CEND>>|<<GEND>>|INTHandler|0|0||1|0x00000100|0|0|<<CEND>>|<<GEND>>|RSTHandler|0|0||1|0x00004000|0|0|1|_ResetHandler|<<FEND>>|<<CEND>>|<<GEND>>|RevLimitPatch|0|0||1|0x000318D0|0|0|0|RevLimitPatch|All-files|<<FEND>>|<<CEND>>|<<GEND>>|RomHole_RevLimiter|0|0||1|0x00090000|0|0|0|RomHole_RevLimiterTables|All-files|<<FEND>>|0|RomHole_RevLimiterCode|All-files|<<FEND>>|0|RomHole_RevLimiterEndMarker|All-files|<<FEND>>|<<CEND>>|<<GEND>>|RomHole_SpeedDensity|0|0||1|0x00090200|0|0|0|RomHole_SpeedDensityTables|All-files|<<FEND>>|0|RomHole_SpeedDensityCode|All-files|<<FEND>>|0|RomHole_SpeedDensityEndMarker|All-files|<<FEND>>|<<CEND>>|<<GEND>>|RomHole_RevMatch|0|0||1|0x00090800|0|0|0|RomHole_RevMatchTables|All-files|<<FEND>>|0|RomHole_RevMatchCode|All-files|<<FEND>>|0|RomHole_RevMatchEndMarker|All-files|<<FEND>>|<<CEND>>|<<GEND>>|StockEcuCode|0|0||1|0x000A0000|0|0|1|StockEcuCodeLabel|<<FEND>>|<<CEND>>|<<GEND>>|Misc|0|0||1|0x000D0000|0|0|0|Misc|All-files|<<FEND>>|<<CEND>>|<<GEND>>|.text|0|0||1|0x60000000|0|0|0|.text|All-files|<<FEND>>|0|.text.*|All-files|<<FEND>>|1|etext|<<FEND>>|<<CEND>>|<<GEND>>|.init|0|0||0||0|0|0|.init|All-files|<<FEND>>|<<CEND>>|<<GEND>>|.fini|0|0||0||0|0|0|.fini|All-files|<<FEND>>|<<CEND>>|<<GEND>>|.got|0|0||0||0|0|0|.got|All-files|<<FEND>>|0|.got.plt|All-files|<<FEND>>|<<CEND>>|<<GEND>>|.rodata|0|0||0||0|0|0|.rodata|All-files|<<FEND>>|0|.rodata.*|All-files|<<FEND>>|1|_erodata|<<FEND>>|<<CEND>>|<<GEND>>|.eh_frame_hdr|0|0||0||0|0|0|.eh_frame_hdr|All-files|<<FEND>>|<<CEND>>|<<GEND>>|.eh_frame|0|0||0||0|0|0|.eh_frame|All-files|<<FEND>>|<<CEND>>|<<GEND>>|.jcr|0|0||0||0|0|0|.jcr|All-files|<<FEND>>|<<CEND>>|<<GEND>>|.tors|0|0||0||0|0|1|__CTOR_LIST__|<<FEND>>|1|___ctors|<<FEND>>|0|.ctors|All-files|<<FEND>>|1|___ctors_end|<<FEND>>|1|__CTOR_END__|<<FEND>>|1|__DTOR_LIST__|<<FEND>>|1|___dtors|<<FEND>>|0|.dtors|All-files|<<FEND>>|1|___dtors_end|<<FEND>>|1|__DTOR_END__|<<FEND>>|1|_mdata|<<FEND>>|<<CEND>>|<<GEND>>|.data|0|2|_mdata|1|0x70000000|0|0|1|_data|<<FEND>>|0|.data|All-files|<<FEND>>|0|.data.*|All-files|<<FEND>>|1|_edata|<<FEND>>|<<CEND>>|<<GEND>>|.gcc_exc|0|0||0||0|0|0|.gcc_exc|All-files|<<FEND>>|<<CEND>>|<<GEND>>|.bss|0|0||0||0|0|1|_bss|<<FEND>>|0|.bss|All-files|<<FEND>>|0|.bss.*|All-files|<<FEND>>|0|COMMON|All-files|<<FEND>>|1|_ebss|<<FEND>>|1|_end|<<FEND>>|<<CEND>>|<<GEND>>|.stack|0|0||1|0x73FFFBF0|0|0|1|_stack|<<FEND>>|<<CEND>>|<<GEND>>|Metadata|0|0||1|0x80001000|0|0|0|Metadata|All-files|<<FEND>>|<<CEND>>|<<GEND>>|] [S|APPTXT|^"-e _ResetHandler^"] [S|CPUTYPE|SH2E] [S|ENDIAN|BIG] [S|PROJECTTYPE|CAPPPROJECT] [B|DOOPTLIB|1] [B|DOPROJBUILT|1]
@@ -180,9 +182,9 @@
 "[V|VERSION|2] [S|INCDIR|^"$(PROJDIR)^"] [I|DEBUGLV|2] [S|OBJPATH|^"$(CONFIGDIR)\$(FILELEAF).o^"] [B|LINCASS|1] [B|LINCSYM|1] [B|LINCHLS|1] [S|CPUTYPE|SH2E] [S|ENDIAN|BIG] [S|PROJECTTYPE|CAPPPROJECT]
 " 4 
 "[V|VERSION|2] [S|INCDIR|^"$(TCINSTALL)\sh-elf\sh-elf\optlibinc^"|^"$(TCINSTALL)\sh-elf\lib\gcc\sh-elf\4.7-GNUSH_v13.01\optlibinc^"] [S|DEFINES|DEBUG] [S|OUTPUT|ASMCODE] [S|OBJPATH|^"$(CONFIGDIR)\$(FILELEAF).s^"] [B|DEBUG|1] [S|DEBUGFT|Native] [I|DEBUGLV|2] [S|ALIGN4|ALL] [S|ASSEMBLY|^"[V|VERSION|2]] [I|DEBUGLV|2]] [S|OBJPATH|^"^"$(CONFIGDIR)\$(FILELEAF).o^"^"]] [S|CPUTYPE|SH2E]] [S|ENDIAN|BIG]] [S|PROJECTTYPE|CAPPPROJECT]]^"] [B|OPTIMIZE|0] [I|OPTLV|2] [B|NOSTDINC|1] [S|APPTXT|^"-Wa,-gdwarf2^"] [S|CPUTYPE|SH2E] [S|ENDIAN|BIG] [S|PROJECTTYPE|CAPPPROJECT] [B|DOOPTLIB|1]
-" 2 
-"[V|VERSION|2] [S|INCDIR|^"$(TCINSTALL)\sh-elf\sh-elf\optlibinc^"|^"$(TCINSTALL)\sh-elf\lib\gcc\sh-elf\4.7-GNUSH_v13.01\optlibinc^"] [S|DEFINES|DEBUG] [S|OUTPUT|ASMCODE] [S|OBJPATH|^"$(CONFIGDIR)\$(FILELEAF).s^"] [B|DEBUG|1] [S|DEBUGFT|Native] [I|DEBUGLV|2] [S|ALIGN4|ALL] [S|ASSEMBLY|^"[V|VERSION|2]] [I|DEBUGLV|2]] [S|OBJPATH|^"^"$(CONFIGDIR)\$(FILELEAF).o^"^"]] [S|CPUTYPE|SH2E]] [S|ENDIAN|BIG]] [S|PROJECTTYPE|CAPPPROJECT]]^"] [B|OPTIMIZE|0] [I|OPTLV|2] [B|NOSTDINC|1] [S|CPUTYPE|SH2E] [S|ENDIAN|BIG] [S|PROJECTTYPE|CAPPPROJECT] [B|DOOPTLIB|1]
 " 3 
+"[V|VERSION|2] [S|INCDIR|^"$(TCINSTALL)\sh-elf\sh-elf\optlibinc^"|^"$(TCINSTALL)\sh-elf\lib\gcc\sh-elf\4.7-GNUSH_v13.01\optlibinc^"] [S|DEFINES|DEBUG] [S|OUTPUT|ASMCODE] [S|OBJPATH|^"$(CONFIGDIR)\$(FILELEAF).s^"] [B|DEBUG|1] [S|DEBUGFT|Native] [I|DEBUGLV|2] [S|ALIGN4|ALL] [S|ASSEMBLY|^"[V|VERSION|2]] [I|DEBUGLV|2]] [S|OBJPATH|^"^"$(CONFIGDIR)\$(FILELEAF).o^"^"]] [S|CPUTYPE|SH2E]] [S|ENDIAN|BIG]] [S|PROJECTTYPE|CAPPPROJECT]]^"] [B|OPTIMIZE|0] [I|OPTLV|2] [B|NOSTDINC|1] [S|CPUTYPE|SH2E] [S|ENDIAN|BIG] [S|PROJECTTYPE|CAPPPROJECT] [B|DOOPTLIB|1]
+" 2 
 "[V|VERSION|2] [S|MODE|BUILD/CHANGED] [B|CTYPE|1] [B|DOPROJBUILT|1] [B|DOOPTLIB|1] [S|OUTPUTPATH|^"$(CONFIGDIR)\lib$(PROJECTNAME).a^"] [B|OPTIMIZE|1] [I|OPTTYPE|1] [S|CPUTYPE|SH2E] [S|ENDIAN|BIG]
 " 1 
 [EXCLUDED_FILES_Debug]

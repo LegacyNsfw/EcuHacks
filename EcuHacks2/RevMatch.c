@@ -24,7 +24,7 @@ extern int RevMatchCalibrationDelay;
 extern TwoDimensionalTable RevMatchTable;
 extern float *RevMatchInputValues;
 extern float *RevMatchOutputValues;
-
+extern char RevMatchEnableFeedback, RevMatchEnableCalibrationFeedback;
 
 float RpmWindow(float rpm) __attribute__ ((section ("RomHole_RevMatchCode")));
 float RpmWindow(float rpm)
@@ -201,7 +201,7 @@ enum RevMatchStates EvaluateTransitionEnabled()
 	if ((*pCruiseFlagsA & CruiseFlagsALightBrake) &&
 		(*pCruiseFlagsA & CruiseFlagsAClutch) &&
 		!(*pCruiseFlagsA & CruiseFlagsACancel) &&
-		*pSpeed > 5 && 
+		*pSpeed > RevMatchMinimumSpeed && 
 		*pCurrentGear > 1)
 	{
 		return RevMatchDecelerationDownshift;
@@ -209,12 +209,15 @@ enum RevMatchStates EvaluateTransitionEnabled()
 	
 	if ((*pCruiseFlagsA & CruiseFlagsACancel) &&
 		!(*pCruiseFlagsA & CruiseFlagsALightBrake) &&
-		*pSpeed > 5 &&
+		*pSpeed > RevMatchMinimumSpeed &&
 		*pCurrentGear > 1)
 	{
 		return RevMatchReadyForAccelerationDownshift;
 	}
 	
+	// Change:
+	// neutral, brake, NO clutch, speed < 1
+	// and exit calibration if any of those change
 	int condition = 
 		((*pCruiseFlagsA & CruiseFlagsACancel) &&
 		(*pCruiseFlagsA & CruiseFlagsAClutch) &&
@@ -336,6 +339,8 @@ void SetCalibrationThrottle()
 	pRamVariables->UpshiftRpm = pRamVariables->DownshiftRpm = RpmWindow(target);
 	
 	pRamVariables->RevMatchCalibrationThrottle = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
+	
+	RevMatchResetFeedback();
 }
 
 void UpdateState() __attribute__((section("RomHole_RevMatchCode")));
@@ -349,6 +354,8 @@ void UpdateState()
 		pRamVariables->RevMatchConditionStart = 0;
 		pRamVariables->RevMatchTimeoutStart = 0;
 		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionDisabled;
+		pRamVariables->RevMatchFeedbackEnabled = RevMatchEnableFeedback;
+		pRamVariables->RevMatchCalibrationFeedbackEnabled = RevMatchEnableCalibrationFeedback;
 		return;
 	}
 
@@ -385,10 +392,12 @@ void UpdateState()
 		break;
 
 	case RevMatchDecelerationDownshift:
+		RevMatchResetFeedback();
 		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionDecelerationDownshift;
 		break;
 
 	case RevMatchAccelerationDownshift:
+		RevMatchResetFeedback();
 		pRamVariables->RevMatchTransitionEvaluator = EvaluateTransitionAccelerationDownshift;
 		break;
 
@@ -527,7 +536,9 @@ void RevMatchCode()
 		// code never opens the throttle without the clutch pressed.
 		if (*pCruiseFlagsA & CruiseFlagsAClutch)
 		{
-			*pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
+			// *pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
+
+			*pTargetThrottlePlatePosition_Out = RevMatchGetThrottle(pRamVariables->DownshiftRpm);
 			DisableFuelCut();			
 		}
 		else
@@ -557,7 +568,14 @@ void RevMatchCode()
 		// with a small allowance for possible noise from the sensor.
 		if ((*pCruiseFlagsA & CruiseFlagsAClutch) && (*pSpeed < 1))
 		{
-			*pTargetThrottlePlatePosition_Out = pRamVariables->RevMatchCalibrationThrottle;
+			if (pRamVariables->RevMatchCalibrationFeedbackEnabled)
+			{
+				*pTargetThrottlePlatePosition_Out = RevMatchGetThrottle(pRamVariables->DownshiftRpm);
+			}
+			else
+			{
+				*pTargetThrottlePlatePosition_Out = pRamVariables->RevMatchCalibrationThrottle;
+			}
 			DisableFuelCut();
 		}
 		else
@@ -584,6 +602,8 @@ void GetRevMatchTableInfo()
 	address = &RevMatchDuration; // Delays: rev match active duration, accel downshift ready timeout, feature enable delay, calibration entry delay
 	address = &RevMatchInputValues;
 	address = &RevMatchOutputValues;
+	address = &RevMatchEnableFeedback;
+	address = &RevMatchEnableCalibrationFeedback;
 	
 	address = &(pRamVariables->RevMatchState); // single byte
 	address = &(pRamVariables->Counter); // 4 bytes

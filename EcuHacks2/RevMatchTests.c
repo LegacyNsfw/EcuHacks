@@ -434,6 +434,8 @@ void RevMatchCalibrationThrottleTests()
 
 	RevMatchResetAndEnable();
 
+	// Temporarily disable calibration feedback to enable calibration throttle adjustment.
+	pRamVariables->RevMatchCalibrationFeedbackEnabled = 0;
 	*pSpeed = 0;
 	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	RevMatchCode();
@@ -512,4 +514,26 @@ void RevMatchCalibrationThrottleTests()
 	RevMatchCode();
 	Assert(pRamVariables->RevMatchCalibrationIndex == 1, "Increase index.");
 	Assert(AreCloseEnough(*pTargetThrottlePlatePosition_Out, throttleIndex1), "Throttle for index 1.");
+}
+
+void RevMatchFeedbackTests() __attribute__ ((section ("Misc")));
+void RevMatchFeedbackTests()
+{
+	RevMatchResetFeedback();
+	pRamVariables->RevMatchFeedbackEnabled = 0;
+	
+	*pRPM = 2800;
+
+	float result = RevMatchGetThrottle(3000);
+	Assert(AreCloseEnough(result, 10.0), "Raw throttle at 3000");
+	
+	pRamVariables->RevMatchFeedbackEnabled = 1;
+	result = RevMatchGetThrottle(3000);
+	Assert(AreCloseEnough(result, 10.205), "Throttle + proportional");
+	
+	result = RevMatchGetThrottle(3000);
+	Assert(AreCloseEnough(result, 10.210), "Throttle + proportional");
+
+	result = RevMatchGetThrottle(3000);
+	Assert(AreCloseEnough(result, 10.215), "Throttle + proportional");
 }

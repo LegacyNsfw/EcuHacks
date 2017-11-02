@@ -57,6 +57,10 @@ _ResetHandler:
 				jsr		@r0
 				nop
 
+				mov.l	RevMatchFeedbackTests,r0
+				jsr		@r0
+				nop
+
 				mov.l	RevMatchCounterTests,r0
 				jsr		@r0
 				nop
@@ -130,6 +134,9 @@ RevMatchCalibrationIndexTests:
 
 RevMatchCalibrationThrottleTests:
 		.long	_RevMatchCalibrationThrottleTests
+		
+RevMatchFeedbackTests:
+		.long	_RevMatchFeedbackTests
 		
 RevMatchCounterTests:
 		.long	_RevMatchCounterTests

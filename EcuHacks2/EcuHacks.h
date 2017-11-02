@@ -41,6 +41,9 @@
 #define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08) // AKA Flags023
 #define OverrunFuelCutBit 0x80
 
+extern void RevMatchResetFeedback();
+extern float RevMatchGetThrottle(float targetRpm);
+
 typedef struct
 {
 	// Base + 00
@@ -93,6 +96,18 @@ typedef struct
 	
 	// Base + 0x38
 	float RevMatchCalibrationThrottle;
+	
+	// Base + 0x3C
+	float RevMatchProportionalFeedback;
+	
+	// Base + 0x40
+	float RevMatchIntegralFeedback;
+	
+	char RevMatchFeedbackEnabled;
+	char RevMatchCalibrationFeedbackEnabled;
+	char Unused2;
+	char Unused3;
+	
 } RamVariables;
 
 // For A2WC522N, RAM from 0xFFA000 - 00FFBFCF is apparently unused (8,143 bytes)
@@ -219,6 +234,6 @@ extern float LaunchControlCut, LaunchControlResume;
 extern float RevMatchFfsFuelCutDelta, RevMatchFfsFuelResumeDelta;
 extern float FlatFootShiftSpeedThreshold;
 
-extern float RevMatchFakeAccelerator;
+extern float RevMatchMinimumSpeed;
 
 #define MAX_COUNTER 1000000
