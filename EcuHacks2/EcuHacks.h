@@ -41,6 +41,9 @@
 #define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08) // AKA Flags023
 #define OverrunFuelCutBit 0x80
 
+#define pFlags003                        ((char*) 0xFFFF51C7)
+#define NeutralSwitchBit 0x02
+
 extern void RevMatchResetFeedback();
 extern float RevMatchGetThrottle(float targetRpm);
 

@@ -48507,6 +48507,23 @@
                 </conversions>
               </ecuparam>
 
+			  <ecuparam id="E1113" name="Rev Match Feedback Proportional" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">0xFFA03C</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+			  <ecuparam id="E1114" name="Rev Match Feedback Integral" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">0xFFA040</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
 
 
               <ecuparam id="E1190" name="AccPedal Inv-1 - DBW Throttle Pedal" desc="">
@@ -49223,7 +49240,23 @@
                 </conversions>
               </ecuparam>
 
+              <ecuparam id="E1509" name="Neutral Inv - Flags011 4CB4" desc="">
+                <ecu id="2F12785606">
+                  <address length="1">FF4CB4</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
               
+              <ecuparam id="E1510" name="Neutral Inv - Flags001 51C6" desc="Bit 0x40 / 64 is the neutral switch.">
+                <ecu id="2F12785606">
+                  <address length="1">FF51C6</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="byte" expr="x" format="0" />
+                </conversions>
+              </ecuparam>
               
               
               <ecuparam id="E1600" name="Idle - RevMatch State" desc="">

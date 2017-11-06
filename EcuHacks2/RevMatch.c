@@ -21,6 +21,9 @@ extern int RevMatchAccelerationDownshiftReadyDuration;
 extern int RevMatchEnableDelay;
 extern int RevMatchCalibrationDelay;
 
+extern float RevMatchProportionalGain;
+extern float RevMatchIntegralGain;
+
 extern TwoDimensionalTable RevMatchTable;
 extern float *RevMatchInputValues;
 extern float *RevMatchOutputValues;
@@ -604,6 +607,8 @@ void GetRevMatchTableInfo()
 	address = &RevMatchOutputValues;
 	address = &RevMatchEnableFeedback;
 	address = &RevMatchEnableCalibrationFeedback;
+	address = &RevMatchProportionalGain;
+	address = &RevMatchIntegralGain;
 	
 	address = &(pRamVariables->RevMatchState); // single byte
 	address = &(pRamVariables->Counter); // 4 bytes
@@ -611,4 +616,6 @@ void GetRevMatchTableInfo()
 	address = &(pRamVariables->DownshiftRpm); // 4 bytes
 	address = &(pRamVariables->RevMatchCalibrationIndex); // single byte
 	address = &(pRamVariables->CounterAsFloat); // 4 bytes
+	address = &(pRamVariables->RevMatchProportionalFeedback); // 4 bytes
+	address = &(pRamVariables->RevMatchIntegralFeedback); // 4 bytes
 }

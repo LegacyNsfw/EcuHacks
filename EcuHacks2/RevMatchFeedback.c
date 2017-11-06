@@ -33,15 +33,27 @@ float RevMatchGetThrottle(float targetRpm)
 	
 	float totalFeedback = proportionalFeedback + pRamVariables->RevMatchIntegralFeedback;
 	
-	if (totalFeedback > 3)	
+	const float Limit = 5.0f;
+	if (totalFeedback > Limit)	
 	{
-		totalFeedback = 3;
+		totalFeedback = Limit;
 	}
 	
-	if (totalFeedback < -3)
+	if (totalFeedback < -Limit)
 	{
-		totalFeedback = -3;
+		totalFeedback = -Limit;
 	}
 	
-	return base + totalFeedback;
+	float result = base + totalFeedback;
+	if (result < 0)
+	{
+		result = 0;
+	}
+	
+	if (result > 25)
+	{
+		result = 25;
+	}
+	
+	return result;
 }

@@ -58,6 +58,7 @@ void RevMatchDownshiftTests()
 	*pCruiseFlagsA = 0;
 	
 	RevMatchResetAndEnable();
+	pRV->RevMatchFeedbackEnabled = 0;
 	
 	// Confirm no throttle change by default.
 	Assert(pRamVariables->RevMatchState == RevMatchEnabled, "Mode should be 'enabled'");
@@ -290,6 +291,7 @@ void RevMatchCalibrationIndexTests()
 	RamVariables *pRV = pRamVariables;
 
 	RevMatchResetAndEnable();
+	pRV->RevMatchFeedbackEnabled = 0;
 	
 	*pSpeed = 0;
 	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAClutch;
@@ -529,11 +531,11 @@ void RevMatchFeedbackTests()
 	
 	pRamVariables->RevMatchFeedbackEnabled = 1;
 	result = RevMatchGetThrottle(3000);
-	Assert(AreCloseEnough(result, 10.205), "Throttle + proportional");
+	Assert(AreCloseEnough(result, 10.41), "Throttle + proportional");
 	
 	result = RevMatchGetThrottle(3000);
-	Assert(AreCloseEnough(result, 10.210), "Throttle + proportional");
+	Assert(AreCloseEnough(result, 10.42), "Throttle + proportional");
 
 	result = RevMatchGetThrottle(3000);
-	Assert(AreCloseEnough(result, 10.215), "Throttle + proportional");
+	Assert(AreCloseEnough(result, 10.43), "Throttle + proportional");
 }

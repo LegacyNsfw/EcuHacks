@@ -54,8 +54,8 @@ _MaxTargetRpm:     .float 7000
 _MinCoolantTemperature:    .float 71 !! 160F
 _RevMatchMinimumSpeed:     .float 40 !! 40 kph / 25 mph
 _RevMatchBuildVersion:     .float 231
-_RevMatchProportionalGain: .float 0.0010 !! .2% throttle adjustment per 100 RPM difference
-_RevMatchIntegralGain:     .float 0.000025 !! Throttle adjustment per 100 RPM difference, per 125th/second.
+_RevMatchProportionalGain: .float 0.00200 !! 0.002 = .2% throttle adjustment per 100 RPM difference
+_RevMatchIntegralGain:     .float 0.00005 !! Additional throttle adjustment per 100 RPM difference per 125th/second.
 
 _RevMatchDuration:           .int 250 !! 125 iterations/second, so this is 2 seconds
 _RevMatchAccelerationDownshiftReadyDuration: .int 250 !! 2 seconds
@@ -82,11 +82,11 @@ _RevMatchOutputValues:
 .float 14
 .float 18
 
-_RevMatchEnableFeedback:            .byte 00
+_RevMatchEnableFeedback:            .byte 01
 _RevMatchEnableCalibrationFeedback: .byte 01
 _RevMatchUnusedByte1:               .byte 00
 _RevMatchUnusedByte2:               .byte 00
-
+! _RevMatchTargetOffset               .float -100.0
 .end
 
 
