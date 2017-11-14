@@ -40,6 +40,7 @@ _StartOfRevMatchTables:
 
 .global _RevMatchProportionalGain
 .global _RevMatchIntegralGain
+.global _RevMatchDerivativeGain
 
 _Gear1Multiplier:  .float 8.2 
 _Gear2Multiplier:  .float 13.4
@@ -54,8 +55,8 @@ _MaxTargetRpm:     .float 7000
 _MinCoolantTemperature:    .float 71 !! 160F
 _RevMatchMinimumSpeed:     .float 40 !! 40 kph / 25 mph
 _RevMatchBuildVersion:     .float 231
-_RevMatchProportionalGain: .float 0.00200 !! 0.002 = .2% throttle adjustment per 100 RPM difference
-_RevMatchIntegralGain:     .float 0.00005 !! Additional throttle adjustment per 100 RPM difference per 125th/second.
+_RevMatchUnused1:          .float 0
+_RevMatchUnused2:          .float 0
 
 _RevMatchDuration:           .int 250 !! 125 iterations/second, so this is 2 seconds
 _RevMatchAccelerationDownshiftReadyDuration: .int 250 !! 2 seconds
@@ -81,6 +82,10 @@ _RevMatchOutputValues:
 .float 10
 .float 14
 .float 18
+
+_RevMatchProportionalGain: .float 0.002000  !! 0.002 = .2% throttle adjustment per 100 RPM difference
+_RevMatchIntegralGain:     .float 0.000050  !! Additional throttle adjustment per 100 RPM difference per 125th/second.
+_RevMatchDerivativeGain:   .float 0.000002 
 
 _RevMatchEnableFeedback:            .byte 01
 _RevMatchEnableCalibrationFeedback: .byte 01

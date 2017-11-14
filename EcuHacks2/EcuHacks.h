@@ -106,6 +106,11 @@ typedef struct
 	// Base + 0x40
 	float RevMatchIntegralFeedback;
 	
+	// Base + 0x44
+	float RevMatchDerivativeFeedback;
+	
+	float RevMatchPreviousError;
+	
 	char RevMatchFeedbackEnabled;
 	char RevMatchCalibrationFeedbackEnabled;
 	char Unused2;

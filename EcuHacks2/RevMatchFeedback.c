@@ -1,7 +1,7 @@
 #include "EcuHacks.h"
 
 extern TwoDimensionalTable RevMatchTable;
-extern float RevMatchProportionalGain, RevMatchIntegralGain;
+extern float RevMatchProportionalGain, RevMatchIntegralGain, RevMatchDerivativeGain;
 
 
 void RevMatchResetFeedback(void) __attribute__((section("RomHole_RevMatchCode")));
@@ -31,7 +31,11 @@ float RevMatchGetThrottle(float targetRpm)
 	float integralFeedback = error * RevMatchIntegralGain;
 	pRamVariables->RevMatchIntegralFeedback += integralFeedback;
 	
-	float totalFeedback = proportionalFeedback + pRamVariables->RevMatchIntegralFeedback;
+	float derivativeFeedback = (error - pRamVariables->RevMatchPreviousError) * RevMatchDerivativeGain;
+	pRamVariables->RevMatchDerivativeFeedback = derivativeFeedback;
+	pRamVariables->RevMatchPreviousError = error;
+	
+	float totalFeedback = proportionalFeedback + pRamVariables->RevMatchIntegralFeedback + derivativeFeedback;
 	
 	const float Limit = 5.0f;
 	if (totalFeedback > Limit)	
