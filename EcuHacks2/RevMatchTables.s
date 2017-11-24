@@ -54,7 +54,7 @@ _MaxTargetRpm:     .float 7000
 
 _MinCoolantTemperature:    .float 71 !! 160F
 _RevMatchMinimumSpeed:     .float 40 !! 40 kph / 25 mph
-_RevMatchBuildVersion:     .float 231
+_RevMatchBuildVersion:     .float 2012.1123
 _RevMatchUnused1:          .float 0
 _RevMatchUnused2:          .float 0
 
@@ -78,15 +78,15 @@ _RevMatchInputValues:
 .float 6500
 
 _RevMatchOutputValues:
-.float 4.5
-.float 10
-.float 14
-.float 18
+!.float 4.5
+!.float 10
+!.float 14
+!.float 18
 
-!.float 3 !! 4.5
-!.float 5 !! 10
-!.float 8 !! 14
-!.float 12 !! 18
+.float 3 !! 4.5
+.float 5 !! 10
+.float 8 !! 14
+.float 12 !! 18
 
 _RevMatchProportionalGain: .float 0.002000  !! 0.002 = .2% throttle adjustment per 100 RPM difference
 _RevMatchIntegralGain:     .float 0.000050  !! Additional throttle adjustment per 100 RPM difference per 125th/second.

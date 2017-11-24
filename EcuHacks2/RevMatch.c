@@ -608,7 +608,7 @@ void GetRevMatchTableInfo()
 	address = &RevMatchEnableFeedback;
 	address = &RevMatchEnableCalibrationFeedback;
 	address = &RevMatchProportionalGain;
-	address = &RevMatchIntegralGain;
+	address = &RevMatchEnableFeedback;
 	
 	address = &(pRamVariables->RevMatchState); // single byte
 	address = &(pRamVariables->Counter); // 4 bytes
