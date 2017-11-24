@@ -18,7 +18,7 @@ void SpeedDensityUnitTests() __attribute__ ((section ("Misc")));
 void SpeedDensityUnitTests()
 {
 	float expectedMafFromSensor = 3.3727;
-	float expectedMafFromSpeedDensity = 3.0557;
+	float expectedMafFromSpeedDensity = 3.055717;
 		
 	// Pretend the ECU has just booted, so MafMode is not initialized.
 	pRamVariables->MafMode = 0;
@@ -28,17 +28,17 @@ void SpeedDensityUnitTests()
 	*pMafSensorVoltage = (short) (1.25f * MafVoltageToInternalUnits);
 	
 	float result = CallSpeedDensityHook();	
-	Assert(AreCloseEnough(result, expectedMafFromSensor), "First execution should return MAF from sensor.");
-	Assert(pRamVariables->MafMode == MafModeSensor, "First execution should set MafMode to MafModeSensor.");
+	AssertEqualFloats(result, expectedMafFromSensor, "First execution should return MAF from sensor.");
+	AssertEqualInts(pRamVariables->MafMode, MafModeSensor, "First execution should set MafMode to MafModeSensor.");
 	
 	// Verify that we get the same result again.
 	result = CallSpeedDensityHook();	
-	Assert(AreCloseEnough(result, expectedMafFromSensor), "Second execution should return MAF from sensor.");
-	Assert(pRamVariables->MafMode == MafModeSensor, "MafMode should remain set to MafModeSensor.");
+	AssertEqualFloats(result, expectedMafFromSensor, "Second execution should return MAF from sensor.");
+	AssertEqualInts(pRamVariables->MafMode, MafModeSensor, "MafMode should remain set to MafModeSensor.");
 
 	pRamVariables->MafMode = MafModeSpeedDensity;
 	result = CallSpeedDensityHook();	
-	Assert(AreCloseEnough(result, expectedMafFromSpeedDensity), "Second execution should return MAF from speed-density.");
-	Assert(pRamVariables->MafMode == MafModeSpeedDensity, "MafMode should remain set to MafModeSpeedDensity.");
+	AssertEqualFloats(result, expectedMafFromSpeedDensity, "Second execution should return MAF from speed-density.");
+	AssertEqualInts(pRamVariables->MafMode, MafModeSpeedDensity, "MafMode should remain set to MafModeSpeedDensity.");
 }
 

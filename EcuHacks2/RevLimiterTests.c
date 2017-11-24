@@ -68,79 +68,79 @@ void RevLimiterUnitTests()
 	*pSpeed = 0.0f;
 	SetClutch(0);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Normal stopped: Allow fuel at LaunchControlCut + 1000 RPM, stopped, no clutch");
+	AssertTrue(!GetFuelCutFlag(), "Normal stopped: Allow fuel at LaunchControlCut + 1000 RPM, stopped, no clutch");
 	
 	*pRPM = FfsCut + 10;
 	*pSpeed = 0.0f;
 	SetClutch(0);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Normal stopped: Allow fuel at FlatFootShiftCut + 1000 RPM, stopped, no clutch");
+	AssertTrue(!GetFuelCutFlag(), "Normal stopped: Allow fuel at FlatFootShiftCut + 1000 RPM, stopped, no clutch");
 
 	*pRPM = LaunchControlCut + 1000;
 	*pSpeed = 20.0f;
 	SetClutch(0);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Normal moving: Allow fuel at LaunchControlCut + 1000 RPM, moving, no clutch");
+	AssertTrue(!GetFuelCutFlag(), "Normal moving: Allow fuel at LaunchControlCut + 1000 RPM, moving, no clutch");
 	
 	*pRPM = FfsCut + 10;
 	*pSpeed = 20.0f;
 	SetClutch(0);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Normal moving: Allow fuel at FlatFootShiftCut + 1000 RPM, moving, no clutch");
+	AssertTrue(!GetFuelCutFlag(), "Normal moving: Allow fuel at FlatFootShiftCut + 1000 RPM, moving, no clutch");
 	
 	*pRPM = LaunchControlCut - 1;
 	*pSpeed = 0.0f;
 	SetClutch(1);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Launch Control: Allow fuel at LaunchControlCut - 1 RPM, standstill, clutch pressed");
+	AssertTrue(!GetFuelCutFlag(), "Launch Control: Allow fuel at LaunchControlCut - 1 RPM, standstill, clutch pressed");
 	
 	*pRPM = LaunchControlCut + 1;
 	*pSpeed = 0.0f;
 	SetClutch(1);
 	RevLimitPatch();
-	Assert(GetFuelCutFlag(), "Launch Control: Cut fuel at LaunchControlCut + 1 RPM, standstill, clutch pressed");
+	AssertTrue(GetFuelCutFlag(), "Launch Control: Cut fuel at LaunchControlCut + 1 RPM, standstill, clutch pressed");
 	
 	*pRPM = LaunchControlResume - 1;
 	*pSpeed = 0.0f;
 	SetClutch(1);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Launch Control: Resume fuel at LaunchControlResume - 1 RPM, standstill, clutch pressed");
+	AssertTrue(!GetFuelCutFlag(), "Launch Control: Resume fuel at LaunchControlResume - 1 RPM, standstill, clutch pressed");
 	
 	*pRPM = FfsCut - 1;
 	*pSpeed = 20.0f;
 	SetClutch(1);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Flat Foot Shifting: Allow fuel at FlatFootShiftCut - 1 RPM, moving, clutch pressed");
+	AssertTrue(!GetFuelCutFlag(), "Flat Foot Shifting: Allow fuel at FlatFootShiftCut - 1 RPM, moving, clutch pressed");
 	
 	*pRPM = FfsCut + 1;
 	*pSpeed = 20.0f;
 	SetClutch(1);
 	RevLimitPatch();
-	Assert(GetFuelCutFlag(), "Flat Foot Shifting: Cut fuel at FlatFootShiftCut + 1 RPM, moving, clutch pressed");	
+	AssertTrue(GetFuelCutFlag(), "Flat Foot Shifting: Cut fuel at FlatFootShiftCut + 1 RPM, moving, clutch pressed");	
 
 	*pRPM = FfsResume - 1;
 	*pSpeed = 20.0f;
 	SetClutch(1);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Flat Foot Shifting: Resume fuel at FlatFootShiftResume - 1 RPM, moving, clutch pressed");
+	AssertTrue(!GetFuelCutFlag(), "Flat Foot Shifting: Resume fuel at FlatFootShiftResume - 1 RPM, moving, clutch pressed");
 
 	*pRPM = RedlineCut - 1;
 	*pSpeed = 20.0f;
 	SetClutch(0);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Redline: Allow fuel at RedlineCut - 1 RPM, moving, clutch not pressed");
+	AssertTrue(!GetFuelCutFlag(), "Redline: Allow fuel at RedlineCut - 1 RPM, moving, clutch not pressed");
 	
 	*pRPM = RedlineCut + 1;
 	*pSpeed = 20.0f;
 	SetClutch(0);
 	RevLimitPatch();
-	Assert(GetFuelCutFlag(), "Redline: Cut fuel at RedlineCut + 1 RPM, moving, clutch not pressed");	
+	AssertTrue(GetFuelCutFlag(), "Redline: Cut fuel at RedlineCut + 1 RPM, moving, clutch not pressed");	
 
 	*pRPM = RedlineResume - 1;
 	*pSpeed = 20.0f;
 	SetClutch(0);
 	RevLimitPatch();
-	Assert(!GetFuelCutFlag(), "Redline: Resume fuel at RedlineResume - 1 RPM, moving, clutch not pressed");
+	AssertTrue(!GetFuelCutFlag(), "Redline: Resume fuel at RedlineResume - 1 RPM, moving, clutch not pressed");
 	
 	// Verify the upper-limit sanity check
 	pRamVariables->UpshiftRpm = 9000;
@@ -149,7 +149,7 @@ void RevLimiterUnitTests()
 	*pSpeed = 20.0f;
 	SetClutch(1);
 	RevLimitPatch();
-	Assert(GetFuelCutFlag(), "Flat Foot Shifting: Cut fuel at RedlineCut + 1 RPM, when rev match cut is too high");	
+	AssertTrue(GetFuelCutFlag(), "Flat Foot Shifting: Cut fuel at RedlineCut + 1 RPM, when rev match cut is too high");	
 	
 	// Verify the other bits in the rev limiter flag are not modified.
 	*pRPM = 6000.0f;
@@ -159,7 +159,7 @@ void RevLimiterUnitTests()
 	RevLimitPatch();
 	char flags = *pFlagsRevLimit_0x80;
 	int comparison = flags == (char) 0x80;
-	Assert(comparison, "When rev limit flag is set, no other bits are set.");
+	AssertTrue(comparison, "When rev limit flag is set, no other bits are set.");
 
 	// Verify the other bits in the rev limiter flag are not modified.
 	*pRPM = 1000.0f;
@@ -169,12 +169,12 @@ void RevLimiterUnitTests()
 	RevLimitPatch();
 	flags = *pFlagsRevLimit_0x80;
 	comparison = flags == (char) 0x7F;
-	Assert(comparison, "When rev limit flag is cleared, no other bits are cleared.");	
+	AssertTrue(comparison, "When rev limit flag is cleared, no other bits are cleared.");	
 	
 	// Sanity check the defaults
-	Assert(RedlineCut > RedlineResume, "Redline cut/resume sanity.");
-	Assert(LaunchControlCut > LaunchControlResume, "LaunchControl cut/resume sanity.");
-	Assert(RevMatchFfsFuelCutDelta > 0, "FlatFootShift cut sanity.");
-	Assert(RevMatchFfsFuelResumeDelta < 0, "FlatFootShift resume sanity.");
+	AssertTrue(RedlineCut > RedlineResume, "Redline cut/resume sanity.");
+	AssertTrue(LaunchControlCut > LaunchControlResume, "LaunchControl cut/resume sanity.");
+	AssertTrue(RevMatchFfsFuelCutDelta > 0, "FlatFootShift cut sanity.");
+	AssertTrue(RevMatchFfsFuelResumeDelta < 0, "FlatFootShift resume sanity.");
 }
 

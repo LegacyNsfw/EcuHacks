@@ -240,4 +240,21 @@
     <description>Increase this to 500 to skip a bunch of inscrutable code that modifies the accelerator position.</description>
   </table>
 
+   
+
+
+   <scaling name="IDC" units="Injector Duty Cycle" toexpr="x*0.01" frexpr="x/0.01" format="%.2f" min="0" max="255" inc="1" storagetype="uint16" endian="big"/>
+   <scaling name="Pressure (bar)" units="units" toexpr="x/750" frexpr="x*750" format="%.2f" min="0" max="255" inc="1" storagetype="float" endian="big"/>
+
+
+   <table name="Fuel Pump Duty High Injector Duty Cycle" category="Fueling - Pump" address="CA88C" type="3D" level="1" scaling="IDC">
+      <table name="Battery Voltage" address="CA87C" type="X Axis" elements="2" scaling="rawecuvalue"/>
+      <table name="Manifold Relative Pressure" address="CA884" type="Y Axis" elements="2" scaling="Pressure (bar)"/>
+   </table>
+
+   <table name="Fuel Pump Duty Medium Injector Duty Cycle" category="Fueling - Pump" address="CA8A4" type="3D" level="1" scaling="IDC">
+      <table name="Battery Voltage" address="CA894" type="X Axis" elements="2" scaling="rawecuvalue"/>
+      <table name="Manifold Relative Pressure" address="CA89C" type="Y Axis" elements="2" scaling="Pressure (bar)"/>
+   </table>
+
 </rom>
