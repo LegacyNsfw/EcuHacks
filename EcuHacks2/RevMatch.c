@@ -24,7 +24,7 @@ extern int RevMatchCalibrationDelay;
 extern float RevMatchProportionalGain;
 extern float RevMatchIntegralGain;
 
-extern TwoDimensionalTable RevMatchTable;
+extern TwoDimensionalTable RevMatchTable, RevMatchDownshiftAdjustmentTable;
 extern float *RevMatchInputValues;
 extern float *RevMatchOutputValues;
 extern char RevMatchEnableFeedback, RevMatchEnableCalibrationFeedback;
@@ -90,7 +90,10 @@ void SetTargetRpm()
 	}
 	
 	pRamVariables->UpshiftRpm = RpmWindow((*pSpeed * 1000.0f) / upshift);
-	pRamVariables->DownshiftRpm = RpmWindow((*pSpeed * 1000.0f) / downshift);
+	
+	float rawDownshiftTarget = (*pSpeed * 1000.0f) / downshift;
+	float downshiftTarget = Pull2d(&RevMatchDownshiftAdjustmentTable, rawDownshiftTarget);
+	pRamVariables->DownshiftRpm = RpmWindow(downshiftTarget);
 }
 
 void UpdateCounter() __attribute__ ((section ("RomHole_RevMatchCode")));

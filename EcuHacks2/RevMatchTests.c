@@ -68,11 +68,13 @@ void RevMatchDownshiftTests()
 	AssertTrue(pRamVariables->DownshiftRpm > 3500, "Downshift RPM is sane 1");
 	AssertTrue(pRamVariables->DownshiftRpm < 4000, "Downshift RPM is sane 2");
 	
+	float expectedThrottle = 11.06268;
+	
 	// Match revs with a braking downshift.
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch; 
 	RevMatchCode();
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchDecelerationDownshift, "Mode should be braking downshift");
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 11.46269, "Throttle changed - deceleration downshift.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - deceleration downshift.");
 	
 	// Confirm no throttle change after brake is released.
 	*pCruiseFlagsA = CruiseFlagsAClutch;
@@ -84,7 +86,7 @@ void RevMatchDownshiftTests()
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	RevMatchCode();	
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchDecelerationDownshift, "Mode should be braking downshift");
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 11.46269f, "Throttle changed - deceleration downshift again.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - deceleration downshift again.");
 	
 	// Confirm no throttle change after clutch is released.
 	*pCruiseFlagsA = CruiseFlagsALightBrake;
@@ -96,7 +98,7 @@ void RevMatchDownshiftTests()
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	RevMatchCode();	
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchDecelerationDownshift, "Mode should be braking downshift");
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 11.46269f, "Throttle changed - deceleration downshift yet again.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - deceleration downshift yet again.");
 
 	// Confirm no throttle change after countdown timer runs out.
 	int i;
@@ -105,7 +107,7 @@ void RevMatchDownshiftTests()
 		RevMatchCode();	
 	}
 	
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 11.46269f, "Throttle changed - waiting for timeout.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - waiting for timeout.");
 	
 	for (i = 0; i < 130; i++)
 	{
@@ -132,7 +134,7 @@ void RevMatchDownshiftTests()
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	RevMatchCode();	
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchAccelerationDownshift, "Mode should be 'acceleration downshift'");
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 11.46269f, "Throttle changed - acceleration downshift.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - acceleration downshift.");
 	
 	// Confirm no throttle change after clutch is released.
 	*pCruiseFlagsA = 0;
@@ -149,7 +151,7 @@ void RevMatchDownshiftTests()
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	RevMatchCode();	
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchAccelerationDownshift, "Mode should be 'acceleration downshift'");
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 11.46269f, "Throttle changed - acceleration downshift again.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - acceleration downshift again.");
 	
 	// Confirm no throttle change after countdown timer runs out.
 	for (i = 0; i < 125; i++)
@@ -157,7 +159,7 @@ void RevMatchDownshiftTests()
 		RevMatchCode();	
 	}
 	
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 11.46269f, "Throttle changed - waiting for timeout.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - waiting for timeout.");
 	
 	for (i = 0; i < 130; i++)
 	{

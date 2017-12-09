@@ -22,9 +22,6 @@ _StartOfRevMatchTables:
 .global _MaxTargetRpm
 .global _MinCoolantTemperature
 .global _RevMatchMinimumSpeed
-.global _RevMatchUnusedFloat1 !! Reserved for future use
-.global _RevMatchUnusedFloat2
-.global _RevMatchUnusedFloat3
 
 .global _RevMatchDuration
 .global _RevMatchAccelerationDownshiftReadyDuration
@@ -34,6 +31,10 @@ _StartOfRevMatchTables:
 .global _RevMatchTable
 .global _RevMatchInputValues
 .global _RevMatchOutputValues
+
+.global _RevMatchDownshiftAdjustmentTable
+.global _RevMatchDownshiftAdjustmentInputValues
+.global _RevMatchDownshiftAdjustmentOutputValues
 
 .global _RevMatchEnableFeedback
 .global _RevMatchEnableCalibrationFeedback
@@ -54,7 +55,7 @@ _MaxTargetRpm:     .float 7000
 
 _MinCoolantTemperature:    .float 71 !! 160F
 _RevMatchMinimumSpeed:     .float 40 !! 40 kph / 25 mph
-_RevMatchBuildVersion:     .float 2012.1123
+_RevMatchBuildVersion:     .float 2012.1206
 _RevMatchUnused1:          .float 0
 _RevMatchUnused2:          .float 0
 
@@ -78,15 +79,10 @@ _RevMatchInputValues:
 .float 6500
 
 _RevMatchOutputValues:
-!.float 4.5
-!.float 10
-!.float 14
-!.float 18
-
-.float 3 !! 4.5
-.float 5 !! 10
-.float 8 !! 14
-.float 12 !! 18
+.float 4.5
+.float 10
+.float 14
+.float 18
 
 _RevMatchProportionalGain: .float 0.002000  !! 0.002 = .2% throttle adjustment per 100 RPM difference
 _RevMatchIntegralGain:     .float 0.000050  !! Additional throttle adjustment per 100 RPM difference per 125th/second.
@@ -96,7 +92,28 @@ _RevMatchEnableFeedback:            .byte 01
 _RevMatchEnableCalibrationFeedback: .byte 01
 _RevMatchUnusedByte1:               .byte 00
 _RevMatchUnusedByte2:               .byte 00
-! _RevMatchTargetOffset               .float -100.0
+
+_RevMatchDownshiftAdjustmentTable: 
+.byte 00
+.byte 04
+.byte 00
+.byte 00
+.long _RevMatchDownshiftAdjustmentInputValues
+.long _RevMatchDownshiftAdjustmentOutputValues
+
+_RevMatchDownshiftAdjustmentInputValues:
+.float 1200
+.float 3200
+.float 5200
+.float 6700
+
+_RevMatchDownshiftAdjustmentOutputValues:
+.float 1000
+.float 3000
+.float 5000
+.float 6500
+
+
 .end
 
 
