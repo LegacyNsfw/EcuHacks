@@ -49583,12 +49583,12 @@
                 </conversions>
               </ecuparam>
 
-              <ecuparam id="E1662" name="Throttle Inv A 6230" desc="TBD">
+              <ecuparam id="E1662" name="Throttle Inv D 6230" desc="TBD">
                 <ecu id="2F12785606">
                   <address length="4">FF6230</address>
                 </ecu>
                 <conversions>
-                  <conversion units="Raw" storagetype="float" expr="x" format="0" />
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
                 </conversions>
               </ecuparam>
 
@@ -49711,6 +49711,7 @@
                   <conversion units="Raw" storagetype="byte" expr="x" format="0" />
                 </conversions>
               </ecuparam>
+			  
               <ecuparam id="E1687" name="Throttle Inv C 60C3" desc="TBD">
                 <ecu id="2F12785606">
                   <address length="2">FF60C3</address>
@@ -49720,6 +49721,23 @@
                 </conversions>
               </ecuparam>
 			  
+			  <ecuparam id="E1690" name="Throttle Inv D 5F2C" desc="TBD">
+                <ecu id="2F12785606">
+                  <address length="4">FF5F2C</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+			  
+			  <ecuparam id="E1691" name="Throttle Inv D 2114" desc="TBD">
+                <ecu id="2F12785606">
+                  <address length="4">FF2114</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
 			  
 			  </ecuparams>
         </protocol>
