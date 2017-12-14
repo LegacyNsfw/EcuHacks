@@ -27,6 +27,10 @@ extern float RevMatchIntegralGain;
 extern TwoDimensionalTable RevMatchTable, RevMatchDownshiftAdjustmentTable;
 extern float *RevMatchInputValues;
 extern float *RevMatchOutputValues;
+
+extern float *RevMatchDownshiftAdjustmentInputValues;
+extern float *RevMatchDownshiftAdjustmentOutputValues;
+	
 extern char RevMatchEnableFeedback, RevMatchEnableCalibrationFeedback;
 
 float RpmWindow(float rpm) __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -488,8 +492,8 @@ void DisableFuelCut()
 	*((char*)0xFFFF5A0A) = 0; // aka Flags055 - zero in cruise, 240 during fuel cut
 
 	// Over-rev got worse with this line commented out.
-	// 16 is the baseline... how is it with 24?
-	*((char*)0xFFFF5A08) = 24; //aka Flags023 - 16 or 24 in cruise, 160 or 176 during fuel cut
+	// 16 or 24 work just fine.
+	*((char*)0xFFFF5A08) = 24; // aka Flags023 - 16 or 24 in cruise, 160 or 176 during fuel cut
 }
 
 void RevMatchCode() __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -545,7 +549,11 @@ void RevMatchCode()
 			// *pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
 
 			*pTargetThrottlePlatePosition_Out = RevMatchGetThrottle(pRamVariables->DownshiftRpm);
-			DisableFuelCut();			
+			DisableFuelCut();
+			
+			// Testing...
+			float *pThrottleInflator = (float*)0xFFFF5F2C;
+			*pThrottleInflator = 0;
 		}
 		else
 		{
@@ -612,6 +620,8 @@ void GetRevMatchTableInfo()
 	address = &RevMatchEnableCalibrationFeedback;
 	address = &RevMatchProportionalGain;
 	address = &RevMatchEnableFeedback;
+	address = &RevMatchDownshiftAdjustmentInputValues;
+	address = &RevMatchDownshiftAdjustmentOutputValues;
 	
 	address = &(pRamVariables->RevMatchState); // single byte
 	address = &(pRamVariables->Counter); // 4 bytes

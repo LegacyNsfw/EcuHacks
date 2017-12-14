@@ -49721,6 +49721,7 @@
                 </conversions>
               </ecuparam>
 			  
+			  
 			  <ecuparam id="E1690" name="Throttle Inv D 5F2C" desc="TBD">
                 <ecu id="2F12785606">
                   <address length="4">FF5F2C</address>
@@ -49730,9 +49731,45 @@
                 </conversions>
               </ecuparam>
 			  
-			  <ecuparam id="E1691" name="Throttle Inv D 2114" desc="TBD">
+			  <ecuparam id="E1691" name="Throttle Inv D 5EB4" desc="TBD">
                 <ecu id="2F12785606">
-                  <address length="4">FF2114</address>
+                  <address length="4">FF5EB4</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+			  <ecuparam id="E1692" name="Throttle Inv D 5BA4 (Timing)" desc="TBD">
+                <ecu id="2F12785606">
+                  <address length="4">FF5BA4</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+ 			  <ecuparam id="E1693" name="Throttle Inv D 5EC0" desc="TBD">
+                <ecu id="2F12785606">
+                  <address length="4">FF5EC0</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+ 			  <ecuparam id="E1694" name="Throttle Inv D 6230" desc="TBD">
+                <ecu id="2F12785606">
+                  <address length="4">FF6230</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+			  
+			  <ecuparam id="E1700" name="Throttle Inv D 5C74 (TC6)" desc="TBD">
+                <ecu id="2F12785606">
+                  <address length="4">FF5C74</address>
                 </ecu>
                 <conversions>
                   <conversion units="Raw" storagetype="float" expr="x" format="0.00" />

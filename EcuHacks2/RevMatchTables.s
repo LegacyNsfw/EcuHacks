@@ -55,7 +55,7 @@ _MaxTargetRpm:     .float 7000
 
 _MinCoolantTemperature:    .float 71 !! 160F
 _RevMatchMinimumSpeed:     .float 40 !! 40 kph / 25 mph
-_RevMatchBuildVersion:     .float 2012.1206
+_RevMatchBuildVersion:     .float 2017.1214
 _RevMatchUnused1:          .float 0
 _RevMatchUnused2:          .float 0
 

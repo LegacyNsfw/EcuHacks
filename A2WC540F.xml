@@ -241,6 +241,10 @@
 		<table name="Target RPM" address="90850" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
 	</table>
 
+	<table name="Braking Downshift Target Adjustment" category="NSFW - Rev Matching" address="9089C" type="2D" level="4" scaling="%">
+		<description>Determines the throttle plate angle to achieve the desired target RPM.</description>
+		<table name="Target RPM" address="9088C" type="Y Axis" elements="4" scaling="EngineSpeed(RPM)1"/>
+	</table>
 
   <table name="Accelerator Pedal Weirdness Threshold A" category="Misc" address="c2574" type="1D" level="4" scaling="VehicleSpeed(MPH)">
     <description>Increase this to 500 to skip a bunch of inscrutable code that modifies the accelerator position.</description>
@@ -250,7 +254,10 @@
     <description>Increase this to 500 to skip a bunch of inscrutable code that modifies the accelerator position.</description>
   </table>
 
-   
+  <scaling name="TBD1" units="raw" toexpr="x*0.0015258789" frexpr="x/0.0015258789" format="%.2f" min="0" max="999999" inc="1" storagetype="uint16" endian="big" />
+  <table name="To be determined" category="Misc" address="CB348" type="2D" level="4" scaling="TBD1">
+	<table name="RPM" address="CB308" type="Y Axis" elements="16" scaling="Raw Short Float"/>
+  </table>
 
 
    <scaling name="IDC" units="Injector Duty Cycle" toexpr="x*0.01" frexpr="x/0.01" format="%.2f" min="0" max="255" inc="1" storagetype="uint16" endian="big"/>
