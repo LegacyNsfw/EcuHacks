@@ -38,8 +38,19 @@
 #define pCurrentGear                     ((char*) 0xFFFF52F9)
 #define pGearFactor                      ((float*)0xFFFF52FC)
 
-#define pOverrunFuelCutFlags             ((char*) 0xFFFF5A08) // AKA Flags023
-#define OverrunFuelCutBit 0x80
+// I tried clearing in the 0x80 bit, but that wasn't sufficient.
+// This must be forced to 16.
+#define pOverrunFuelCutFlags_1           ((char*) 0xFFFF5A08) // AKA Flags023
+#define OverrunFuelCutFlags_1_Defeat     16
+
+// In addition to the above, these two must be forced to zero.
+#define pOverrunFuelCutFlags_2           ((char*) 0xFFFF5555) // AKA Flags056 - zero in cruise, 1 or 15 during ordinary shifts
+#define pOverrunFuelCutFlags_3           ((char*) 0xFFFF5A0A) // AKA Flags055 - zero in cruise, 240 during fuel cut
+
+// The original ECU code adds this value to the throttle plate target, 
+// which will cause the engine to rev much faster than the desired RPM.
+// Forcing this to zero fixes that problem.
+#define pThrottleCompensation            ((float*)0xFFFF5F2C)
 
 #define pFlags003                        ((char*) 0xFFFF51C7)
 #define NeutralSwitchBit 0x02

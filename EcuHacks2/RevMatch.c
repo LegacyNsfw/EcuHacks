@@ -480,20 +480,28 @@ void AdjustCalibrationIndex()
 	}
 }
 
-void DisableFuelCut(void) __attribute__((section("RomHole_RevMatchCode")));
-void DisableFuelCut()
+// The original ECU code will cut fuel and add more throttle, and those
+// behaviors need to be defeated for rev matching to work.
+void FixDefaultBehaviors(void) __attribute__((section("RomHole_RevMatchCode")));
+void FixDefaultBehaviors()
 {
 	// Clearing the 0x80 bit was insufficient
 	// *pOverrunFuelCutFlags &= ~OverrunFuelCutBit;
-	*pOverrunFuelCutFlags = 16;
+	*pOverrunFuelCutFlags_1 = OverrunFuelCutFlags_1_Defeat;
 	
 	// All 3 together are needed defeat fuel cut.
-	*((char*)0xFFFF5555) = 0; // aka Flags056 - zero in cruise, 1 or 15 during ordinary shifts
-	*((char*)0xFFFF5A0A) = 0; // aka Flags055 - zero in cruise, 240 during fuel cut
+	*pOverrunFuelCutFlags_2 = 0; 
+	*pOverrunFuelCutFlags_3 = 0; 
 
+	// The original ECU code adds this value to the throttle plate target, 
+	// which will cause the engine to rev much faster than the desired RPM.
+	// Forcing this to zero fixes that problem.
+	*pThrottleCompensation = 0;
+	
 	// Over-rev got worse with this line commented out.
+	// Trying without it to see if the above overrev fix is sufficient.
 	// 16 or 24 work just fine.
-	*((char*)0xFFFF5A08) = 24; // aka Flags023 - 16 or 24 in cruise, 160 or 176 during fuel cut
+	// *((char*)0xFFFF5A08) = 24; // aka Flags023 - 16 or 24 in cruise, 160 or 176 during fuel cut
 }
 
 void RevMatchCode() __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -549,11 +557,7 @@ void RevMatchCode()
 			// *pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
 
 			*pTargetThrottlePlatePosition_Out = RevMatchGetThrottle(pRamVariables->DownshiftRpm);
-			DisableFuelCut();
-			
-			// Testing...
-			float *pThrottleInflator = (float*)0xFFFF5F2C;
-			*pThrottleInflator = 0;
+			FixDefaultBehaviors();
 		}
 		else
 		{
@@ -590,7 +594,8 @@ void RevMatchCode()
 			{
 				*pTargetThrottlePlatePosition_Out = pRamVariables->RevMatchCalibrationThrottle;
 			}
-			DisableFuelCut();
+
+			FixDefaultBehaviors();
 		}
 		else
 		{
