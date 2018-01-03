@@ -68,13 +68,14 @@ void RevMatchDownshiftTests()
 	AssertTrue(pRamVariables->DownshiftRpm > 3500, "Downshift RPM is sane 1");
 	AssertTrue(pRamVariables->DownshiftRpm < 4000, "Downshift RPM is sane 2");
 	
-	float expectedThrottle = 11.06268;
+	float expectedThrottle = 11.46269;
+	float adjustedThrottle = 11.06269;
 	
 	// Match revs with a braking downshift.
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch; 
 	RevMatchCode();
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchDecelerationDownshift, "Mode should be braking downshift");
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - deceleration downshift.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, adjustedThrottle, "Throttle changed - deceleration downshift.");
 	
 	// Confirm no throttle change after brake is released.
 	*pCruiseFlagsA = CruiseFlagsAClutch;
@@ -86,7 +87,7 @@ void RevMatchDownshiftTests()
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	RevMatchCode();	
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchDecelerationDownshift, "Mode should be braking downshift");
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - deceleration downshift again.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, adjustedThrottle, "Throttle changed - deceleration downshift again.");
 	
 	// Confirm no throttle change after clutch is released.
 	*pCruiseFlagsA = CruiseFlagsALightBrake;
@@ -98,7 +99,7 @@ void RevMatchDownshiftTests()
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch;
 	RevMatchCode();	
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchDecelerationDownshift, "Mode should be braking downshift");
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - deceleration downshift yet again.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, adjustedThrottle, "Throttle changed - deceleration downshift yet again.");
 
 	// Confirm no throttle change after countdown timer runs out.
 	int i;
@@ -107,7 +108,7 @@ void RevMatchDownshiftTests()
 		RevMatchCode();	
 	}
 	
-	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - waiting for timeout.");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, adjustedThrottle, "Throttle changed - waiting for timeout.");
 	
 	for (i = 0; i < 130; i++)
 	{
@@ -184,6 +185,7 @@ void RevMatchStateTests()
 	*pRPM = 2500.0f;
 	*pCoolantTemperature = 80;
 	*pCurrentGear = 3;
+	*pNeutralAndOtherFlags = 0;
 	
 	// Show that the 'enable' flag is turned off when starting/stopping the engine.	
 	*pCruiseFlagsA = 0;
@@ -258,7 +260,8 @@ void RevMatchStateTests()
 	
 	// Hold the set/coast switch plus clutch and brake for 5 seconds to enter calibration mode.
 	*pSpeed = 0;
-	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAClutch;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAHardBrake;
+	*pNeutralAndOtherFlags = NeutralSwitchBit;
 	pRamVariables->RevMatchCalibrationIndex = 123;
 	for(count = 0; count < 630; count++)
 	{
@@ -269,10 +272,53 @@ void RevMatchStateTests()
 	AssertEqualInts(pRamVariables->RevMatchCalibrationIndex, 0, "Rev match calibration index is initialized to zero.");
 	AssertEqualFloats(pRamVariables->RevMatchCalibrationThrottle, 4.5, "Rev match throttle.");
 	
-	// Exit calibration mode by releasing the clutch.
+	// Back to calibration mode.
+	*pSpeed = 0;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAHardBrake;
+	*pNeutralAndOtherFlags = NeutralSwitchBit;
+	for(count = 0; count < 630; count++)
+	{
+		RevMatchCode();
+	}
+
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchCalibration, "Holding 5 seconds while enabled switches to calibration mode.");
+	
+	// TODO: Exit calibration mode by pressing the clutch.
+
+	// Exit calibration mode by releasing the brake.
 	*pCruiseFlagsA = 0;
 	RevMatchCode(); 	
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "From calibration mode, release clutch to switch to enabled.");
+	
+	// Back to calibration mode.
+	*pSpeed = 0;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAHardBrake;
+	*pNeutralAndOtherFlags = NeutralSwitchBit;
+	for(count = 0; count < 630; count++)
+	{
+		RevMatchCode();
+	}
+	
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchCalibration, "Holding 5 seconds while enabled switches to calibration mode.");
+
+	// Exit calibration mode by moving out of neutral
+	*pNeutralAndOtherFlags = 0;
+	RevMatchCode();
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Moving out of neutral exits calibration mode.");
+
+	// Back to calibration mode.
+	*pSpeed = 0;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAHardBrake;
+	*pNeutralAndOtherFlags = NeutralSwitchBit;
+	for(count = 0; count < 630; count++)
+	{
+		RevMatchCode();
+	}
+
+	// Exit calibration mode by moving the vehicle
+	*pSpeed = 1.01f;
+	RevMatchCode();
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Vehicle speed exits calibration mode.");
 
 	// Hold the cruise-cancel switch WITHOUT the clutch for 5 seconds just prepares for a downshift.
 	// Note that we'll toggle between Enabled and ReadyForAccelDownshift due to timeouts.

@@ -52,7 +52,7 @@
 // Forcing this to zero fixes that problem.
 #define pThrottleCompensation            ((float*)0xFFFF5F2C)
 
-#define pFlags003                        ((char*) 0xFFFF51C7)
+#define pNeutralAndOtherFlags            ((char*) 0xFFFF51C7)
 #define NeutralSwitchBit 0x02
 
 extern void RevMatchResetFeedback();

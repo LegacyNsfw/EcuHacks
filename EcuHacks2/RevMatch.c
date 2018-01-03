@@ -94,10 +94,7 @@ void SetTargetRpm()
 	}
 	
 	pRamVariables->UpshiftRpm = RpmWindow((*pSpeed * 1000.0f) / upshift);
-	
-	float rawDownshiftTarget = (*pSpeed * 1000.0f) / downshift;
-	float downshiftTarget = Pull2d(&RevMatchDownshiftAdjustmentTable, rawDownshiftTarget);
-	pRamVariables->DownshiftRpm = RpmWindow(downshiftTarget);
+	pRamVariables->DownshiftRpm = RpmWindow((*pSpeed * 1000.0f) / downshift);
 }
 
 void UpdateCounter() __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -225,12 +222,10 @@ enum RevMatchStates EvaluateTransitionEnabled()
 		return RevMatchReadyForAccelerationDownshift;
 	}
 	
-	// Change:
-	// neutral, brake, NO clutch, speed < 1
-	// and exit calibration if any of those change
 	int condition = 
 		((*pCruiseFlagsA & CruiseFlagsACancel) &&
-		(*pCruiseFlagsA & CruiseFlagsAClutch) &&
+		(*pCruiseFlagsA & (CruiseFlagsAHardBrake | CruiseFlagsALightBrake)) &&
+		(*pNeutralAndOtherFlags & NeutralSwitchBit) &&
 		(*pSpeed < 1));
 	
 	if (ConditionWithDelay(condition, RevMatchCalibrationDelay))
@@ -305,10 +300,16 @@ enum RevMatchStates EvaluateTransitionCalibration()
 		return RevMatchEnabled;
 	}
 
-	if (!(*pCruiseFlagsA & CruiseFlagsAClutch))
+	if (!(*pNeutralAndOtherFlags & NeutralSwitchBit))
 	{
 		return RevMatchEnabled;
 	}
+	
+	// TODO: if users presses clutch (to engage a gear) then cancel calibration
+	//if (*pNeutralAndOtherFlags & CruiseFlagsAClutch))
+	//{
+	//	return RevMatchEnabled;
+	//}
 	
 	if (*pSpeed > 1)
 	{
@@ -499,9 +500,9 @@ void FixDefaultBehaviors()
 	*pThrottleCompensation = 0;
 	
 	// Over-rev got worse with this line commented out.
-	// Trying without it to see if the above overrev fix is sufficient.
-	// 16 or 24 work just fine.
-	// *((char*)0xFFFF5A08) = 24; // aka Flags023 - 16 or 24 in cruise, 160 or 176 during fuel cut
+	// TODO: try without it to see if the above overrev fix is sufficient.
+	// 16 or 24 have both been proven to solve the fuel-cut problem.
+	*((char*)0xFFFF5A08) = 24; // aka Flags023 - 16 or 24 in cruise, 160 or 176 during fuel cut
 }
 
 void RevMatchCode() __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -549,14 +550,20 @@ void RevMatchCode()
 			// Rev matching is annoying when you're coming to a stop.
 			return;
 		}
-		
+				
+		// Target RPM can be adjusted for braking downshifts.
+		float targetRpm = pRamVariables->DownshiftRpm;
+		if (pRamVariables->RevMatchState == RevMatchDecelerationDownshift)
+		{
+			targetRpm = Pull2d(&RevMatchDownshiftAdjustmentTable, targetRpm);
+			targetRpm = RpmWindow(targetRpm);
+		}
+
 		// Check the clutch again, just to be 100% certain that this
 		// code never opens the throttle without the clutch pressed.
 		if (*pCruiseFlagsA & CruiseFlagsAClutch)
-		{
-			// *pTargetThrottlePlatePosition_Out = Pull2d(&RevMatchTable, pRamVariables->DownshiftRpm);
-
-			*pTargetThrottlePlatePosition_Out = RevMatchGetThrottle(pRamVariables->DownshiftRpm);
+		{			
+			*pTargetThrottlePlatePosition_Out = RevMatchGetThrottle(targetRpm);
 			FixDefaultBehaviors();
 		}
 		else
@@ -580,11 +587,11 @@ void RevMatchCode()
 			AdjustCalibrationThrottle();
 		}
 
-		// Check the clutch again, just to be 100% certain that this
-		// code never opens the throttle without the clutch pressed.
+		// Check the neutral switch, to be 100% certain that this
+		// code never opens the throttle with the car in gear.
 		// The speed < 1 condition should mean the car isn't moving, 
 		// with a small allowance for possible noise from the sensor.
-		if ((*pCruiseFlagsA & CruiseFlagsAClutch) && (*pSpeed < 1))
+		if ((*pNeutralAndOtherFlags & NeutralSwitchBit) && (*pSpeed < 1))
 		{
 			if (pRamVariables->RevMatchCalibrationFeedbackEnabled)
 			{
