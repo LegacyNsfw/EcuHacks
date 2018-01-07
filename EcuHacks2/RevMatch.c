@@ -25,11 +25,11 @@ extern float RevMatchProportionalGain;
 extern float RevMatchIntegralGain;
 
 extern TwoDimensionalTable RevMatchTable, RevMatchDownshiftAdjustmentTable;
-extern float *RevMatchInputValues;
-extern float *RevMatchOutputValues;
+extern float RevMatchInputValues;
+extern float RevMatchOutputValues;
 
-extern float *RevMatchDownshiftAdjustmentInputValues;
-extern float *RevMatchDownshiftAdjustmentOutputValues;
+extern float RevMatchDownshiftAdjustmentInputValues;
+extern float RevMatchDownshiftAdjustmentOutputValues;
 	
 extern char RevMatchEnableFeedback, RevMatchEnableCalibrationFeedback;
 
@@ -300,17 +300,16 @@ enum RevMatchStates EvaluateTransitionCalibration()
 		return RevMatchEnabled;
 	}
 
+	if (*pNeutralAndOtherFlags & CruiseFlagsAClutch)
+	{
+		return RevMatchEnabled;
+	}
+
 	if (!(*pNeutralAndOtherFlags & NeutralSwitchBit))
 	{
 		return RevMatchEnabled;
 	}
-	
-	// TODO: if users presses clutch (to engage a gear) then cancel calibration
-	//if (*pNeutralAndOtherFlags & CruiseFlagsAClutch))
-	//{
-	//	return RevMatchEnabled;
-	//}
-	
+		
 	if (*pSpeed > 1)
 	{
 		return RevMatchEnabled;
@@ -486,11 +485,8 @@ void AdjustCalibrationIndex()
 void FixDefaultBehaviors(void) __attribute__((section("RomHole_RevMatchCode")));
 void FixDefaultBehaviors()
 {
-	// Clearing the 0x80 bit was insufficient
-	// *pOverrunFuelCutFlags &= ~OverrunFuelCutBit;
-	*pOverrunFuelCutFlags_1 = OverrunFuelCutFlags_1_Defeat;
-	
 	// All 3 together are needed defeat fuel cut.
+	*pOverrunFuelCutFlags_1 = OverrunFuelCutFlags_1_Defeat;	
 	*pOverrunFuelCutFlags_2 = 0; 
 	*pOverrunFuelCutFlags_3 = 0; 
 
@@ -498,11 +494,6 @@ void FixDefaultBehaviors()
 	// which will cause the engine to rev much faster than the desired RPM.
 	// Forcing this to zero fixes that problem.
 	*pThrottleCompensation = 0;
-	
-	// Over-rev got worse with this line commented out.
-	// TODO: try without it to see if the above overrev fix is sufficient.
-	// 16 or 24 have both been proven to solve the fuel-cut problem.
-	*((char*)0xFFFF5A08) = 24; // aka Flags023 - 16 or 24 in cruise, 160 or 176 during fuel cut
 }
 
 void RevMatchCode() __attribute__ ((section ("RomHole_RevMatchCode")));
@@ -545,7 +536,7 @@ void RevMatchCode()
 	if ((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
 		(pRamVariables->RevMatchState == RevMatchAccelerationDownshift))
 	{
-		if (pRamVariables->RevMatchFromGear <= 1)
+		if (*pSpeed < RevMatchMinimumSpeed)
 		{
 			// Rev matching is annoying when you're coming to a stop.
 			return;
@@ -595,7 +586,17 @@ void RevMatchCode()
 		{
 			if (pRamVariables->RevMatchCalibrationFeedbackEnabled)
 			{
-				*pTargetThrottlePlatePosition_Out = RevMatchGetThrottle(pRamVariables->DownshiftRpm);
+				// Integral windup can close the throttle and stall the engine.
+				float minimumThrottle = RevMatchOutputValues;
+				float targetThrottle = RevMatchGetThrottle(pRamVariables->DownshiftRpm);
+				if (targetThrottle > minimumThrottle)
+				{
+					*pTargetThrottlePlatePosition_Out = targetThrottle;
+				}
+				else
+				{
+					*pTargetThrottlePlatePosition_Out = minimumThrottle;
+				}
 			}
 			else
 			{

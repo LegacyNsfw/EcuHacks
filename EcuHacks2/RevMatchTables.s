@@ -55,7 +55,7 @@ _MaxTargetRpm:     .float 7000
 
 _MinCoolantTemperature:    .float 71 !! 160F
 _RevMatchMinimumSpeed:     .float 40 !! 40 kph / 25 mph
-_RevMatchBuildVersion:     .float 2017.1214
+_RevMatchBuildVersion:     .float 2017.0106
 _RevMatchUnused1:          .float 0
 _RevMatchUnused2:          .float 0
 
@@ -63,7 +63,7 @@ _RevMatchDuration:           .int 250 !! 125 iterations/second, so this is 2 sec
 _RevMatchAccelerationDownshiftReadyDuration: .int 250 !! 2 seconds
 _RevMatchEnableDelay:        .int 125 !! 1 second
 _RevMatchCalibrationDelay:   .int 625 !! 5 seconds
-
+	
 _RevMatchTable: 
 .byte 00
 .byte 04
