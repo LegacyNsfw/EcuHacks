@@ -84,9 +84,9 @@ _RevMatchOutputValues:
 .float 14
 .float 18
 
-_RevMatchProportionalGain: .float 0.002000  !! 0.002 = .2% throttle adjustment per 100 RPM difference
-_RevMatchIntegralGain:     .float 0.000050  !! Additional throttle adjustment per 100 RPM difference per 125th/second.
-_RevMatchDerivativeGain:   .float 0.000002 
+_RevMatchProportionalGain: .float 0.015000  !! 0.002 = 1.5% throttle adjustment per 100 RPM difference
+_RevMatchIntegralGain:     .float 0.000000  !! Additional throttle adjustment per 100 RPM difference per 125th/second.
+_RevMatchDerivativeGain:   .float 0.000020  !! Not tuned yet, could probably be increased quite a bit.
 
 _RevMatchEnableFeedback:            .byte 01
 _RevMatchEnableCalibrationFeedback: .byte 01

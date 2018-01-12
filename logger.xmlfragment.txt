@@ -3,7 +3,7 @@
                   <address length="4">0xFF52FC</address>
                 </ecu>
                 <conversions>
-                  <conversion units="ratio" expr="x" format="0.00" />
+                  <conversion units="ratio" storagetype="float" expr="x" format="0.00" />
                 </conversions>
               </ecuparam>>
               
@@ -12,7 +12,7 @@
                     <address length="1">0xFF52F9</address>
                   </ecu>
                   <conversions>
-                    <conversion units="gear" expr="x" format="0.00" storagetype="byte"/>
+                    <conversion units="gear" expr="x" format="0" storagetype="byte"/>
                   </conversions>
                 </ecuparam>
 
@@ -22,15 +22,6 @@
                   </ecu>
                   <conversions>
                     <conversion units="index" storagetype="byte" expr="x" format="0" />
-                  </conversions>
-                </ecuparam>
-
-                <ecuparam id="E1104" name="Rev Match Counter" desc="Internal timer" >
-                  <ecu id="2F12785606">
-                    <address length="4">FFA034</address>
-                  </ecu>
-                  <conversions>
-                    <conversion units="units" storagetype="float" expr="x" format="0" />
                   </conversions>
                 </ecuparam>
 
@@ -61,4 +52,75 @@
                   </conversions>
                 </ecuparam>
 
+                <ecuparam id="E1108" name="Rev Match Throttle Plate Target" desc="With virtual heel applied">
+                  <ecu id="2F12785606">
+                    <address length="4">FF5EC4</address>
+                  </ecu>
+                  <conversions>
+                    <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                  </conversions>
+                </ecuparam>
+
+                <ecuparam id="E1109" name="Rev Match From Gear" desc="Target RPM">
+                  <ecu id="2F12785606">
+                    <address length="1">FFA027</address>
+                  </ecu>
+                  <conversions>
+                    <conversion units="RPM" storagetype="byte" expr="x" format="0" />
+                  </conversions>
+                </ecuparam>
+
+                <ecuparam id="E1110" name="Rev Match Cruise Flags" desc="User action">
+                  <ecu id="2F12785606">
+                    <address length="1">FF4D65</address>
+                  </ecu>
+                  <conversions>
+                    <conversion units="Flags" storagetype="byte" expr="x" format="0" />
+                  </conversions>
+                </ecuparam>
+
+              <ecuparam id="E1111" name="Rev Match Throttle Pedal Position" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">FF5134</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+              <ecuparam id="E1112" name="Rev Match Throttle Plate Actual" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">0xFF4FD0</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+	     <ecuparam id="E1113" name="Rev Match Feedback Proportional" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">0xFFA03C</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+             <ecuparam id="E1114" name="Rev Match Feedback Integral" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">0xFFA040</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
+
+            <ecuparam id="E1115" name="Rev Match Feedback Derivative" desc="">
+                <ecu id="2F12785606">
+                  <address length="4">0xFFA044</address>
+                </ecu>
+                <conversions>
+                  <conversion units="Raw" storagetype="float" expr="x" format="0.00" />
+                </conversions>
+              </ecuparam>
 
