@@ -253,6 +253,4 @@ extern float LaunchControlCut, LaunchControlResume;
 extern float RevMatchFfsFuelCutDelta, RevMatchFfsFuelResumeDelta;
 extern float FlatFootShiftSpeedThreshold;
 
-extern float RevMatchMinimumSpeed;
-
 #define MAX_COUNTER 1000000

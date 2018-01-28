@@ -15,6 +15,8 @@ extern float Gear6Multiplier;
 extern float MinTargetRpm;
 extern float MaxTargetRpm;
 extern float MinCoolantTemperature;
+extern float RevMatchMinimumSpeed;
+extern float RevMatchMaximumThrottle;
 
 extern int RevMatchDuration;
 extern int RevMatchAccelerationDownshiftReadyDuration;
@@ -22,7 +24,6 @@ extern int RevMatchEnableDelay;
 extern int RevMatchCalibrationDelay;
 
 extern float RevMatchProportionalGain;
-extern float RevMatchIntegralGain;
 
 extern TwoDimensionalTable RevMatchTable, RevMatchDownshiftAdjustmentTable;
 extern float RevMatchInputValues;
@@ -32,6 +33,7 @@ extern float RevMatchDownshiftAdjustmentInputValues;
 extern float RevMatchDownshiftAdjustmentOutputValues;
 	
 extern char RevMatchEnableFeedback, RevMatchEnableCalibrationFeedback;
+
 
 float RpmWindow(float rpm) __attribute__ ((section ("RomHole_RevMatchCode")));
 float RpmWindow(float rpm)
@@ -250,6 +252,13 @@ enum RevMatchStates EvaluateTransitionReadyForAccelerationDownshift()
 		return RevMatchEnabled;
 	}
 	
+	// If the driver decides to accelerate without downshifting
+	// TODO ADD UNIT TEST
+	if (*pThrottlePedal > RevMatchMaximumThrottle)
+	{
+		return RevMatchEnabled;
+	}
+	
 	return 0;
 }
 
@@ -282,15 +291,14 @@ enum RevMatchStates EvaluateTransitionAccelerationDownshift()
 	{
 		return RevMatchExpired;
 	}
-	
+
 	if (!(*pCruiseFlagsA & CruiseFlagsAClutch))
 	{
-		return RevMatchEnabled;
+		return RevMatchReadyForAccelerationDownshift;
 	}
 	
 	return 0;	
 }
-
 
 enum RevMatchStates EvaluateTransitionCalibration() __attribute__ ((section ("RomHole_RevMatchCode")));
 enum RevMatchStates EvaluateTransitionCalibration()
@@ -536,6 +544,7 @@ void RevMatchCode()
 	if ((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
 		(pRamVariables->RevMatchState == RevMatchAccelerationDownshift))
 	{
+		// TODO: move to state transition code
 		if (*pSpeed < RevMatchMinimumSpeed)
 		{
 			// Rev matching is annoying when you're coming to a stop.

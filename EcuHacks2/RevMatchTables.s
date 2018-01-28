@@ -22,6 +22,7 @@ _StartOfRevMatchTables:
 .global _MaxTargetRpm
 .global _MinCoolantTemperature
 .global _RevMatchMinimumSpeed
+.global _RevMatchMaximumThrottle
 
 .global _RevMatchDuration
 .global _RevMatchAccelerationDownshiftReadyDuration
@@ -53,11 +54,11 @@ _Gear6Multiplier:  .float 42.6
 _MinTargetRpm:     .float 1000
 _MaxTargetRpm:     .float 7000
 
-_MinCoolantTemperature:    .float 71 !! 160F
-_RevMatchMinimumSpeed:     .float 40 !! 40 kph / 25 mph
-_RevMatchBuildVersion:     .float 2017.0106
-_RevMatchUnused1:          .float 0
-_RevMatchUnused2:          .float 0
+_MinCoolantTemperature:      .float 71 !! 160F
+_RevMatchMinimumSpeed:       .float 40 !! 40 kph / 25 mph
+_RevMatchBuildVersion:       .float 2017.0127
+_RevMatchMaximumThrottle:    .float 50.0
+_RevMatchUnused2:            .float 0
 
 _RevMatchDuration:           .int 250 !! 125 iterations/second, so this is 2 seconds
 _RevMatchAccelerationDownshiftReadyDuration: .int 250 !! 2 seconds

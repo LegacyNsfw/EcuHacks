@@ -140,15 +140,10 @@ void RevMatchDownshiftTests()
 	// Confirm no throttle change after clutch is released.
 	*pCruiseFlagsA = 0;
 	RevMatchCode();	
-	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Mode should be 'enabled'");
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchReadyForAccelerationDownshift, "Mode should be 'ReadyForAccelerationDownshift'");
 	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 8.0f, "Throttle NOT changed - acceleration downshift terminated by clutch release.");
 
 	// Match revs with a non-braking downshift again.
-	*pCruiseFlagsA = CruiseFlagsACancel;
-	RevMatchCode();
-	RevMatchCode();
-	AssertEqualInts(pRamVariables->RevMatchState, RevMatchReadyForAccelerationDownshift, "Mode should be 'ready for acceleration downshift'");
-
 	*pCruiseFlagsA = CruiseFlagsAClutch;
 	RevMatchCode();	
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchAccelerationDownshift, "Mode should be 'acceleration downshift'");
@@ -171,6 +166,36 @@ void RevMatchDownshiftTests()
 	
 	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 8.0f, "no throttle change after countdown timer expires.");
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchExpired, "Mode should be 'expired'");
+	
+	// Return to 'enabled.'
+	*pCruiseFlagsA = 0;
+	RevMatchCode();
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Mode should be 'Enabled'");	
+	
+	// Match revs with a non-braking downshift.
+	*pCruiseFlagsA = CruiseFlagsACancel;
+	RevMatchCode();
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchReadyForAccelerationDownshift, "Mode should be 'ready for acceleration downshift'");
+	
+	RevMatchCode();	
+	*pCruiseFlagsA = CruiseFlagsAClutch;
+	RevMatchCode();	
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchAccelerationDownshift, "Mode should be 'acceleration downshift'");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - acceleration downshift.");
+	
+	// Confirm no throttle change after clutch is released.
+	*pCruiseFlagsA = 0;
+	RevMatchCode();	
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchReadyForAccelerationDownshift, "Mode should be 'ReadyForAccelerationDownshift'");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 8.0f, "Throttle NOT changed - acceleration downshift terminated by clutch release.");
+
+	// Confirm that the 'ready' mode times out.
+	for (i = 0; i < 255; i++)
+	{
+		RevMatchCode();	
+	}
+
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Mode should be 'Enabled'");	
 }
 
 // Test the mode-switch feature for the rev match hack.
@@ -186,6 +211,7 @@ void RevMatchStateTests()
 	*pCoolantTemperature = 80;
 	*pCurrentGear = 3;
 	*pNeutralAndOtherFlags = 0;
+	*pThrottlePedal = 25.0;
 	
 	// Show that the 'enable' flag is turned off when starting/stopping the engine.	
 	*pCruiseFlagsA = 0;
@@ -258,7 +284,7 @@ void RevMatchStateTests()
 
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Acceleration downshift reverts to 'enabled' after another second.");
 	
-	// Hold the set/coast switch plus clutch and brake for 5 seconds to enter calibration mode.
+	// Hold the set/coast switch plus brake for 5 seconds to enter calibration mode.
 	*pSpeed = 0;
 	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAHardBrake;
 	*pNeutralAndOtherFlags = NeutralSwitchBit;
