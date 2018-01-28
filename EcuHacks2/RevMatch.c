@@ -253,7 +253,6 @@ enum RevMatchStates EvaluateTransitionReadyForAccelerationDownshift()
 	}
 	
 	// If the driver decides to accelerate without downshifting
-	// TODO ADD UNIT TEST
 	if (*pThrottlePedal > RevMatchMaximumThrottle)
 	{
 		return RevMatchEnabled;
@@ -544,7 +543,9 @@ void RevMatchCode()
 	if ((pRamVariables->RevMatchState == RevMatchDecelerationDownshift) ||
 		(pRamVariables->RevMatchState == RevMatchAccelerationDownshift))
 	{
-		// TODO: move to state transition code
+		// Not sure if this should move into state transiitons or should
+		// just stay here. State transition is more elegant but this is 
+		// simpler and doesn't need to be duplicated across two states.
 		if (*pSpeed < RevMatchMinimumSpeed)
 		{
 			// Rev matching is annoying when you're coming to a stop.

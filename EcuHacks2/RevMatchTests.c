@@ -222,6 +222,16 @@ void RevMatchAccelerationDownshiftTests()
 	}
 
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Mode should be 'Enabled'");	
+
+	// Prepaer to match revs with a non-braking downshift.
+	*pCruiseFlagsA = CruiseFlagsACancel;
+	RevMatchCode();
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchReadyForAccelerationDownshift, "Mode should be 'ready for acceleration downshift'");
+
+	// Drive changes mind, decides to accelerate in the current gear.
+	*pThrottlePedal = 75.0f;
+	RevMatchCode();
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Mode should be 'Enabled'");	
 }
 
 // Test the mode-switch feature for the rev match hack.
@@ -266,8 +276,6 @@ void RevMatchStateTests()
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchDisabled, "Rev match should not automatically enable when RPM > 500 and cruise-cancel touched.");
 	
 	// Holding cancel does enable rev-match
-	//
-	// TODO: adjust iteration count to give ~1 second delay
 	*pCruiseFlagsA = CruiseFlagsACancel;
 	int count;
 	for(count = 0; count < 255; count++)
@@ -335,12 +343,26 @@ void RevMatchStateTests()
 
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchCalibration, "Holding 5 seconds while enabled switches to calibration mode.");
 	
-	// TODO: Exit calibration mode by pressing the clutch.
+	// Exit calibration mode by pressing the clutch.
+	*pCruiseFlagsA = CruiseFlagsAClutch;
+	RevMatchCode(); 	
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "From calibration mode, press clutch to exit calibration.");
+
+	// Back to calibration mode.
+	*pSpeed = 0;
+	*pCruiseFlagsA = CruiseFlagsACancel | CruiseFlagsALightBrake | CruiseFlagsAHardBrake;
+	*pNeutralAndOtherFlags = NeutralSwitchBit;
+	for(count = 0; count < 630; count++)
+	{
+		RevMatchCode();
+	}
+
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchCalibration, "Holding 5 seconds while enabled switches to calibration mode.");
 
 	// Exit calibration mode by releasing the brake.
 	*pCruiseFlagsA = 0;
 	RevMatchCode(); 	
-	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "From calibration mode, release clutch to switch to enabled.");
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "From calibration mode, release brake to exit calibration.");
 	
 	// Back to calibration mode.
 	*pSpeed = 0;
