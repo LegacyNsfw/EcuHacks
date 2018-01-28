@@ -45,7 +45,11 @@ _ResetHandler:
 				jsr		@r0
 				nop
 
-				mov.l	RevMatchDownshiftTests,r0
+				mov.l	RevMatchDecelerationDownshiftTests,r0
+				jsr		@r0
+				nop
+
+				mov.l	RevMatchAccelerationDownshiftTests,r0
 				jsr		@r0
 				nop
 
@@ -126,8 +130,11 @@ SpeedDensityUnitTests:
 RevMatchStateTests:
 		.long	_RevMatchStateTests
 
-RevMatchDownshiftTests:
-		.long	_RevMatchDownshiftTests
+RevMatchDecelerationDownshiftTests:
+		.long	_RevMatchDecelerationDownshiftTests
+
+RevMatchAccelerationDownshiftTests:
+		.long	_RevMatchAccelerationDownshiftTests
 
 RevMatchCalibrationIndexTests:
 		.long	_RevMatchCalibrationIndexTests

@@ -41,9 +41,9 @@ void RevMatchCounterTests()
 	AssertEqualInts(result, 4, "Four ticks");
 }
 
-// Test rev matching in downshifts.
-void RevMatchDownshiftTests() __attribute__ ((section ("Misc")));
-void RevMatchDownshiftTests()
+// Test rev matching in braking downshifts.
+void RevMatchDecelerationDownshiftTests() __attribute__ ((section ("Misc")));
+void RevMatchDecelerationDownshiftTests()
 {
 	// Makes the debugger watch window easier to use.
 	RamVariables *pRV = pRamVariables;
@@ -56,10 +56,12 @@ void RevMatchDownshiftTests()
 	*pTargetThrottlePlatePosition_In = 8.0f;
 	*pTargetThrottlePlatePosition_Out = 0.0f;
 	*pCruiseFlagsA = 0;
+	float expectedThrottle = 11.46269;
+	float adjustedThrottle = 11.06269;
 	
 	RevMatchResetAndEnable();
 	pRV->RevMatchFeedbackEnabled = 0;
-	
+
 	// Confirm no throttle change by default.
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Mode should be 'enabled'");
 	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 8.0f, "no throttle change by default");
@@ -67,10 +69,7 @@ void RevMatchDownshiftTests()
 	AssertTrue(pRamVariables->UpshiftRpm > 1500, "Upshift RPM is sane 2");
 	AssertTrue(pRamVariables->DownshiftRpm > 3500, "Downshift RPM is sane 1");
 	AssertTrue(pRamVariables->DownshiftRpm < 4000, "Downshift RPM is sane 2");
-	
-	float expectedThrottle = 11.46269;
-	float adjustedThrottle = 11.06269;
-	
+		
 	// Match revs with a braking downshift.
 	*pCruiseFlagsA = CruiseFlagsALightBrake | CruiseFlagsAClutch; 
 	RevMatchCode();
@@ -124,7 +123,33 @@ void RevMatchDownshiftTests()
 	*pCruiseFlagsA = 0;
 	RevMatchCode();		
 	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Mode should be 'enabled'");
+}
+
+// Test rev matching in non-braking downshifts.
+void RevMatchAccelerationDownshiftTests() __attribute__ ((section ("Misc")));
+void RevMatchAccelerationDownshiftTests()
+{
+	// Makes the debugger watch window easier to use.
+	RamVariables *pRV = pRamVariables;
 	
+	// Need sane values to avoid div/0, etc.
+	*pSpeed = 50.0f;
+	*pRPM = 2500.0f;
+	*pCoolantTemperature = 80;
+	*pCurrentGear = 3;
+	*pTargetThrottlePlatePosition_In = 8.0f;
+	*pTargetThrottlePlatePosition_Out = 0.0f;
+	*pCruiseFlagsA = 0;
+	float expectedThrottle = 11.46269;
+	float adjustedThrottle = 11.06269;
+	
+	RevMatchResetAndEnable();
+	pRV->RevMatchFeedbackEnabled = 0;
+	
+	// Confirm no throttle change by default.
+	AssertEqualInts(pRamVariables->RevMatchState, RevMatchEnabled, "Mode should be 'enabled'");
+	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, 8.0f, "no throttle change by default");
+
 	// Switch to acceleration-downshift mode.
 	*pCruiseFlagsA = CruiseFlagsACancel;
 	RevMatchCode();
@@ -150,6 +175,7 @@ void RevMatchDownshiftTests()
 	AssertEqualFloats(*pTargetThrottlePlatePosition_Out, expectedThrottle, "Throttle changed - acceleration downshift again.");
 	
 	// Confirm no throttle change after countdown timer runs out.
+	int i = 0;
 	for (i = 0; i < 125; i++)
 	{
 		RevMatchCode();	
