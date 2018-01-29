@@ -194,9 +194,16 @@
 	</table>
 
 	<table name="Minimum Speed Threshold" category="NSFW - Rev Matching" address="90824" type="2D" level="4" scaling="VehicleSpeed(KPH)Float">
-		<description>Minimum coolant temperature in order to enable the rev matching.</description>
+		<description>Minimum vehicle speed to activate rev matching.</description>
 		<table name="Threshold" type="Static Y Axis" elements="1">
 			<data>Minimum Speed</data>
+		</table>
+	</table>
+
+	<table name="Maximum Throttle For Acceleration Dowshift" category="NSFW - Rev Matching" address="9082C" type="2D" level="4" scaling="%">
+		<description>After enabling brakeless downshifting, exceeding this throttle level will disable brakeless downshift mode. For example you might tap cruise-cancel to enable brakeless downshifting, then downshift from 5th to 4th, then from 4th to 3rd, and then press the accelerator. The next clutch press will NOT trigger rev-matching, so you can smoothly shift up from 3rd back to 4th.</description>
+		<table name="Threshold" type="Static Y Axis" elements="1">
+			<data>Maximum Throttle</data>
 		</table>
 	</table>
 
